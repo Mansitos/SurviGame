@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BuildingPlacer : MonoBehaviour
 {
@@ -11,29 +12,32 @@ public class BuildingPlacer : MonoBehaviour
 
     private Camera mainCamera;
     private float xzPositioningOffset;
+    private int buildingWidth = 1;
+    private int buildingHeight = 1;
 
     private void Awake()
     {
         mainCamera = GameManager.Instance.getMainCamera().GetComponent<Camera>();
         inputHandler = GameManager.Instance.getPlayer().GetComponent<PlayerMovementInputHandler>();
-        xzPositioningOffset = GameManager.Instance.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2; // assumes x and y size is equal...
+        xzPositioningOffset = GameManager.Instance.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2;
+
+        // Read building dimensions from prefab
+        Building buildingComponent = buildingPrefab.GetComponent<Building>();
+        if (buildingComponent != null)
+        {
+            buildingWidth = buildingComponent.xdimension;
+            buildingHeight = buildingComponent.zdimension;
+        }
     }
 
     private void Update()
     {
-        // Toggle build mode only once per key press
+        // Toggle build mode
         if (inputHandler.WasBuildModeToggledThisFrame())
         {
             isBuildMode = !isBuildMode;
-            if (isBuildMode)
-            {
-                CreatePreviewObject();
-            }
-            else
-            {
-                DestroyPreviewObject();
-            }
-            Debug.Log(isBuildMode ? "Build Mode Enabled" : "Build Mode Disabled");
+            if (isBuildMode) CreatePreviewObject();
+            else DestroyPreviewObject();
         }
 
         if (isBuildMode)
@@ -41,19 +45,16 @@ public class BuildingPlacer : MonoBehaviour
             Vector3Int gridPos = GridManager.Instance.WorldToGrid(GetMouseWorldPosition());
             UpdatePreviewObject(gridPos);
 
-            // Place building once per left-click
             if (inputHandler.WasMainActionPressedThisFrame())
             {
                 TryPlaceBuilding(gridPos);
             }
 
-            // Remove building once per right-click
             if (inputHandler.WasSecondaryActionPressedThisFrame())
             {
                 TryRemoveBuilding(gridPos);
             }
 
-            // Rotate building once per key press
             if (inputHandler.WasRotateActionPressedThisFrame())
             {
                 RotateBuilding();
@@ -67,17 +68,31 @@ public class BuildingPlacer : MonoBehaviour
         if (currentRotation >= 360)
             currentRotation = 0;
 
+        // Swap width & height when rotating
+        if (currentRotation == 90)
+        {
+            (buildingWidth, buildingHeight) = (buildingHeight, buildingWidth);
+        }
+        else if (currentRotation == 180)
+        {
+            (buildingWidth, buildingHeight) = (-buildingWidth, buildingHeight);
+        }
+        else if (currentRotation == 270)
+        {
+            (buildingWidth, buildingHeight) = (buildingHeight, -buildingWidth);
+        }
+
         if (previewObject != null)
         {
             previewObject.transform.rotation = Quaternion.Euler(0, currentRotation, 0);
         }
 
-        Debug.Log($"Rotated to {currentRotation}°");
+        Debug.Log($"Rotated to {currentRotation}° (New Size: {buildingWidth}x{buildingHeight})");
     }
 
     private void TryPlaceBuilding(Vector3Int gridPos)
     {
-        if (GridManager.Instance.CanPlaceBuilding(gridPos))
+        if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight))
         {
             Vector3 placementPos = GridManager.Instance.GridToWorld(gridPos);
             placementPos.x += xzPositioningOffset;
@@ -85,13 +100,13 @@ public class BuildingPlacer : MonoBehaviour
             placementPos.y = 0;
 
             GameObject newBuilding = Instantiate(buildingPrefab, placementPos, Quaternion.Euler(0, currentRotation, 0));
-            GridManager.Instance.PlaceObjectOnTile(gridPos, newBuilding);
+            GridManager.Instance.PlaceObjectOnTiles(gridPos, buildingWidth, buildingHeight, newBuilding);
 
-            Debug.Log($"Placed building at {gridPos} with rotation {currentRotation}°");
+            Debug.Log($"Placed building at {gridPos} (Size: {buildingWidth}x{buildingHeight})");
         }
         else
         {
-            Debug.Log($"Cannot place building at {gridPos} (Tile occupied)");
+            Debug.Log($"Cannot place building at {gridPos} (This or some needed tiles are occupied!)");
         }
     }
 
@@ -100,8 +115,12 @@ public class BuildingPlacer : MonoBehaviour
         GameObject obj = GridManager.Instance.GetObjectOnTile(gridPos);
         if (obj != null)
         {
+            Building buildingComponent = obj.GetComponent<Building>();
+            if (buildingComponent != null)
+            {
+                GridManager.Instance.RemoveObjectFromTiles(gridPos);
+            }
             Destroy(obj);
-            GridManager.Instance.RemoveObjectFromTile(gridPos);
             Debug.Log($"Removed building at {gridPos}");
         }
         else

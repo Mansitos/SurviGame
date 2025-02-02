@@ -423,6 +423,7 @@
 -analyzer:"C:/Program Files/Unity 6000.0.35f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity 6000.0.35f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"C:/Program Files/Unity 6000.0.35f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
+"Assets/Building.cs"
 "Assets/Camera/CameraManager.cs"
 "Assets/GameManager.cs"
 "Assets/InputSystem/PlayerControls.cs"
@@ -432,6 +433,7 @@
 "Assets/Terrain/BuildSystem/BuildingPlacer.cs"
 "Assets/Terrain/TerrainSystem/AutoFillGrid.cs"
 "Assets/Terrain/TerrainSystem/GridManager.cs"
+"Assets/WorldObject.cs"
 -langversion:9.0
 /deterministic
 /optimize+

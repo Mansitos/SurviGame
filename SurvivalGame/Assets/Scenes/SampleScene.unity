@@ -3449,7 +3449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa5241e73076544eb6de54f9b2e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingPrefab: {fileID: 3705193669488093654, guid: 0d3909a87a32368499e913d2442c1776, type: 3}
+  buildingPrefab: {fileID: 7529295167200364933, guid: c9d45e11d1bec27428520de4c875f2e7, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 128

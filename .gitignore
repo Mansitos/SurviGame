@@ -3,6 +3,8 @@ SurvivalGame/Library/ShaderCache/
 SurvivalGame/Library/PackageCache/
 SurvivalGame/Library/BurstCache/
 SurvivalGame/Library/Bee/CachedNodeOutput/
+SurvivalGame/Temp/
+SurvivalGame/Logs/
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
