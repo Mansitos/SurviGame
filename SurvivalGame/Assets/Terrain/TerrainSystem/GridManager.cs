@@ -7,6 +7,12 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance;
 
     public Tilemap groundTilemap;
+    public Tilemap gridOverlayTilemap;
+
+    // New variables added for debug tile visualization
+    public TileBase defaultTile;    // The default tile to revert back to
+    public TileBase occupiedTile;   // The tile to show when a tile is occupied by a building
+    public bool debugMode = false;  // Toggle debug mode on/off
 
     private Dictionary<Vector3Int, GameObject> occupiedTiles = new Dictionary<Vector3Int, GameObject>();
     private int deletionRadiusCheck = 5; // Should be at least >= the maximum building size that can happen
@@ -28,37 +34,51 @@ public class GridManager : MonoBehaviour
     }
 
     // Checks if all tiles in a specified area are free for building placement.
-    public bool CanPlaceBuilding(Vector3Int origin, int width, int height)
+    public bool CanPlaceBuilding(Vector3Int origin, int width, int height, int rotation)
     {
-        List<Vector3Int> occupiedTiles = GetTilesInArea(origin, width, height);
-        foreach (var pos in occupiedTiles)
+        List<Vector3Int> tilesToCheck = GetBuildingTilesInArea(origin, width, height, rotation);
+        foreach (var pos in tilesToCheck)
         {
-            if (this.occupiedTiles.ContainsKey(pos))
+            if (occupiedTiles.ContainsKey(pos))
                 return false; // At least one tile is occupied
         }
         return true; // All required tiles are free
     }
 
     // Marks multiple tiles as occupied by a building.
-    public void PlaceObjectOnTiles(Vector3Int origin, int width, int height, GameObject obj)
+    public void PlaceObjectOnTiles(Vector3Int origin, int width, int height, GameObject obj, int rotation)
     {
-        List<Vector3Int> occupiedTiles = GetTilesInArea(origin, width, height);
-        foreach (var pos in occupiedTiles)
+        List<Vector3Int> tilesToOccupy = GetBuildingTilesInArea(origin, width, height, rotation);
+        foreach (var pos in tilesToOccupy)
         {
-            this.occupiedTiles[pos] = obj;
+            occupiedTiles[pos] = obj;
+
+            // If in debug mode, change the tile to indicate occupation.
+            if (debugMode)
+            {
+                gridOverlayTilemap.SetTile(pos, occupiedTile);
+            }
         }
     }
 
     // Removes the occupied tile at the origin when a building is removed.
     public void RemoveObjectFromTile(Vector3Int origin)
     {
-        if (this.occupiedTiles.ContainsKey(origin))
+        if (occupiedTiles.ContainsKey(origin))
         {
-            this.occupiedTiles.Remove(origin);
+            occupiedTiles.Remove(origin);
+
+            // If in debug mode, revert the tile back to default.
+            if (debugMode)
+            {
+                gridOverlayTilemap.SetTile(origin, defaultTile);
+            }
         }
     }
 
+    /// <summary>
     /// Removes all occupied tiles within a square radius if they belong to the same object.
+    /// </summary>
     public void RemoveObjectFromTiles(Vector3Int origin)
     {
         GameObject targetObject = GetObjectOnTile(origin);
@@ -69,7 +89,7 @@ public class GridManager : MonoBehaviour
 
         List<Vector3Int> tilesToRemove = new List<Vector3Int>();
 
-        // Iterate through a square region from (x-radius, z-radius) to (x+radius, z+radius)
+        // Iterate through a square region from (x-radius, y-radius) to (x+radius, y+radius)
         for (int x = origin.x - deletionRadiusCheck; x <= origin.x + deletionRadiusCheck; x++)
         {
             for (int y = origin.y - deletionRadiusCheck; y <= origin.y + deletionRadiusCheck; y++)
@@ -87,48 +107,54 @@ public class GridManager : MonoBehaviour
         // Log the number of tiles being removed and their positions
         Debug.Log($"Removing {tilesToRemove.Count} tiles: {string.Join(", ", tilesToRemove)}");
 
-        // Remove the collected tiles
+        // Remove the collected tiles and revert their tile if in debug mode.
         foreach (var tile in tilesToRemove)
         {
             occupiedTiles.Remove(tile);
+            if (debugMode)
+            {
+                gridOverlayTilemap.SetTile(tile, defaultTile);
+            }
         }
     }
 
-
     // Gets all grid tiles occupied by a building of a given size.
-    // ATTENTION: This assumes a certain order: the origin is always the on top left of the set of tiles.
-    private List<Vector3Int> GetTilesInArea(Vector3Int origin, int width, int height)
+    // ATTENTION: This assumes a certain order: the origin is always the top left of the set of tiles.
+    private List<Vector3Int> GetBuildingTilesInArea(Vector3Int origin, int width, int height, int rotation)
     {
+        int xoffset = 0;
+        int zoffset = 0;
+
+        if (rotation == 90)
+        {
+            xoffset = - (width) +1;
+        }
+
+        if (rotation == 180)
+        {
+            zoffset = (height) - 1;
+            xoffset = -(width) + 1;
+        }
+
+        if (rotation == 270)
+        {
+            zoffset = (height) - 1;
+        }
+
         List<Vector3Int> tiles = new List<Vector3Int>();
-        if (width > 0 && height > 0)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    Vector3Int tile = new Vector3Int(origin.x + x, origin.y - y, origin.z);
-                    tiles.Add(tile);
 
-                    Debug.Log($"[GetTilesInArea] Added Tile: {tile}");
-                }
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                // The y-axis is subtracted to move downward from the origin.
+                Vector3Int tile = new Vector3Int(origin.x + x + xoffset, origin.y - y + zoffset, origin.z);
+                tiles.Add(tile);
+
+                Debug.Log($"[GetBuildingTilesInArea] Added Tile: {tile}");
             }
         }
-
-        if (width < 0 && height > 0) // TODO: wrong!!
-        {
-            for (int x = 0; x < Mathf.Abs(width); x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    Vector3Int tile = new Vector3Int(origin.x - x-1, origin.y + y-1, origin.z);
-                    tiles.Add(tile);
-
-                    Debug.Log($"[GetTilesInArea] Added Tile: {tile}");
-                }
-            }
-        }
-
-            return tiles;
+        return tiles;
     }
 
     // Gets the object occupying a specific grid position.

@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 6265842518236955617}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.361, y: 0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.45}
+  m_LocalPosition: {x: 0.33, y: 0.02, z: -0.57}
+  m_LocalScale: {x: 0.42548, y: 0.42548, z: 1.4113533}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6490947968774229691}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 6490947968774229691}
   - component: {fileID: 9032570001014344576}
   m_Layer: 0
-  m_Name: Cube 2x1
+  m_Name: Debug 2x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.78787, y: 0.78787, z: 0.78787}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2517379105556126307}
@@ -155,4 +155,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Default WorldObject Name
   xdimension: 2
-  zdimension: 1
+  zdimension: 5

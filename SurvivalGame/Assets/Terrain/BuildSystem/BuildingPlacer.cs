@@ -14,6 +14,7 @@ public class BuildingPlacer : MonoBehaviour
     private float xzPositioningOffset;
     private int buildingWidth = 1;
     private int buildingHeight = 1;
+    private Building buildingComponent;
 
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class BuildingPlacer : MonoBehaviour
         xzPositioningOffset = GameManager.Instance.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2;
 
         // Read building dimensions from prefab
-        Building buildingComponent = buildingPrefab.GetComponent<Building>();
+        buildingComponent = buildingPrefab.GetComponent<Building>();
         if (buildingComponent != null)
         {
             buildingWidth = buildingComponent.xdimension;
@@ -69,17 +70,14 @@ public class BuildingPlacer : MonoBehaviour
             currentRotation = 0;
 
         // Swap width & height when rotating
-        if (currentRotation == 90)
+        if (currentRotation == 90 || currentRotation == 270)
         {
-            (buildingWidth, buildingHeight) = (buildingHeight, buildingWidth);
+            (buildingWidth, buildingHeight) = (buildingComponent.zdimension, buildingComponent.xdimension);
         }
-        else if (currentRotation == 180)
+
+        if (currentRotation == 0 || currentRotation == 180)
         {
-            (buildingWidth, buildingHeight) = (-buildingWidth, buildingHeight);
-        }
-        else if (currentRotation == 270)
-        {
-            (buildingWidth, buildingHeight) = (buildingHeight, -buildingWidth);
+            (buildingWidth, buildingHeight) = (buildingComponent.xdimension, buildingComponent.zdimension);
         }
 
         if (previewObject != null)
@@ -90,9 +88,14 @@ public class BuildingPlacer : MonoBehaviour
         Debug.Log($"Rotated to {currentRotation}° (New Size: {buildingWidth}x{buildingHeight})");
     }
 
+    public int getActualBuildingRotation()
+    {
+        return currentRotation;
+    }
+
     private void TryPlaceBuilding(Vector3Int gridPos)
     {
-        if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight))
+        if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight, currentRotation))
         {
             Vector3 placementPos = GridManager.Instance.GridToWorld(gridPos);
             placementPos.x += xzPositioningOffset;
@@ -100,7 +103,7 @@ public class BuildingPlacer : MonoBehaviour
             placementPos.y = 0;
 
             GameObject newBuilding = Instantiate(buildingPrefab, placementPos, Quaternion.Euler(0, currentRotation, 0));
-            GridManager.Instance.PlaceObjectOnTiles(gridPos, buildingWidth, buildingHeight, newBuilding);
+            GridManager.Instance.PlaceObjectOnTiles(gridPos, buildingWidth, buildingHeight, newBuilding, currentRotation);
 
             Debug.Log($"Placed building at {gridPos} (Size: {buildingWidth}x{buildingHeight})");
         }

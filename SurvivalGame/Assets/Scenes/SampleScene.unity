@@ -3339,7 +3339,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 1}
+  m_Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
   m_Origin: {x: -20, y: -9, z: 0}
   m_Size: {x: 39, y: 44, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -3437,6 +3437,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 428006874}
+  gridOverlayTilemap: {fileID: 1087305566}
+  defaultTile: {fileID: 11400000, guid: f2efad49dd374be46b1ac4349cf65414, type: 2}
+  occupiedTile: {fileID: 11400000, guid: ccb167f0db8f3de44978d336b44ba871, type: 2}
+  debugMode: 1
 --- !u!114 &1247652898
 MonoBehaviour:
   m_ObjectHideFlags: 0

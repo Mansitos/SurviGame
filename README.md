@@ -30,7 +30,6 @@
   - Usable only with/for `Building` class
   - `Blueprint` concept (requires Items to be implemented)
   - ☑️ `Building` class specifies dimension (default 1x1)
-    - 🪲 Rotation is still broken. Positioning and removal of bigger buildings seems to work only when not rotated.
 
 ## **Items**
 - **🛠️ TODO:**
