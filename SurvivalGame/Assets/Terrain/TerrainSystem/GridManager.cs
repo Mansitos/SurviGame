@@ -4,18 +4,26 @@ using System.Collections.Generic;
 
 public class GridManager : MonoBehaviour
 {
+
+    [Header("Grid Manager Variables")]
     public static GridManager Instance;
 
     public Tilemap groundTilemap;
     public Tilemap gridOverlayTilemap;
+    public TileBase defaultTile;    // The default tile (not occupied)
+    public TileBase freeSelectedTile;       // The free selected tile
+    public TileBase occupiedSelectedTile;   // The tile to show when a selected tile is occupied by a building
+    public TileBase occupiedTile;   // The tile to show a occupied building in showOccupiedMode
 
-    // New variables added for debug tile visualization
-    public TileBase defaultTile;    // The default tile to revert back to
-    public TileBase occupiedTile;   // The tile to show when a tile is occupied by a building
-    public bool debugMode = false;  // Toggle debug mode on/off
+    [Tooltip("If True, occupied tiles are highlighted (run-time change not supported jet).")]
+    public bool showOccupiedMode = false;  // Toggle to show occupied tiles or not
 
+    [Tooltip("If True -> debug logs.")]
+    public bool verbodeLogging = true;
+
+    // Data Structure to store placed buildings
     private Dictionary<Vector3Int, GameObject> occupiedTiles = new Dictionary<Vector3Int, GameObject>();
-    private int deletionRadiusCheck = 5; // Should be at least >= the maximum building size that can happen
+    private int deletionRadiusCheck = 6; // Should be at least >= the maximum building size that can happen
 
     private void Awake()
     {
@@ -53,8 +61,8 @@ public class GridManager : MonoBehaviour
         {
             occupiedTiles[pos] = obj;
 
-            // If in debug mode, change the tile to indicate occupation.
-            if (debugMode)
+            // If in show occupied mode, change the tile to indicate occupation.
+            if (showOccupiedMode)
             {
                 gridOverlayTilemap.SetTile(pos, occupiedTile);
             }
@@ -68,17 +76,15 @@ public class GridManager : MonoBehaviour
         {
             occupiedTiles.Remove(origin);
 
-            // If in debug mode, revert the tile back to default.
-            if (debugMode)
+            // If in show occupied mode, revert the tile back to default.
+            if (showOccupiedMode)
             {
                 gridOverlayTilemap.SetTile(origin, defaultTile);
             }
         }
     }
 
-    /// <summary>
     /// Removes all occupied tiles within a square radius if they belong to the same object.
-    /// </summary>
     public void RemoveObjectFromTiles(Vector3Int origin)
     {
         GameObject targetObject = GetObjectOnTile(origin);
@@ -105,13 +111,16 @@ public class GridManager : MonoBehaviour
         }
 
         // Log the number of tiles being removed and their positions
-        Debug.Log($"Removing {tilesToRemove.Count} tiles: {string.Join(", ", tilesToRemove)}");
+        if (verbodeLogging)
+        {
+            Debug.Log($"Removing {tilesToRemove.Count} tiles: {string.Join(", ", tilesToRemove)}");
+        }
 
-        // Remove the collected tiles and revert their tile if in debug mode.
+        // Remove the collected tiles and revert their tile if in show occupied mode.
         foreach (var tile in tilesToRemove)
         {
             occupiedTiles.Remove(tile);
-            if (debugMode)
+            if (showOccupiedMode)
             {
                 gridOverlayTilemap.SetTile(tile, defaultTile);
             }
@@ -151,7 +160,10 @@ public class GridManager : MonoBehaviour
                 Vector3Int tile = new Vector3Int(origin.x + x + xoffset, origin.y - y + zoffset, origin.z);
                 tiles.Add(tile);
 
-                Debug.Log($"[GetBuildingTilesInArea] Added Tile: {tile}");
+                if (verbodeLogging)
+                {
+                    Debug.Log($"[GetBuildingTilesInArea] Added Tile: {tile}");
+                }
             }
         }
         return tiles;

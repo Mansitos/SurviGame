@@ -3,13 +3,17 @@ using System.Collections.Generic;
 
 public class BuildingPlacer : MonoBehaviour
 {
+
+    [Tooltip("Building prefab to build")]
     public GameObject buildingPrefab;
+    [Tooltip("If True -> debug logs.")]
+    public bool verboseLogging;
+
     private GameObject previewObject; // Ghost preview object
+    private PlayerMovementInputHandler inputHandler;
     private bool isBuildMode = false;
     private int currentRotation = 0; // Rotation angle (90° increments)
-    private PlayerMovementInputHandler inputHandler;
     public LayerMask groundLayer; // LayerMask for detecting the ground when raycasting
-
     private Camera mainCamera;
     private float xzPositioningOffset;
     private int buildingWidth = 1;
@@ -85,7 +89,10 @@ public class BuildingPlacer : MonoBehaviour
             previewObject.transform.rotation = Quaternion.Euler(0, currentRotation, 0);
         }
 
-        Debug.Log($"Rotated to {currentRotation}° (New Size: {buildingWidth}x{buildingHeight})");
+        if (verboseLogging)
+        {
+            Debug.Log($"Rotated to {currentRotation}° (New Size: {buildingWidth}x{buildingHeight})");
+        }
     }
 
     public int getActualBuildingRotation()
@@ -93,6 +100,7 @@ public class BuildingPlacer : MonoBehaviour
         return currentRotation;
     }
 
+    // Checks if a building can be placed and places it if possible
     private void TryPlaceBuilding(Vector3Int gridPos)
     {
         if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight, currentRotation))
@@ -105,11 +113,17 @@ public class BuildingPlacer : MonoBehaviour
             GameObject newBuilding = Instantiate(buildingPrefab, placementPos, Quaternion.Euler(0, currentRotation, 0));
             GridManager.Instance.PlaceObjectOnTiles(gridPos, buildingWidth, buildingHeight, newBuilding, currentRotation);
 
-            Debug.Log($"Placed building at {gridPos} (Size: {buildingWidth}x{buildingHeight})");
+            if (verboseLogging)
+            {
+                Debug.Log($"Placed building at {gridPos} (Size: {buildingWidth}x{buildingHeight})");
+            }
         }
         else
         {
-            Debug.Log($"Cannot place building at {gridPos} (This or some needed tiles are occupied!)");
+            if (verboseLogging)
+            {
+                Debug.Log($"Cannot place building at {gridPos} (This or some needed tiles are occupied!)");
+            }
         }
     }
 
@@ -124,11 +138,17 @@ public class BuildingPlacer : MonoBehaviour
                 GridManager.Instance.RemoveObjectFromTiles(gridPos);
             }
             Destroy(obj);
-            Debug.Log($"Removed building at {gridPos}");
+            if (verboseLogging)
+            {
+                Debug.Log($"Removed building at {gridPos}");
+            }
         }
         else
         {
-            Debug.Log($"No building found at {gridPos}");
+            if (verboseLogging)
+            {
+                Debug.Log($"No building found at {gridPos}");
+            }
         }
     }
 
