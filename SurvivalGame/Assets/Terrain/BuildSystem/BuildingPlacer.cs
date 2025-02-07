@@ -11,7 +11,6 @@ public class BuildingPlacer : MonoBehaviour
 
     private GameObject previewObject; // Ghost preview object
     private PlayerMovementInputHandler inputHandler;
-    private bool isBuildMode = false;
     private int currentRotation = 0; // Rotation angle (90° increments)
     public LayerMask groundLayer; // LayerMask for detecting the ground when raycasting
     private Camera mainCamera;
@@ -20,7 +19,7 @@ public class BuildingPlacer : MonoBehaviour
     private int buildingHeight = 1;
     private Building buildingComponent;
 
-    private void Awake()
+    private void Start()
     {
         mainCamera = GameManager.Instance.getMainCamera().GetComponent<Camera>();
         inputHandler = GameManager.Instance.getPlayer().GetComponent<PlayerMovementInputHandler>();
@@ -38,14 +37,14 @@ public class BuildingPlacer : MonoBehaviour
     private void Update()
     {
         // Toggle build mode
-        if (inputHandler.WasBuildModeToggledThisFrame())
+        if (inputHandler.WasBuildModePressedThisFrame())
         {
-            isBuildMode = !isBuildMode;
-            if (isBuildMode) CreatePreviewObject();
+            GameManager.Instance.isBuildMode = !GameManager.Instance.isBuildMode;
+            if (GameManager.Instance.isBuildMode) CreatePreviewObject();
             else DestroyPreviewObject();
         }
 
-        if (isBuildMode)
+        if (GameManager.Instance.isBuildMode)
         {
             Vector3Int gridPos = GridManager.Instance.WorldToGrid(GetMouseWorldPosition());
             UpdatePreviewObject(gridPos);

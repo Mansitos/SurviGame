@@ -7,7 +7,7 @@ public enum ToolType
     Shovel
 }
 
-public abstract class Tool : Item
+public class Tool : Item
 {
     [SerializeField] private ToolType toolCategory;
 
@@ -16,5 +16,11 @@ public abstract class Tool : Item
     public override ItemType GetItemType()
     {
         return ItemType.Tool;
+    }
+
+    public override bool PerformMainAction()
+    {
+        Debug.Log("TOOL MAIN ACTION");
+        return true;
     }
 }

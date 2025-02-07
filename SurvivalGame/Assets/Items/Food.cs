@@ -12,4 +12,10 @@ public class Food : Consumable
     {
         return ItemType.Food;
     }
+
+    public override bool PerformMainAction()
+    {
+        Debug.Log("EAT!");
+        return true;
+    }
 }

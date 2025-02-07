@@ -17,4 +17,10 @@ public class Weapon : Tool
     {
         return ItemType.Weapon;
     }
+
+    public override bool PerformMainAction()
+    {
+        Debug.Log("ATTACK");
+        return true;
+    }
 }

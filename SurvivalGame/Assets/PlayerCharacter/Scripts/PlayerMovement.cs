@@ -16,16 +16,19 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer; // LayerMask for detecting the ground when raycasting
 
     // Reference to our input script (be sure to assign in Inspector)
-    public PlayerMovementInputHandler inputHandler;
+    private PlayerMovementInputHandler inputHandler;
     public bool isRotatingStill { get; private set; } = false;
 
     public Camera mainCamera;
 
     private CharacterController controller;
+    private GameManager gm;
 
 
     private void Start()
     {
+        gm = GameManager.Instance;
+        inputHandler = gm.getPlayer().GetComponent<PlayerMovementInputHandler>();
         controller = GetComponent<CharacterController>();
     }
 
@@ -62,6 +65,17 @@ public class PlayerMovement : MonoBehaviour
 
         // 5. Apply movement
         controller.Move(move * currentSpeed * Time.deltaTime);
+
+        // 6. Check for main action
+        if (inputHandler.WasMainActionPressedThisFrame())
+        {
+            if (!gm.isBuildMode)
+            {
+                bool esit = gm.getPlayerQickBar().selectedItemScript.PerformMainAction();
+            }
+
+        }
+
     }
 
     private void RotateTowardMovementVector(Vector3 movementDirection, bool isRunning)

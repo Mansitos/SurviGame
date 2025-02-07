@@ -435,6 +435,8 @@
 "Assets/PlayerCharacter/Scripts/PlayerAnimationsHandler.cs"
 "Assets/PlayerCharacter/Scripts/PlayerMovement.cs"
 "Assets/PlayerCharacter/Scripts/PlayerMovementInputHandler.cs"
+"Assets/PlayerQuickBar.cs"
+"Assets/PlayerTileSelection.cs"
 "Assets/Terrain/BuildSystem/BuildingPlacer.cs"
 "Assets/Terrain/TerrainSystem/AutoFillGrid.cs"
 "Assets/Terrain/TerrainSystem/GridManager.cs"
