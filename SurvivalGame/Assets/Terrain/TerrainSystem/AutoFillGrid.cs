@@ -19,7 +19,12 @@ public class AutoFillGrid : MonoBehaviour
             for (int y = -dimToFill; y < dimToFill; y++)
             {
                 Vector3Int tilePos = new Vector3Int(x, y, 0);
-                tilemap.SetTile(tilePos, gridTile);
+
+                // Only set tile if there is no tile already placed
+                if (tilemap.GetTile(tilePos) == null)
+                {
+                    tilemap.SetTile(tilePos, gridTile);
+                }
             }
         }
     }

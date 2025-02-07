@@ -10,11 +10,8 @@ public class PlayerTileSelection : MonoBehaviour
     [Tooltip("Tile to use for highlighting.")]
     [SerializeField] private TileBase highlightTile;
 
-    [Tooltip("Controls whether the highlight tilemap is visible.")]
-    [SerializeField] private bool isSelectionVisible = true;
-
-    [Tooltip("Logs selected tile in the console.")]
-    [SerializeField] private bool logSelectedTile = true;
+    [Tooltip("Logs information.")]
+    [SerializeField] private bool debugMode = true;
 
     [Tooltip("Minimum selectable distance from the player.")]
     [SerializeField] private float minSelectableDistance = 1f;
@@ -30,6 +27,7 @@ public class PlayerTileSelection : MonoBehaviour
     private GridManager gridManager;
     private PlayerMovementInputHandler inputHandler;
     private Transform playerTransform; // Reference to the player's position
+    private bool isSelectionVisible = true;
 
     private void Start()
     {
@@ -48,6 +46,14 @@ public class PlayerTileSelection : MonoBehaviour
         UpdateHoveredTile();
     }
 
+    private void Log(string message)
+    {
+        if (debugMode)
+        {
+            Debug.Log(message);
+        }
+    }
+
     private void UpdateHoveredTile()
     {
         Vector3Int gridPos = gridManager.WorldToGrid(GetMouseWorldPosition());
@@ -58,7 +64,7 @@ public class PlayerTileSelection : MonoBehaviour
             {
                 if (!IsTileWithinSelectionRange(selectedTile))
                 {
-                    Debug.Log("from selected to out of range");
+                    Log($"[PlayerTileSelection] From selected to out of range!");
                     RestorePreviousTile();
                 }
                 return;
@@ -67,12 +73,12 @@ public class PlayerTileSelection : MonoBehaviour
             {
                 if (!IsTileWithinSelectionRange(gridPos))
                 {
-                    //Debug.Log("from selected to un-selected!");
+                    Log($"[PlayerTileSelection] From selected to un-selected!");
                     RestorePreviousTile();
                 }
                 else
                 {
-                    //Debug.Log("new selected from selected");
+                    Log($"[PlayerTileSelection] New selected from selected!");
                     RestorePreviousTile();
                     HighlightTile(gridPos);
                 }
@@ -82,19 +88,14 @@ public class PlayerTileSelection : MonoBehaviour
         {
             if (!IsTileWithinSelectionRange(gridPos))
             {
-                //Debug.Log("still outside!");
+                Log($"[PlayerTileSelection] Selection still outside!");
                 return;
             }
             else
             {
-                //Debug.Log("from un-selected to selected!");
+                Log($"[PlayerTileSelection] From un-selected to selected!");
                 HighlightTile(gridPos);
             }
-        }
-
-        if (logSelectedTile)
-        {
-            //Debug.Log($"Selected tile: {GetHoveredTilePosition()}");
         }
     }
 
@@ -124,8 +125,6 @@ public class PlayerTileSelection : MonoBehaviour
         // Compute accurate 2D distance
         float distance = Vector3.Distance(playerReferencePos, tileWorldPos);
 
-        Debug.Log(distance);
-
         return distance >= minSelectableDistance && distance <= maxSelectableDistance;
     }
 
@@ -135,6 +134,7 @@ public class PlayerTileSelection : MonoBehaviour
         playerInputTilemap.SetTile(gridPos, highlightTile);
         selectedTile = gridPos;
         hasSelectedTile = true;
+        Log($"[PlayerTileSelection] New selected tile: {GetHoveredTilePosition()}");
     }
 
     private void RestorePreviousTile()
@@ -158,4 +158,6 @@ public class PlayerTileSelection : MonoBehaviour
         isSelectionVisible = value;
         playerInputTilemap.gameObject.SetActive(isSelectionVisible);
     }
+
+
 }

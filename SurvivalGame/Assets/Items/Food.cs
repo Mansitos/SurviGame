@@ -13,7 +13,7 @@ public class Food : Consumable
         return ItemType.Food;
     }
 
-    public override bool PerformMainAction()
+    public override bool PerformMainAction(GameManager gm)
     {
         Debug.Log("EAT!");
         return true;

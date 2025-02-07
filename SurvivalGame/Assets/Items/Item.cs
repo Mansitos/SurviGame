@@ -12,30 +12,17 @@ public enum ItemType
 
 public abstract class Item : MonoBehaviour
 {
-    [SerializeField] private string itemName;
-    [SerializeField] private float weight;
+    [SerializeField] protected string itemName;
+    [SerializeField] protected float weight;
 
     public string Name => itemName;
     public float Weight => weight;
 
     // Returns the class type of the item (must be overridden by subclasses)
     public abstract ItemType GetItemType();
-
-    // Check conditions for main action and perform it if possible
-    public bool TryMainAction()
-    {
-        if (true)
-        {
-            return PerformMainAction();
-        }
-        else
-        {
-            return false;
-        }
-    }
     
     // Returns true if main action can be performed
-    public abstract bool PerformMainAction();
+    public abstract bool PerformMainAction(GameManager gm);
 
     // Checks if this item is of a specific ItemType
     public bool IsItemOfType(ItemType type)

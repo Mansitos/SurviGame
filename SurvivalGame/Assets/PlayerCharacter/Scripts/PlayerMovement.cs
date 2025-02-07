@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private GameManager gm;
 
-
     private void Start()
     {
         gm = GameManager.Instance;
@@ -71,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!gm.isBuildMode)
             {
-                bool esit = gm.getPlayerQickBar().selectedItemScript.PerformMainAction();
+                bool esit = gm.getPlayerQickBar().selectedItemScript.PerformMainAction(gm=gm);
             }
 
         }
@@ -122,5 +121,4 @@ public class PlayerMovement : MonoBehaviour
             );
         }
     }
-
 }

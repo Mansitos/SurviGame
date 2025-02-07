@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private GridManager terrainGridManager;
     private BuildingPlacer buildingPlacer;
     private PlayerQuickBar playerQuickBar;
+    private PlayerTileSelection playerTileSelection;
 
     // Game modes
     public bool isBuildMode = false;
@@ -20,21 +21,27 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        mainCameraManager = GetComponent<CameraManager>();
-        terrainGridManager = terrainGridSystem.GetComponent<GridManager>();
-        buildingPlacer = terrainGridSystem.GetComponent <BuildingPlacer>();
-        playerQuickBar = player.GetComponent<PlayerQuickBar>();
     }
 
     private void Awake()
     {
+        mainCameraManager = GetComponent<CameraManager>();
+        terrainGridManager = terrainGridSystem.GetComponent<GridManager>();
+        buildingPlacer = terrainGridSystem.GetComponent<BuildingPlacer>();
+        playerQuickBar = player.GetComponent<PlayerQuickBar>();
+        playerTileSelection = player.GetComponent<PlayerTileSelection>();
+
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
     void Update()
     {
-        
+    }
+
+    public PlayerTileSelection getPlayerTileSelection()
+    {
+        return playerTileSelection;
     }
 
     public PlayerQuickBar getPlayerQickBar()
@@ -71,7 +78,4 @@ public class GameManager : MonoBehaviour
     {
         return terrainGridSystem;
     }
-
-
-
 }

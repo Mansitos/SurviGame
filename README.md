@@ -7,6 +7,7 @@
   - Animations rework
     - while rotating left and right
     - smoothing
+  🪲 Player transform.position is going up and down, why?
 
 # **Player Interaction**
 - **🛠️ TODO:**

@@ -19,11 +19,14 @@ public class BuildingPlacer : MonoBehaviour
     private int buildingHeight = 1;
     private Building buildingComponent;
 
+    private GameManager gm;
+
     private void Start()
     {
-        mainCamera = GameManager.Instance.getMainCamera().GetComponent<Camera>();
-        inputHandler = GameManager.Instance.getPlayer().GetComponent<PlayerMovementInputHandler>();
-        xzPositioningOffset = GameManager.Instance.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2;
+        gm = GameManager.Instance;
+        mainCamera = gm.getMainCamera().GetComponent<Camera>();
+        inputHandler = gm.getPlayer().GetComponent<PlayerMovementInputHandler>();
+        xzPositioningOffset = gm.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2;
 
         // Read building dimensions from prefab
         buildingComponent = buildingPrefab.GetComponent<Building>();
@@ -39,12 +42,12 @@ public class BuildingPlacer : MonoBehaviour
         // Toggle build mode
         if (inputHandler.WasBuildModePressedThisFrame())
         {
-            GameManager.Instance.isBuildMode = !GameManager.Instance.isBuildMode;
-            if (GameManager.Instance.isBuildMode) CreatePreviewObject();
+            gm.isBuildMode = !gm.isBuildMode;
+            if (gm.isBuildMode) CreatePreviewObject();
             else DestroyPreviewObject();
         }
 
-        if (GameManager.Instance.isBuildMode)
+        if (gm.isBuildMode)
         {
             Vector3Int gridPos = GridManager.Instance.WorldToGrid(GetMouseWorldPosition());
             UpdatePreviewObject(gridPos);
