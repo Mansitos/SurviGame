@@ -11,6 +11,7 @@ public class BuildingPlacer : MonoBehaviour
 
     private GameObject previewObject; // Ghost preview object
     private PlayerMovementInputHandler inputHandler;
+    private PlayerMovement playerMovement;
     private int currentRotation = 0; // Rotation angle (90° increments)
     public LayerMask groundLayer; // LayerMask for detecting the ground when raycasting
     private Camera mainCamera;
@@ -26,6 +27,7 @@ public class BuildingPlacer : MonoBehaviour
         gm = GameManager.Instance;
         mainCamera = gm.getMainCamera().GetComponent<Camera>();
         inputHandler = gm.getPlayer().GetComponent<PlayerMovementInputHandler>();
+        playerMovement = gm.getPlayer().GetComponent<PlayerMovement>();
         xzPositioningOffset = gm.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2;
 
         // Read building dimensions from prefab
@@ -42,9 +44,12 @@ public class BuildingPlacer : MonoBehaviour
         // Toggle build mode
         if (inputHandler.WasBuildModePressedThisFrame())
         {
-            gm.isBuildMode = !gm.isBuildMode;
-            if (gm.isBuildMode) CreatePreviewObject();
-            else DestroyPreviewObject();
+            if (!playerMovement.IsPlayerPerformingAction())
+            {
+                gm.SetBuildMode(!gm.IsInBuildMode());
+                if (gm.isBuildMode) CreatePreviewObject();
+                else DestroyPreviewObject();
+            }
         }
 
         if (gm.isBuildMode)

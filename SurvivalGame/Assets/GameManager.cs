@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     // Game modes
     public bool isBuildMode = false;
+    public bool isNormalMode = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +40,30 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        UpdateIsInNormalMode();
+    }
+
+    public void UpdateIsInNormalMode()
+    {
+        if (isBuildMode)
+        {
+            isNormalMode = false;
+        }
+        else
+        {
+            isNormalMode = true;
+        }
+    }
+
+    public bool IsInBuildMode()
+    {
+        return isBuildMode;
+    }
+
+    public void SetBuildMode(bool flag)
+    {
+        isBuildMode = flag;
+
     }
 
     public PlayerTileSelection getPlayerTileSelection()

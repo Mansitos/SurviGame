@@ -43,6 +43,32 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        HandlePlayerMovement();
+        HandleCollecting(); // TODO: in future maybe more general "handle action"? not hardcoded for collecting?
+    }
+
+    private void HandleCollecting()
+    {
+        // 1. Interrupt collection if the player moves
+        if (isCollecting && inputHandler.isWalking)
+        {
+            StopCollectingResource();
+            Log("[PlayerMovement] Collecting resource stopped since movement detected!");
+        }
+
+        // 2. Check for main action
+        if (inputHandler.WasMainActionPressedThisFrame())
+        {
+            if (!gm.isBuildMode)
+            {
+                gm.getPlayerQickBar().selectedItemScript.PerformMainAction(gm = gm);
+            }
+
+        }
+    }
+
+    private void HandlePlayerMovement()
+    {
         // 1. Read movement input
         Vector2 input = inputHandler.movementInputVector;
         Vector3 move = new Vector3(input.x, 0f, input.y);
@@ -53,14 +79,12 @@ public class PlayerMovement : MonoBehaviour
         // 3. Handle Rotation
         if (move.sqrMagnitude > 0.001f)
         {
-            // Rotate based on movement direction
-            RotateTowardMovementVector(move, isRunning);
+            RotateTowardMovementVector(move, isRunning); // Rotate based on movement direction
             isRotatingStill = false;
         }
         else
         {
-            // Rotate towards mouse when not moving
-            if (!isCollecting)
+            if (!IsPlayerPerformingAction()) // Rotate towards mouse when not moving and not performing action
             {
                 RotateTowardMouse();
                 isRotatingStill = true;
@@ -76,24 +100,6 @@ public class PlayerMovement : MonoBehaviour
 
         // 5. Apply movement
         controller.Move(move * currentSpeed * Time.deltaTime);
-
-        // 6. Interrupt collection if the player moves
-        if (isCollecting && move.sqrMagnitude > 0.001f)
-        {
-            StopCollectingResource();
-            Log("[PlayerMovement] Collecting resource stopped since movement detected!");
-        }
-
-        // 7. Check for main action
-        if (inputHandler.WasMainActionPressedThisFrame())
-        {
-            if (!gm.isBuildMode)
-            {
-                gm.getPlayerQickBar().selectedItemScript.PerformMainAction(gm=gm);
-            }
-
-        }
-
     }
 
     public bool IsRotatingStill()
@@ -210,4 +216,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public bool IsPlayerPerformingAction()
+    {
+        return isCollecting;
+    }
 }
