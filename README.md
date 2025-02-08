@@ -7,24 +7,20 @@
   - Animations rework
     - while rotating left and right
     - smoothing
-  🪲 Player transform.position is going up and down, why?
+- **🪲 BUGS:**
+  -  Player transform.position is going up and down, why?
 
 # **Player Interaction**
 - **🛠️ TODO:**
-  - First version should have: pick, axe, pickage animations
-  - Selected cell to interact with (like s.valley)
+  - Pick resource interaction -> start animation -> stop with WASD
 
 ## **Terrain System**
-- **🛠️ TODO:**
-  - How to position objects via editor and automatically update the terrain grid matrix to be "occupied"?
-  - Support more than 1x1 objects to be placed/handled
+- **🛠️ TODO:** ...
+- **🪲 BUGS:**
+  -  Seems 3D... spawn an object on y>> and you will see a tile occupied on air
   
 ## **World Objects**
-- **🛠️ TODO:**
-  - Implement `WorldObject` class with such subclasses:
-    - `Destroyable` (e.g. trees, rocks, other resources)
-      - In future: Tree, Rock, other main classes of resources/entities
-    - ☑️ `Building`
+- **🛠️ TODO:** ...
 
 ## **Building System**
 - **🛠️ TODO:**
@@ -33,14 +29,7 @@
   - ☑️ `Building` class specifies dimension (default 1x1)
 
 ## **Items**
-- **🛠️ TODO:**
-  - Implement `Item` class with subclasses
-    - `Consumable`
-      - `Food`
-      - others in future
-    - `Tool`
-      - `Weapon`
-      - others in future
+- **🛠️ TODO:** ...
   
 ## **Inventory System**
 - **🛠️ TODO:**

@@ -138,11 +138,11 @@ public class BuildingPlacer : MonoBehaviour
             if (buildingComponent != null)
             {
                 GridManager.Instance.RemoveObjectFromTiles(gridPos);
-            }
-            Destroy(obj);
-            if (verboseLogging)
-            {
-                Debug.Log($"Removed building at {gridPos}");
+                Destroy(obj);
+                if (verboseLogging)
+                {
+                    Debug.Log($"Removed building at {gridPos}");
+                }
             }
         }
         else

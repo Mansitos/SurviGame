@@ -11,6 +11,8 @@ public class PlayerAnimationsHandler : MonoBehaviour
     private bool isRunning = false;
     private bool isWalking = false;
     private bool isRotatingStill = false;
+    private bool isCollecting = false;
+    private string collectionType = "";
 
     void Start()
     {
@@ -30,7 +32,9 @@ public class PlayerAnimationsHandler : MonoBehaviour
     {
         isRunning = inputHandler.isRunning;
         isWalking = inputHandler.isWalking;
-        isRotatingStill = playerMovement.isRotatingStill;
+        isRotatingStill = playerMovement.IsRotatingStill();
+        isCollecting = playerMovement.IsCollecting();
+        collectionType = playerMovement.collectionType;
     }
 
     private void UpdateAnimationsStatus()
@@ -39,7 +43,18 @@ public class PlayerAnimationsHandler : MonoBehaviour
         animator.SetBool("isWalking", isWalking);
         animator.SetBool("isRotatingStill", isRotatingStill);
 
-        //Debug.Log($"Running: {isRunning}, Walking: {isWalking}, RotatingStill {isRotatingStill}");
+        if (isCollecting)
+        {
+            animator.SetBool(collectionType, isCollecting);
+        }
+        else
+        {
+            collectionType = "";
+        }
+    }
 
+    public void ResetCollectingAnimation(string collectionType)
+    {
+        animator.SetBool(collectionType, false);
     }
 }

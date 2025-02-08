@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using UnityEngine;
 
 public enum ToolType
@@ -10,10 +11,10 @@ public enum ToolType
 public class Tool : Item
 {
     [SerializeField] private ToolType toolCategory;
-    [SerializeField] private ResourceObjectType interactableType;
+    [SerializeField] private ResourceObjectType resourceObjectType;
 
     public ToolType ToolCategory => toolCategory;
-    public ResourceObjectType InteractableType => interactableType;
+    public ResourceObjectType ResourceObjectType => resourceObjectType;
 
 
     public override ItemType GetItemType()
@@ -29,11 +30,14 @@ public class Tool : Item
             GameObject targetObject = gm.getTerrainGridManager().GetObjectOnTile(selectedTile.Value);
             if (targetObject != null)
             {
-                if (targetObject.GetComponent<ResourceObject>() != null)
+                ResourceObject targetResource = targetObject.GetComponent<ResourceObject>();
+                if (targetResource != null)
                 {
-                    if (targetObject.GetComponent<ResourceObject>().IsResourceObjectOfType(interactableType))
+                    if (targetResource.IsResourceObjectOfType(resourceObjectType))
                     {
-                        Debug.Log("OK!");
+                        // Start collect process 
+                        PlayerMovement player = gm.getPlayer().GetComponent<PlayerMovement>();
+                        player.StartCollectingResource(targetObject, targetResource.GetCollectionDuration(), resourceObjectType);
                     }
                     else
                     {

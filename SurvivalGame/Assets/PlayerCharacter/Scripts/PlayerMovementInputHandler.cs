@@ -42,17 +42,25 @@ public class PlayerMovementInputHandler : MonoBehaviour
     {
         isWalking = true;
         movementInputVector = ctx.ReadValue<Vector2>();
+
+        // If running button is already held, start running immediately
+        if (controls.Player.Run.IsPressed() && movementInputVector.sqrMagnitude > 0.001f)
+        {
+            isRunning = true;
+        }
     }
 
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
         isWalking = false;
+        isRunning = false;
         movementInputVector = Vector2.zero;
     }
 
     private void OnRunPerformed(InputAction.CallbackContext ctx)
     {
-        isRunning = true;
+        // Set running state but ensure movement vector is non-zero
+        isRunning = movementInputVector.sqrMagnitude > 0.001f;
     }
 
     private void OnRunCanceled(InputAction.CallbackContext ctx)

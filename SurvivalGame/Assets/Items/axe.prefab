@@ -127,7 +127,7 @@ MonoBehaviour:
   itemName: axe
   weight: 100
   toolCategory: 1
-  interactableType: 1
+  resourceObjectType: 1
 --- !u!1 &4658773231695431095
 GameObject:
   m_ObjectHideFlags: 0

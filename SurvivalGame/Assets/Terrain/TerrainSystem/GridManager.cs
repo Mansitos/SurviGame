@@ -69,23 +69,8 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    // Removes the occupied tile at the origin when a building is removed.
-    public void RemoveObjectFromTile(Vector3Int origin)
-    {
-        if (occupiedTiles.ContainsKey(origin))
-        {
-            occupiedTiles.Remove(origin);
-
-            // If in show occupied mode, revert the tile back to default.
-            if (showOccupiedMode)
-            {
-                gridOverlayTilemap.SetTile(origin, defaultTile);
-            }
-        }
-    }
-
     /// Removes all occupied tiles within a square radius if they belong to the same object.
-    public void RemoveObjectFromTiles(Vector3Int origin)
+    public void RemoveObjectFromTiles(Vector3Int origin, bool destroyObjectOnTile=false)
     {
         GameObject targetObject = GetObjectOnTile(origin);
         if (targetObject == null)
@@ -106,6 +91,7 @@ public class GridManager : MonoBehaviour
                 if (GetObjectOnTile(tilePosition) == targetObject)
                 {
                     tilesToRemove.Add(tilePosition);
+                    Debug.Log(tilePosition);
                 }
             }
         }
@@ -124,6 +110,11 @@ public class GridManager : MonoBehaviour
             {
                 gridOverlayTilemap.SetTile(tile, defaultTile);
             }
+        }
+
+        if (destroyObjectOnTile)
+        {
+            Destroy(targetObject);
         }
     }
 
