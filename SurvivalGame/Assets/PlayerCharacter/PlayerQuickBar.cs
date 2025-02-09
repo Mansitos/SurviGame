@@ -2,23 +2,22 @@ using UnityEngine;
 
 public class PlayerQuickBar : MonoBehaviour
 {
-    [SerializeField] GameObject selectedItem = null;
-    public Item selectedItemScript = null;
+    [SerializeField] private ItemData selectedItemData; // Assign in Inspector
+    private ItemInstance selectedItemInstance; // Runtime item instance
 
     private GameManager gm;
 
     private void Start()
     {
         gm = GameManager.Instance;
-        updateStep();
-    }
 
-    private void updateSelectedItemScript()
-    {
-        if (selectedItem != null)
+        // Create an instance at runtime if an ItemData is set
+        if (selectedItemData != null)
         {
-            selectedItemScript = selectedItem.GetComponent<Item>();
+            selectedItemInstance = new ItemInstance(selectedItemData, 1);
         }
+
+        updateStep();
     }
 
     private void Update()
@@ -28,20 +27,31 @@ public class PlayerQuickBar : MonoBehaviour
 
     private void updateStep()
     {
-        updateSelectedItemScript();
+        // Ensure selectedItemInstance is updated when selectedItemData changes
+        if (selectedItemData != null && (selectedItemInstance == null || selectedItemInstance.ItemData != selectedItemData))
+        {
+            selectedItemInstance = new ItemInstance(selectedItemData, 1);
+        }
+
         updateTileSelectionGridVisibility();
     }
 
-    public void setSelectedItem(GameObject item)
+    public ItemInstance GetSelectedItemInstance()
     {
-        //TODO: checks if corret type of item?
-        selectedItem = item;
-        updateSelectedItemScript();
+        return selectedItemInstance;
     }
 
-    public void updateTileSelectionGridVisibility()
+    public void setSelectedItem(ItemInstance itemInstance)
     {
-        if (selectedItemScript.IsItemOfType(ItemType.Tool)){
+        //TODO: checks if corret type of item?
+        selectedItemInstance = itemInstance;
+        updateTileSelectionGridVisibility();
+    }
+
+    private void updateTileSelectionGridVisibility()
+    {
+        if (selectedItemInstance.ItemData != null && selectedItemInstance.ItemData.IsItemOfType(ItemType.Tool))
+        {
             gm.getPlayerTileSelection().SetSelectionVisibility(true);
         }
         else

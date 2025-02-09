@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa072fb535f210e428857652be73f05d, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  itemName: Apple
+  itemType: 3
+  weight: 1
+  worldPrefab: {fileID: 1553468318229283709, guid: 66b51b7d1b8a43a478cab92c67f1d57b, type: 3}
+  uiIcon: {fileID: 0}
+  hungerValue: 3
+  thirstValue: 4

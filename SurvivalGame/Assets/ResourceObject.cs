@@ -10,7 +10,7 @@ public enum ResourceObjectType
 [System.Serializable]
 public class SpawnableItem
 {
-    public GameObject itemPrefab;
+    public ItemData itemData;
     public int minAmount = 1;
     public int maxAmount = 3;
 }
@@ -67,15 +67,9 @@ public class ResourceObject : WorldObject
 
     private void SpawnItems()
     {
-        if (spawnableItems == null || spawnableItems.Count == 0)
-        {
-            Debug.LogWarning("No items assigned to spawn!");
-            return;
-        }
-
         foreach (var spawnableItem in spawnableItems)
         {
-            if (spawnableItem.itemPrefab == null) continue;
+            if (spawnableItem.itemData == null) continue; // Ensure item data exists
 
             // Determine number of items to spawn (between min and max)
             int amount = Random.Range(spawnableItem.minAmount, spawnableItem.maxAmount + 1);
@@ -86,9 +80,13 @@ public class ResourceObject : WorldObject
                 Vector3 randomOffset = Random.insideUnitCircle * spawnRadius;
                 Vector3 spawnPosition = new Vector3(transform.position.x + randomOffset.x, 0.25f, transform.position.z + randomOffset.y);
 
-                // Instantiate the item
-                Instantiate(spawnableItem.itemPrefab, spawnPosition, Quaternion.identity);
+                // Create an ItemInstance to spawn
+                ItemInstance spawnedItemInstance = new ItemInstance(spawnableItem.itemData, 1);
+
+                // Spawn the item in the world using DroppedItem
+                DroppedItem.Spawn(spawnedItemInstance, spawnPosition);
             }
         }
     }
+
 }

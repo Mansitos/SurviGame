@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!gm.isBuildMode)
             {
-                gm.getPlayerQickBar().selectedItemScript.PerformMainAction(gm = gm);
+                gm.getPlayerQickBar().GetSelectedItemInstance().PerformMainAction(gm);
             }
 
         }

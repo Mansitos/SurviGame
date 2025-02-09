@@ -104,9 +104,9 @@ MonoBehaviour:
   collectionTime: 3
   spawnRadius: 2
   spawnableItems:
-  - itemPrefab: {fileID: 8999865028603861947, guid: 1a686fa40c01920418546c77ec9a4fef, type: 3}
+  - itemData: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
     minAmount: 1
     maxAmount: 3
-  - itemPrefab: {fileID: 1553468318229283709, guid: 66b51b7d1b8a43a478cab92c67f1d57b, type: 3}
+  - itemData: {fileID: 11400000, guid: 465f5781442733049b091041d744a17a, type: 2}
     minAmount: 0
     maxAmount: 1
