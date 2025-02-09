@@ -8,21 +8,22 @@ public class GridManager : MonoBehaviour
     [Header("Grid Manager Variables")]
     public static GridManager Instance;
 
+    [Tooltip("Ground (terrain) tilemap")]
     public Tilemap groundTilemap;
+    [Tooltip("Building grid overlay tilemap")]
     public Tilemap gridOverlayTilemap;
-    public TileBase defaultTile;    // The default tile (not occupied)
-    public TileBase freeSelectedTile;       // The free selected tile
-    public TileBase occupiedSelectedTile;   // The tile to show when a selected tile is occupied by a building
-    public TileBase occupiedTile;   // The tile to show a occupied building in showOccupiedMode
-
+    [Tooltip("Default grid overlay tile (not occupied)")]
+    public TileBase defaultTile;
+    [Tooltip("Tile to hilight tile is free to build")]
+    public TileBase freeSelectedTile;
+    [Tooltip("The tile to show when a selected tile is occupied by a building")]
+    public TileBase occupiedTile;   
     [Tooltip("If True, occupied tiles are highlighted (run-time change not supported jet).")]
-    public bool showOccupiedMode = false;  // Toggle to show occupied tiles or not
-
+    public bool showOccupiedMode = false;
     [Tooltip("If True -> debug logs.")]
     public bool verbodeLogging = true;
 
-    // Data Structure to store placed buildings
-    private Dictionary<Vector3Int, GameObject> occupiedTiles = new Dictionary<Vector3Int, GameObject>();
+    private Dictionary<Vector3Int, GameObject> occupiedTiles = new Dictionary<Vector3Int, GameObject>(); // Data Structure to store placed buildings
     private int deletionRadiusCheck = 6; // Should be at least >= the maximum building size that can happen
 
     private void Awake()
@@ -69,7 +70,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    /// Removes all occupied tiles within a square radius if they belong to the same object.
+    // Removes all occupied tiles within a square radius if they belong to the same object.
     public void RemoveObjectFromTiles(Vector3Int origin, bool destroyObjectOnTile=false)
     {
         GameObject targetObject = GetObjectOnTile(origin);

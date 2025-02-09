@@ -3,24 +3,25 @@ using System.Collections.Generic;
 
 public class BuildingPlacer : MonoBehaviour
 {
+    [Header("Building Placer Variables")]
 
-    [Tooltip("Building prefab to build")]
+    [Tooltip("Building Prefab to build")]
     public GameObject buildingPrefab;
     [Tooltip("If True -> debug logs.")]
     public bool verboseLogging;
+    [Tooltip("LayerMask for detecting the ground when raycasting.")]
+    public LayerMask groundLayer;
 
-    private GameObject previewObject; // Ghost preview object
+    private GameManager gm;
+    private GameObject previewObject;
     private PlayerMovementInputHandler inputHandler;
     private PlayerMovement playerMovement;
-    private int currentRotation = 0; // Rotation angle (90° increments)
-    public LayerMask groundLayer; // LayerMask for detecting the ground when raycasting
+    private Building buildingComponent;
     private Camera mainCamera;
+    private int currentRotation = 0; // Rotation angle (90° increments)
     private float xzPositioningOffset;
     private int buildingWidth = 1;
     private int buildingHeight = 1;
-    private Building buildingComponent;
-
-    private GameManager gm;
 
     private void Start()
     {
@@ -29,9 +30,9 @@ public class BuildingPlacer : MonoBehaviour
         inputHandler = gm.getPlayer().GetComponent<PlayerMovementInputHandler>();
         playerMovement = gm.getPlayer().GetComponent<PlayerMovement>();
         xzPositioningOffset = gm.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2;
+        buildingComponent = buildingPrefab.GetComponent<Building>();
 
         // Read building dimensions from prefab
-        buildingComponent = buildingPrefab.GetComponent<Building>();
         if (buildingComponent != null)
         {
             buildingWidth = buildingComponent.xdimension;
@@ -42,6 +43,38 @@ public class BuildingPlacer : MonoBehaviour
     private void Update()
     {
         // Toggle build mode
+        VerifyToggleBuildMode();
+
+
+        if (gm.isBuildMode)
+        {
+            HandleBuildActions();
+        }
+    }
+
+    private void HandleBuildActions()
+    {
+        Vector3Int gridPos = GridManager.Instance.WorldToGrid(GetMouseWorldPosition());
+        UpdatePreviewObject(gridPos);
+
+        if (inputHandler.WasMainActionPressedThisFrame())
+        {
+            TryPlaceBuilding(gridPos);
+        }
+
+        if (inputHandler.WasSecondaryActionPressedThisFrame())
+        {
+            TryRemoveBuilding(gridPos);
+        }
+
+        if (inputHandler.WasRotateActionPressedThisFrame())
+        {
+            RotateBuilding();
+        }
+    }
+
+    private void VerifyToggleBuildMode()
+    {
         if (inputHandler.WasBuildModePressedThisFrame())
         {
             if (!playerMovement.IsPlayerPerformingAction())
@@ -49,27 +82,6 @@ public class BuildingPlacer : MonoBehaviour
                 gm.SetBuildMode(!gm.IsInBuildMode());
                 if (gm.isBuildMode) CreatePreviewObject();
                 else DestroyPreviewObject();
-            }
-        }
-
-        if (gm.isBuildMode)
-        {
-            Vector3Int gridPos = GridManager.Instance.WorldToGrid(GetMouseWorldPosition());
-            UpdatePreviewObject(gridPos);
-
-            if (inputHandler.WasMainActionPressedThisFrame())
-            {
-                TryPlaceBuilding(gridPos);
-            }
-
-            if (inputHandler.WasSecondaryActionPressedThisFrame())
-            {
-                TryRemoveBuilding(gridPos);
-            }
-
-            if (inputHandler.WasRotateActionPressedThisFrame())
-            {
-                RotateBuilding();
             }
         }
     }
@@ -98,7 +110,7 @@ public class BuildingPlacer : MonoBehaviour
 
         if (verboseLogging)
         {
-            Debug.Log($"Rotated to {currentRotation}° (New Size: {buildingWidth}x{buildingHeight})");
+            Debug.Log($"[BuildingPlacer] Rotated to {currentRotation}° (New Size: {buildingWidth}x{buildingHeight})");
         }
     }
 
@@ -107,7 +119,6 @@ public class BuildingPlacer : MonoBehaviour
         return currentRotation;
     }
 
-    // Checks if a building can be placed and places it if possible
     private void TryPlaceBuilding(Vector3Int gridPos)
     {
         if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight, currentRotation))
@@ -122,14 +133,14 @@ public class BuildingPlacer : MonoBehaviour
 
             if (verboseLogging)
             {
-                Debug.Log($"Placed building at {gridPos} (Size: {buildingWidth}x{buildingHeight})");
+                Debug.Log($"[BuildingPlacer] Placed building at {gridPos} (Size: {buildingWidth}x{buildingHeight})");
             }
         }
         else
         {
             if (verboseLogging)
             {
-                Debug.Log($"Cannot place building at {gridPos} (This or some needed tiles are occupied!)");
+                Debug.Log($"[BuildingPlacer] Cannot place building at {gridPos} (This or some needed tiles are occupied!)");
             }
         }
     }
@@ -146,7 +157,7 @@ public class BuildingPlacer : MonoBehaviour
                 Destroy(obj);
                 if (verboseLogging)
                 {
-                    Debug.Log($"Removed building at {gridPos}");
+                    Debug.Log($"[BuildingPlacer] Removed building at {gridPos}");
                 }
             }
         }
@@ -154,7 +165,7 @@ public class BuildingPlacer : MonoBehaviour
         {
             if (verboseLogging)
             {
-                Debug.Log($"No building found at {gridPos}");
+                Debug.Log($"[BuildingPlacer] No building found at {gridPos}");
             }
         }
     }

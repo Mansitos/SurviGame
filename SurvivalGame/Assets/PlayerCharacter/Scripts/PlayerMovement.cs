@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     // Private status
     private bool isRotatingStill = false;
     private bool isCollecting = false;
-    public string collectionType = "";
+    private string collectionType = ""; //TODO: it sucks?
 
     private void Start()
     {
@@ -220,4 +220,10 @@ public class PlayerMovement : MonoBehaviour
     {
         return isCollecting;
     }
+
+    public string GetCollectionType()
+    {
+        return collectionType;
+    }
+
 }

@@ -34,7 +34,7 @@ public class PlayerAnimationsHandler : MonoBehaviour
         isWalking = inputHandler.isWalking;
         isRotatingStill = playerMovement.IsRotatingStill();
         isCollecting = playerMovement.IsCollecting();
-        collectionType = playerMovement.collectionType;
+        collectionType = playerMovement.GetCollectionType();
     }
 
     private void UpdateAnimationsStatus()

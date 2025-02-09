@@ -52,6 +52,11 @@ Some random dev history!
     - Player Status
 
 
+### **Code**
+- **⚙️ Refactor:**
+  - GetMouseWorldPosition() to move as static method on mainCamera and used everywhere where needed.
+  - freeSelectedTile logic for building placer
+
 ## **0.0.2 [To define]**
 
 # **💡 Ideas**
