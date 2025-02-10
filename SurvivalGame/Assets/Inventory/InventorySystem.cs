@@ -24,6 +24,7 @@ public class InventorySystem : MonoBehaviour
         }
 
         string inventoryDisplay = $"Weight: {GetCurrentWeight()}/{maxWeight}\n";
+        inventoryDisplay += $"Slots: {slots.Count}/{maxSlots}\n";
 
         Dictionary<string, int> itemQuantities = new Dictionary<string, int>();
         foreach (InventorySlot slot in slots)

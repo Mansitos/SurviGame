@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Rock
   itemType: 2
   weight: 10
-  worldPrefab: {fileID: 3317792164436240808, guid: b0c0bdd10fec5664eb92173b46a898d9, type: 3}
+  worldPrefab: {fileID: 108756, guid: 6dcc32f69524dfc49b00378e8a2db141, type: 3}
   uiIcon: {fileID: 0}

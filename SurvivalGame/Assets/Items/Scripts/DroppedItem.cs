@@ -11,6 +11,8 @@ public class DroppedItem : MonoBehaviour
     private float acceleration = 0.1f; // Speed increment per frame
     private float startCollectDistance = 5.0f; // Distance threshold for collection to start
     private float collectDistance = 0.5f; // Distance threshold for collection to end
+    private static float ySpawnCoordinate = 0.25f;
+    private float rotationSpeed = 45f;
 
     // Factory method to create a dropped item
     public static DroppedItem Spawn(ItemInstance itemInstance, Vector3 spawnPosition)
@@ -21,8 +23,14 @@ public class DroppedItem : MonoBehaviour
             return null;
         }
 
-        // Instantiate the item in the world
-        GameObject droppedItemGO = Instantiate(itemInstance.ItemData.worldPrefab, spawnPosition, Quaternion.identity);
+        // Generate a random angle for Y-axis rotation
+        float randomYRotation = Random.Range(0f, 360f);
+        Quaternion randomRotation = Quaternion.Euler(0, randomYRotation, 0);
+        spawnPosition.y = ySpawnCoordinate;
+
+        // Instantiate the item in the world with random Y rotation
+        GameObject droppedItemGO = Instantiate(itemInstance.ItemData.worldPrefab, spawnPosition, randomRotation);
+
 
         // Ensure it has a DroppedItem component
         DroppedItem droppedItem = droppedItemGO.GetComponent<DroppedItem>();
@@ -71,6 +79,10 @@ public class DroppedItem : MonoBehaviour
                 if (!esit) { 
                     Debug.LogWarning("[DroppedItem] This should not happen.");
                 }
+            }
+            else
+            {
+                RotateAnimation();
             }
         }
         else
@@ -124,5 +136,10 @@ public class DroppedItem : MonoBehaviour
                 speed += acceleration; // Increase speed until reaching max speed
             }
         }
+    }
+
+    private void RotateAnimation()
+    {
+        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0); // Rotate around the Y-axis
     }
 }

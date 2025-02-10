@@ -3,7 +3,12 @@
 Some random dev history!
 
 #### **Image from: 9/2/2025**
+_First screenshot!_
 ![alt text](images/image_1.png)
+
+#### **Image from: 10/2/2025**
+_Rudimental inventory system and dropped items_
+![alt text](images/image_2.png)
 
 # **🛠️ TODO List**
 ## **0.0.1 Core Logics**
@@ -39,7 +44,6 @@ Some random dev history!
   
 ### **Inventory System**
 - **🛠️ TODO:**
-  - Inventory logics
 
 ### **Quick Bar**
 - **🛠️ TODO:**
@@ -51,13 +55,17 @@ Some random dev history!
     - Inventory
     - Player Status
 
-
 ### **Code**
 - **⚙️ Refactor:**
   - GetMouseWorldPosition() to move as static method on mainCamera and used everywhere where needed.
   - freeSelectedTile logic for building placer
+- **🖼️ Visuals:**
   - Inventory System -> fix serialization so that you can debug from inspector
-
+  - Border on edge of dropped item model/mesh
+- **🎮 Mechanics:**
+  - Actual interaction system to collect sucks. Keep mouse pressed to collect, if move, nothing happens. To stop collect simply release mouse before finish.
+  - Collect of type "pickup" should be without dropped items, items should be instantly added to inventory.
+  
 ## **0.0.2 [To define]**
 
 # **💡 Ideas**

@@ -166,8 +166,10 @@ public class PlayerMovement : MonoBehaviour
                 return "isMining";
             case ResourceObjectType.Tree:
                 return "isChopping";
+            case ResourceObjectType.PickUp:
+                return "isPickingUp";
             default:
-                return ""; // TODO: how to handle case that should never happen??
+                return "NO COLLECTION ANIMATOR STATUS FOR THIS COLLECTION TYPE"; // TODO: how to handle case that should never happen??
         }
     }
 

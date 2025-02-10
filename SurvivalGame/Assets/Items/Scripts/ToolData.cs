@@ -4,7 +4,8 @@ public enum ToolType
 {
     Pickaxe,
     Axe,
-    Shovel
+    Shovel,
+    PickUp
 }
 
 [CreateAssetMenu(fileName = "NewTool", menuName = "Game/Tool")]

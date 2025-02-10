@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public enum ResourceObjectType
 {
     Rock,
-    Tree
+    Tree,
+    PickUp
 }
 
 [System.Serializable]
