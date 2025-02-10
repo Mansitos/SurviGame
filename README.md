@@ -56,6 +56,7 @@ Some random dev history!
 - **⚙️ Refactor:**
   - GetMouseWorldPosition() to move as static method on mainCamera and used everywhere where needed.
   - freeSelectedTile logic for building placer
+  - Inventory System -> fix serialization so that you can debug from inspector
 
 ## **0.0.2 [To define]**
 

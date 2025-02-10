@@ -81,7 +81,7 @@ public class ResourceObject : WorldObject
                 Vector3 spawnPosition = new Vector3(transform.position.x + randomOffset.x, 0.25f, transform.position.z + randomOffset.y);
 
                 // Create an ItemInstance to spawn
-                ItemInstance spawnedItemInstance = new ItemInstance(spawnableItem.itemData, 1);
+                ItemInstance spawnedItemInstance = new ItemInstance(spawnableItem.itemData, 1); // Hardcoded quantity 1 is an strong assumption in inventory system, keep like this.
 
                 // Spawn the item in the world using DroppedItem
                 DroppedItem.Spawn(spawnedItemInstance, spawnPosition);

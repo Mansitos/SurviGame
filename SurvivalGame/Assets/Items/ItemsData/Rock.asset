@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Rock
   itemType: 2
-  weight: 11
+  weight: 10
   worldPrefab: {fileID: 3317792164436240808, guid: b0c0bdd10fec5664eb92173b46a898d9, type: 3}
   uiIcon: {fileID: 0}

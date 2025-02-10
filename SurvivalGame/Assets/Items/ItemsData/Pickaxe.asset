@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Pickaxe
   itemType: 1
-  weight: 10
+  weight: 30
   worldPrefab: {fileID: 3495752785585506022, guid: 1a2282cb0194daa4aa2c93dda91ba918, type: 3}
   uiIcon: {fileID: 0}
   toolCategory: 0

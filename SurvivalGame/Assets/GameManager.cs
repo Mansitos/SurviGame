@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private PlayerQuickBar playerQuickBar;
     private PlayerTileSelection playerTileSelection;
     private PlayerAnimationsHandler playerAnimationsHandler;
+    private InventorySystem inventorySystem;
 
     // Game modes
     public bool isBuildMode = false;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
         playerQuickBar = player.GetComponent<PlayerQuickBar>();
         playerTileSelection = player.GetComponent<PlayerTileSelection>();
         playerAnimationsHandler = player.GetComponent<PlayerAnimationsHandler>();
+        inventorySystem = player.GetComponent <InventorySystem>();
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -104,6 +106,11 @@ public class GameManager : MonoBehaviour
     public GameObject getTerrainGridSystem()
     {
         return terrainGridSystem;
+    }
+
+    public InventorySystem getInventorySystem()
+    {
+        return inventorySystem;
     }
 
     public PlayerAnimationsHandler getPlayerAnimationHandler()

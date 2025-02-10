@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Log
   itemType: 2
-  weight: 3
+  weight: 5
   worldPrefab: {fileID: 8999865028603861947, guid: 1a686fa40c01920418546c77ec9a4fef, type: 3}
   uiIcon: {fileID: 0}
