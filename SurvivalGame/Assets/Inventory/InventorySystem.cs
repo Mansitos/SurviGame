@@ -15,6 +15,7 @@ public class InventorySystem : MonoBehaviour
         UpdateDebugUI();
     }
 
+
     public void UpdateDebugUI()
     {
         if (inventoryDebugUI == null)
@@ -46,6 +47,23 @@ public class InventorySystem : MonoBehaviour
         }
 
         inventoryDebugUI.text = inventoryDisplay; // Set the text of the TextMeshPro component
+    }
+
+    public int GetFreeSlots()
+    {
+        return maxSlots - slots.Count;
+    }
+
+    public bool willRemovalFreeASlot(ItemInstance item)
+    {
+        foreach (InventorySlot slot in slots)
+        {
+            if (slot.itemInstance.ItemData == item.ItemData && slot.GetQuantity() == item.Quantity)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool CanAddItem(ItemInstance item)
@@ -116,18 +134,30 @@ public class InventorySystem : MonoBehaviour
         return currentWeight;
     }
 
-    public bool RemoveItem(ItemInstance item, int quantity)
+    public bool RemoveItem(ItemInstance item)
     {
         foreach (InventorySlot slot in slots)
         {
             if (slot.itemInstance.ItemData == item.ItemData)
             {
-                if (slot.GetQuantity() >= quantity)
+                if (slot.GetQuantity() >= item.Quantity)
                 {
-                    slot.RemoveItem(quantity);
+                    slot.RemoveItem(item.Quantity);
                     if (slot.GetQuantity() == 0) slots.Remove(slot);
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    public bool isItemAvailable(ItemInstance item)
+    {
+        foreach (InventorySlot slot in slots)
+        {
+            if (slot.itemInstance.ItemData == item.ItemData && slot.GetQuantity() >= item.Quantity)
+            {
+                return true;
             }
         }
         return false;
