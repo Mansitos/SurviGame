@@ -95,6 +95,18 @@ public class InventorySystem : MonoBehaviour
         return false;
     }
 
+    public bool IsThereASlotWithItem(ItemData item)
+    {
+        foreach (InventorySlot slot in slots)
+        {
+            if (slot.itemInstance.ItemData == item)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public bool TryAddItem(ItemInstance item)
     {
         if (!CanAddItem(item))
@@ -134,7 +146,7 @@ public class InventorySystem : MonoBehaviour
         return currentWeight;
     }
 
-    public bool RemoveItem(ItemInstance item)
+    public bool TryRemoveItem(ItemInstance item)
     {
         foreach (InventorySlot slot in slots)
         {

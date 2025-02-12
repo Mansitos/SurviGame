@@ -24,6 +24,13 @@
 - Tweaked animation from chopping/ming to walking/running
 ---
 10-2-2025
+- Added assets
+- PickUp collection type + related animation
+---
+11-2-2025
 - CraftBlueprint basic ScriptableObject logic (CanCraft, Craft)
 - Inventory logics for crafting checks: available items, availalbe slots for the output
 ---
+12-2-2025
+- Debug Editor script for give, remove object and craft CraftBlueprint
+- Fixed Inventory CanAdd conditions: there was a missing condition

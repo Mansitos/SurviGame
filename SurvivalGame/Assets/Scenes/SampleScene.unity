@@ -12669,7 +12669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSlots: 20
   slots: []
-  maxWeight: 0
+  maxWeight: 250
   inventoryDebugUI: {fileID: 183206435}
 --- !u!4 &4548762041226154302
 Transform:

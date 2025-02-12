@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCraftBlueprint", menuName = "Game/CraftBlueprint")]
-public abstract class CraftBlueprint : ScriptableObject
+public class CraftBlueprint : ScriptableObject
 {
     [System.Serializable]
     public struct ItemRequirement
@@ -33,18 +33,25 @@ public abstract class CraftBlueprint : ScriptableObject
         {
             return true; // Easy case, a slot is empty
         }
-        else // Hard case, i need to check if a slot would be freed after removal of required input
+
+        // Medium case, maybe there is a slot with already the output item
+        if (inventory.IsThereASlotWithItem(outputItem))
         {
-            foreach (ItemRequirement requirement in requirements)
-            {
-                if (inventory.willRemovalFreeASlot(new ItemInstance(requirement.item, requirement.quantity)))
-                {
-                    return true;
-                }
-            }
-            Debug.Log("[CraftBlueprint] Can't craft because no free slot available after using the required items");
-            return false;
+            return true;
         }
+
+        // Hard case, i need to check if a slot would be freed after removal of required input
+        foreach (ItemRequirement requirement in requirements)
+        {
+            if (inventory.willRemovalFreeASlot(new ItemInstance(requirement.item, requirement.quantity)))
+            {
+                return true;
+            }
+        }
+
+        Debug.Log("[CraftBlueprint] Can't craft because no free slot available after using the required items");
+        return false;
+        
     }
 
     public bool Craft(InventorySystem inventory)
@@ -53,10 +60,10 @@ public abstract class CraftBlueprint : ScriptableObject
         {
             foreach (ItemRequirement requirement in requirements)
             {
-                inventory.RemoveItem(new ItemInstance(requirement.item, requirement.quantity));
+                inventory.TryRemoveItem(new ItemInstance(requirement.item, requirement.quantity));
             }
 
-            bool esit = inventory.TryAddItem(new ItemInstance(outputItem, outputQuantity);
+            bool esit = inventory.TryAddItem(new ItemInstance(outputItem, outputQuantity));
             if (esit == false)
             {
                 Debug.LogError("[CraftBlueprint] This should never happen since add condition was checked earlier!");
