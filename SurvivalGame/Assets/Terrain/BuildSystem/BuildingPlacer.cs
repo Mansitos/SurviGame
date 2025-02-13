@@ -42,8 +42,7 @@ public class BuildingPlacer : MonoBehaviour
 
     private void Update()
     {
-        // Toggle build mode
-        VerifyToggleBuildMode();
+        VerifyChangeInStatus();
 
 
         if (gm.isBuildMode)
@@ -73,6 +72,12 @@ public class BuildingPlacer : MonoBehaviour
         }
     }
 
+    public void VerifyChangeInStatus()
+    {
+        if (gm.isBuildMode) CreatePreviewObject();
+        else DestroyPreviewObject();
+    }
+
     private void VerifyToggleBuildMode()
     {
         if (inputHandler.WasBuildModePressedThisFrame())
@@ -80,8 +85,7 @@ public class BuildingPlacer : MonoBehaviour
             if (!playerMovement.IsPlayerPerformingAction())
             {
                 gm.SetBuildMode(!gm.IsInBuildMode());
-                if (gm.isBuildMode) CreatePreviewObject();
-                else DestroyPreviewObject();
+                VerifyChangeInStatus();
             }
         }
     }
@@ -135,6 +139,8 @@ public class BuildingPlacer : MonoBehaviour
             {
                 Debug.Log($"[BuildingPlacer] Placed building at {gridPos} (Size: {buildingWidth}x{buildingHeight})");
             }
+
+            gm.isBuildMode = false;
         }
         else
         {

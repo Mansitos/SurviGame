@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2473589f9e5d474d8e1991c233a2cc1, type: 3}
-  m_Name: WoodFromRock
+  m_Script: {fileID: 11500000, guid: 26f3661682cadd34386a4c646fda4945, type: 3}
+  m_Name: StandardBuildCraft
   m_EditorClassIdentifier: 
   requirements:
   - item: {fileID: 11400000, guid: ad2568c19e14e9642970e628eab7261d, type: 2}
-    quantity: 1
-  outputItem: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
-  outputQuantity: 1
+    quantity: 3
+  - item: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
+    quantity: 3

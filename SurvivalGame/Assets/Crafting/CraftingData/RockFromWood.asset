@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2473589f9e5d474d8e1991c233a2cc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e96df967539af44c9620830b6a12907, type: 3}
   m_Name: RockFromWood
   m_EditorClassIdentifier: 
   requirements:

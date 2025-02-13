@@ -156,3 +156,4 @@ MonoBehaviour:
   objectName: Default WorldObject Name
   xdimension: 2
   zdimension: 5
+  blueprint: {fileID: 11400000, guid: 6a60b3f1f7a463342805b3be0a705375, type: 2}

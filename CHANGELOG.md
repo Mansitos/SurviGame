@@ -34,3 +34,8 @@
 12-2-2025
 - Debug Editor script for give, remove object and craft CraftBlueprint
 - Fixed Inventory CanAdd conditions: there was a missing condition
+---
+13-2-2025
+- CraftBlueprint is now abstract and extended by ItemCraftBlueprint and BuildingBlueprint
+- DebugLogic for building buildings (remove B "building" mode).
+- 
