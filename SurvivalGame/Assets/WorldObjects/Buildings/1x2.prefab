@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3183489113279571058}
-  - component: {fileID: 7230184656035276889}
+  - component: {fileID: 7501369435855298650}
   m_Layer: 0
   m_Name: 1x2
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 2585575213342477936}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7230184656035276889
+--- !u!114 &7501369435855298650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,12 +42,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2936484355207003557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c2fa0d28b9d1a42a48c690d2154255, type: 3}
+  m_Script: {fileID: 11500000, guid: ee2936161dc196b49b40bd4ee02efe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Default WorldObject Name
   xdimension: 1
   zdimension: 2
+  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
+  type: 0
 --- !u!1 &8050093703425981858
 GameObject:
   m_ObjectHideFlags: 0

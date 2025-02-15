@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7824909930552085443}
-  - component: {fileID: 4441520742406994817}
+  - component: {fileID: 5843622872612477785}
   m_Layer: 0
   m_Name: Cube 2x2
   m_TagString: Untagged
@@ -141,7 +141,7 @@ Transform:
   - {fileID: 4751221047294259025}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4441520742406994817
+--- !u!114 &5843622872612477785
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,9 +150,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3874257900138246658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c2fa0d28b9d1a42a48c690d2154255, type: 3}
+  m_Script: {fileID: 11500000, guid: ee2936161dc196b49b40bd4ee02efe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Default WorldObject Name
   xdimension: 2
   zdimension: 2
+  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
+  type: 0

@@ -38,4 +38,9 @@
 13-2-2025
 - CraftBlueprint is now abstract and extended by ItemCraftBlueprint and BuildingBlueprint
 - DebugLogic for building buildings (remove B "building" mode).
-- 
+---
+15-2-2025
+- It is now not possible to build in the 3x3 area occupied by player
+- CraftItemBlueprint can now specify a required type of CraftingTable to be in range (a new subclass of Building)
+- Rudimental check for required CraftingTable in-range methods + support methods in TerrainGridSystem
+- Item CanCraft() strong refactoring + fixed bug -> craft causing overweight was not checked

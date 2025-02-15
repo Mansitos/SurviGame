@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Building))]
+[CustomEditor(typeof(Building),true)]
 public class BuildingBuildDebug : Editor
 {
     public override void OnInspectorGUI()

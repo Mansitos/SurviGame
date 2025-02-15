@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 7529169910379937753}
   - component: {fileID: 86280382628335076}
   - component: {fileID: 736282087776732544}
-  - component: {fileID: 9075221571648540952}
-  - component: {fileID: 8175975454067808138}
+  - component: {fileID: 4482672854654936734}
   m_Layer: 0
   m_Name: 1x1
   m_TagString: Untagged
@@ -88,28 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9075221571648540952
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3705193669488093654}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8175975454067808138
+--- !u!114 &4482672854654936734
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,9 +96,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3705193669488093654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c2fa0d28b9d1a42a48c690d2154255, type: 3}
+  m_Script: {fileID: 11500000, guid: ee2936161dc196b49b40bd4ee02efe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Default WorldObject Name
   xdimension: 1
   zdimension: 1
+  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
+  type: 1

@@ -191,7 +191,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 257
+    width: 240
     height: 919
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
@@ -215,9 +215,9 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 257
+    x: 240
     y: 0
-    width: 720
+    width: 737
     height: 919
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 0
     width: 1156
     height: 919
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -328,8 +328,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 977
-    y: 79
+    x: 978
+    y: 24
     width: 1154
     height: 893
   m_SerializedDataModeController:
@@ -430,8 +430,8 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79
-    width: 256
+    y: 24
+    width: 239
     height: 893
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -447,7 +447,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a2aa0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 18fbffff
       m_RenameOverlay:
@@ -495,9 +495,9 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 257
-    y: 79
-    width: 718
+    x: 241
+    y: 24
+    width: 735
     height: 893
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1089,7 +1089,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.30124068, y: 0.11690268, z: -0.037240732, w: 0.9456267}
     speed: 2
-    m_Value: {x: 0.30123934, y: 0.116902165, z: -0.03724057, w: 0.9456225}
+    m_Value: {x: -0.30124068, y: -0.11690267, z: 0.03724073, w: -0.9456266}
   m_Size:
     m_Target: 5.7986164
     speed: 2
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 998
+    y: 943
     width: 2132
     height: 348
   m_SerializedDataModeController:
@@ -1279,7 +1279,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/WorldObjects/Buildings
+    - Assets/Crafting/CraftingData
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1289,16 +1289,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/WorldObjects/Buildings
+  - Assets/Crafting/CraftingData
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Personal Projects\SurviGame\SurvivalGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 376}
-    m_SelectedIDs: e4ae0000
-    m_LastClickedID: 44772
-    m_ExpandedIDs: 0000000002ae000004ae000006ae000008ae00000aae00000cae00000eae000010ae000012ae000014ae000016ae000018ae00001aae00001cae00001eae000020ae000022ae000024ae000026ae000028ae00002aae00002cae00002eae000030ae000032ae000034ae000036ae000038ae00003aae00003cae00003eae0000a4ae0000ceae000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: baae0000
+    m_LastClickedID: 44730
+    m_ExpandedIDs: 0000000014ae000016ae000018ae00001aae00001cae00001eae000020ae000022ae000024ae000026ae000028ae00002aae00002cae00002eae000030ae000032ae000034ae000036ae000038ae00003aae00003cae00003eae000040ae000042ae000044ae000046ae000048ae00004aae00004cae00004eae000050ae000052ae0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1327,7 +1327,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000002ae000004ae000006ae000008ae00000aae00000cae00000eae000010ae000012ae000014ae000016ae000018ae00001aae00001cae00001eae000020ae000022ae000024ae000026ae000028ae00002aae00002cae00002eae000030ae000032ae000034ae000036ae000038ae00003aae00003cae00003eae0000
+    m_ExpandedIDs: 0000000014ae000016ae000018ae00001aae00001cae00001eae000020ae000022ae000024ae000026ae000028ae00002aae00002cae00002eae000030ae000032ae000034ae000036ae000038ae00003aae00003cae00003eae000040ae000042ae000044ae000046ae000048ae00004aae00004cae00004eae000050ae000052ae0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1442,8 +1442,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 2133
-    y: 79
+    x: 2134
+    y: 24
     width: 426
     height: 1267
   m_SerializedDataModeController:

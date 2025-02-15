@@ -37,7 +37,7 @@ public class ResourceObject : WorldObject
     public void OccupyTile()
     {
         Vector3Int gridPos = gridManager.WorldToGrid(this.transform.position);
-        if (gridManager.CanPlaceBuilding(gridPos, 1, 1, 0))
+        if (gridManager.CanPlaceBuilding(gridPos, 1, 1, 0, checkAgainstPlayer:false))
         {
             gridManager.PlaceObjectOnTiles(gridPos, 1, 1, this.gameObject, 0);
         }

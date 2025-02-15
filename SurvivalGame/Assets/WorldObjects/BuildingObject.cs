@@ -1,7 +1,14 @@
 using UnityEngine;
 
+public enum BuildingType
+{
+    CraftStation,
+    Decoration,
+    ResourceCrafter
+}
+
 [DisallowMultipleComponent]
-public class Building : WorldObject
+public abstract class Building : WorldObject
 {
     public int xdimension = 1;
     public int zdimension = 1;

@@ -3,9 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewBuildingBlueprint", menuName = "Game/BuildingBlueprint")]
 public class BuildingBlueprint : CraftBlueprint
 {
-    // public ItemData outputItem;
-    // public int outputQuantity;
-
     public bool CanBuild(InventorySystem inventory)
     {
         // First simple check is to check whenever the required items are available

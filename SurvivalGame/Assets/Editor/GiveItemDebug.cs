@@ -13,17 +13,22 @@ public class GiveItemDebug : Editor
         if (GUILayout.Button("Give x1"))
         {
             InventorySystem inventory = GameManager.Instance.getInventorySystem();
-            bool result = inventory.TryAddItem(new ItemInstance(itemData));
-            string resultMessage = result ? "Added to inventory" : "Cannot add to inventory";
-            Debug.Log(resultMessage);
+            inventory.TryAddItem(new ItemInstance(itemData));
         }
 
         if (GUILayout.Button("Remove x1"))
         {
             InventorySystem inventory = GameManager.Instance.getInventorySystem();
-            bool result = inventory.TryRemoveItem(new ItemInstance(itemData));
-            string resultMessage = result ? "Removed from inventory" : "Cannot remove from inventory";
-            Debug.Log(resultMessage);
+            inventory.TryRemoveItem(new ItemInstance(itemData));
+        }
+
+        if (GUILayout.Button("Give x10"))
+        {
+            InventorySystem inventory = GameManager.Instance.getInventorySystem();
+            for (int i = 0; i<10; i++)
+            {
+                inventory.TryAddItem(new ItemInstance(itemData));
+            }
         }
     }
 }

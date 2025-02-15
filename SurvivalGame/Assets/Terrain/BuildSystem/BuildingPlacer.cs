@@ -15,7 +15,6 @@ public class BuildingPlacer : MonoBehaviour
     private GameManager gm;
     private GameObject previewObject;
     private PlayerMovementInputHandler inputHandler;
-    private PlayerMovement playerMovement;
     private Building buildingComponent;
     private Camera mainCamera;
     private int currentRotation = 0; // Rotation angle (90° increments)
@@ -28,7 +27,6 @@ public class BuildingPlacer : MonoBehaviour
         gm = GameManager.Instance;
         mainCamera = gm.getMainCamera().GetComponent<Camera>();
         inputHandler = gm.getPlayer().GetComponent<PlayerMovementInputHandler>();
-        playerMovement = gm.getPlayer().GetComponent<PlayerMovement>();
         xzPositioningOffset = gm.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2;
         buildingComponent = buildingPrefab.GetComponent<Building>();
 
@@ -43,7 +41,6 @@ public class BuildingPlacer : MonoBehaviour
     private void Update()
     {
         VerifyChangeInStatus();
-
 
         if (gm.isBuildMode)
         {
@@ -76,18 +73,6 @@ public class BuildingPlacer : MonoBehaviour
     {
         if (gm.isBuildMode) CreatePreviewObject();
         else DestroyPreviewObject();
-    }
-
-    private void VerifyToggleBuildMode()
-    {
-        if (inputHandler.WasBuildModePressedThisFrame())
-        {
-            if (!playerMovement.IsPlayerPerformingAction())
-            {
-                gm.SetBuildMode(!gm.IsInBuildMode());
-                VerifyChangeInStatus();
-            }
-        }
     }
 
     private void RotateBuilding()
@@ -125,7 +110,7 @@ public class BuildingPlacer : MonoBehaviour
 
     private void TryPlaceBuilding(Vector3Int gridPos)
     {
-        if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight, currentRotation))
+        if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight, currentRotation, checkAgainstPlayer:true))
         {
             Vector3 placementPos = GridManager.Instance.GridToWorld(gridPos);
             placementPos.x += xzPositioningOffset;
