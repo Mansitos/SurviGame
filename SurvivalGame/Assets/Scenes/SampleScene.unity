@@ -660,8 +660,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7271,7 +7271,7 @@ MonoBehaviour:
   freeSelectedTile: {fileID: 0}
   occupiedTile: {fileID: 11400000, guid: ccb167f0db8f3de44978d336b44ba871, type: 2}
   showOccupiedMode: 1
-  verbodeLogging: 0
+  verboseLogging: 1
 --- !u!114 &1247652898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12637,7 +12637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1bfc1c1671ebe4db63f9f61523b725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedItemData: {fileID: 11400000, guid: 79f25ff2a1645244e9c28a485580e71b, type: 2}
+  defaultEmptyItemData: {fileID: 11400000, guid: 79f25ff2a1645244e9c28a485580e71b, type: 2}
 --- !u!114 &4540228998779071793
 MonoBehaviour:
   m_ObjectHideFlags: 0

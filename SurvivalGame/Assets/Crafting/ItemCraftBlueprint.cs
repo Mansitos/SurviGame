@@ -22,6 +22,7 @@ public class ItemCraftBlueprint : CraftBlueprint
         if (WillCauseOverweight(inventory))
             return false;
 
+        Debug.Log("aaa");
         return HasSpaceForOutput(inventory);
     }
 
@@ -56,7 +57,7 @@ public class ItemCraftBlueprint : CraftBlueprint
         if (inventory.IsThereASlotWithItem(outputItem))
             return true; // Medium case, slot with already the output item
 
-        if (requirements.Any(req => inventory.willRemovalFreeASlot(new ItemInstance(req.item, req.quantity))))
+        if (requirements.Any(req => inventory.WillRemovalFreeASlot(new ItemInstance(req.item, req.quantity))))
             return true; // Hard case, check if removal of required items frees a slot
 
         Debug.Log("[ItemCraftBlueprint] Can't craft item because no free slot available after using the required items");
@@ -72,9 +73,9 @@ public class ItemCraftBlueprint : CraftBlueprint
         if (deltaWeight > 0 && inventory.WillBeOverWeight(deltaWeight))
         {
             Debug.Log("[ItemCraftBlueprint] Can't craft item since it would cause overweight");
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     private bool CheckRequiredCraftingStationAvailability()

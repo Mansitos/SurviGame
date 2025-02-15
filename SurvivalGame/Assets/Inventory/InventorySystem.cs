@@ -1,20 +1,37 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventorySystem : MonoBehaviour
 {
-    public int maxSlots = 2;
+    public int maxSlots = 10;
     public List<InventorySlot> slots = new List<InventorySlot>();
     public float maxWeight = 100.0f;
 
     public TextMeshProUGUI inventoryDebugUI;
+
+    private void Awake()
+    {
+        InitSlots();
+    }
+    void Start()
+    {
+
+    }
 
     public void Update()
     {
         UpdateDebugUI();
     }
 
+    public void InitSlots()
+    {
+        for (int i = 0; i < maxSlots; i++)
+        {
+            slots.Add(new InventorySlot(null));
+        }
+    }
 
     public void UpdateDebugUI()
     {
@@ -25,25 +42,18 @@ public class InventorySystem : MonoBehaviour
         }
 
         string inventoryDisplay = $"Weight: {GetCurrentWeight()}/{maxWeight}\n";
-        inventoryDisplay += $"Slots: {slots.Count}/{maxSlots}\n";
+        inventoryDisplay += $"Slots: {GetFreeSlots()}/{maxSlots}\n";
 
-        Dictionary<string, int> itemQuantities = new Dictionary<string, int>();
-        foreach (InventorySlot slot in slots)
+        for (int i = 0; i < slots.Count; i++)
         {
-            string itemName = slot.itemInstance.ItemData.itemName;
-            if (itemQuantities.ContainsKey(itemName))
+            if (slots[i].IsEmpty())
             {
-                itemQuantities[itemName] += slot.GetQuantity();
+                inventoryDisplay += $"{i + 1}: empty\n"; // Display 'empty' for empty slots
             }
             else
             {
-                itemQuantities.Add(itemName, slot.GetQuantity());
+                inventoryDisplay += $"{i + 1}: {slots[i].itemInstance.ItemData.itemName} (x{slots[i].GetQuantity()})\n";
             }
-        }
-
-        foreach (var item in itemQuantities)
-        {
-            inventoryDisplay += $"{item.Key}: {item.Value}\n";
         }
 
         inventoryDebugUI.text = inventoryDisplay; // Set the text of the TextMeshPro component
@@ -51,16 +61,27 @@ public class InventorySystem : MonoBehaviour
 
     public int GetFreeSlots()
     {
-        return maxSlots - slots.Count;
+        int count = 0;
+        foreach (InventorySlot slot in slots)
+        {
+            if (slot.IsEmpty())
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
-    public bool willRemovalFreeASlot(ItemInstance item)
+    public bool WillRemovalFreeASlot(ItemInstance item)
     {
         foreach (InventorySlot slot in slots)
         {
-            if (slot.itemInstance.ItemData == item.ItemData && slot.GetQuantity() == item.Quantity)
+            if (!slot.IsEmpty())
             {
-                return true;
+                if (slot.itemInstance.ItemData == item.ItemData && slot.GetQuantity() == item.Quantity)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -115,20 +136,31 @@ public class InventorySystem : MonoBehaviour
             return false; // Ensure we do not proceed if we can't add the item
         }
 
+        // First, try to add the item to an existing slot that already contains the same item.
         foreach (InventorySlot slot in slots)
         {
-            if (slot.CanAdd(item))
+            if (!slot.IsEmpty() && slot.CanAdd(item))
             {
-                slot.AddItem(item.Quantity);
+                slot.AddItem(item);
                 Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot.");
                 return true;
             }
         }
 
-        // If no existing slot can hold the item, add a new slot
-        slots.Add(new InventorySlot(item));
-        Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to new slot.");
-        return true;
+        // If no suitable existing slot is found and there is room for a new slot, add a new slot
+        foreach (InventorySlot slot in slots)
+        {
+            if (slot.CanAdd(item))
+            {
+                slot.AddItem(item);
+                Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot.");
+                return true;
+            }
+        }
+
+        // If there's no room for a new slot, log that the inventory is full
+        Debug.Log("[InventorySystem] Inventory full: No free slots available.");
+        return false;
     }
 
     public bool WillBeOverWeight(float additionalWeight)
@@ -141,7 +173,10 @@ public class InventorySystem : MonoBehaviour
         float currentWeight = 0;
         foreach (InventorySlot slot in slots)
         {
-            currentWeight += slot.GetWeight();
+            if (!slot.IsEmpty() && slot.itemInstance != null && slot.itemInstance.ItemData != null)
+            {
+                currentWeight += slot.GetWeight();
+            }
         }
         return currentWeight;
     }
@@ -150,13 +185,15 @@ public class InventorySystem : MonoBehaviour
     {
         foreach (InventorySlot slot in slots)
         {
-            if (slot.itemInstance.ItemData == item.ItemData)
+            if (!slot.IsEmpty())
             {
-                if (slot.GetQuantity() >= item.Quantity)
+                if (slot.itemInstance.ItemData == item.ItemData)
                 {
-                    slot.RemoveItem(item.Quantity);
-                    if (slot.GetQuantity() == 0) slots.Remove(slot);
-                    return true;
+                    if (slot.GetQuantity() >= item.Quantity)
+                    {
+                        slot.RemoveItem(item.Quantity);
+                        return true;
+                    }
                 }
             }
         }
@@ -167,9 +204,12 @@ public class InventorySystem : MonoBehaviour
     {
         foreach (InventorySlot slot in slots)
         {
-            if (slot.itemInstance.ItemData == item.ItemData && slot.GetQuantity() >= item.Quantity)
+            if (!slot.IsEmpty())
             {
-                return true;
+                if (slot.itemInstance.ItemData == item.ItemData && slot.GetQuantity() >= item.Quantity)
+                {
+                    return true;
+                }
             }
         }
         return false;

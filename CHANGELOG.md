@@ -44,3 +44,4 @@
 - CraftItemBlueprint can now specify a required type of CraftingTable to be in range (a new subclass of Building)
 - Rudimental check for required CraftingTable in-range methods + support methods in TerrainGridSystem
 - Item CanCraft() strong refactoring + fixed bug -> craft causing overweight was not checked
+- InventorySlots now are enumerated + QuickBar logic reworked -> it watches the inventory based on a selectedIndex slot

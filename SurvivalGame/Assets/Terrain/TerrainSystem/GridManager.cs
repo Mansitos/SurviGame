@@ -267,8 +267,6 @@ public class GridManager : MonoBehaviour
                 filteredObjects.Add(obj);
             }
         }
-
-        Debug.Log("Filtered count:" + filteredObjects.Count);
         return filteredObjects;
     }
 

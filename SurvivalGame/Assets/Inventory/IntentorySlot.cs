@@ -3,35 +3,64 @@ using UnityEngine;
 [System.Serializable]
 public class InventorySlot
 {
-    public ItemInstance itemInstance;
+    public ItemInstance itemInstance = null;
+    public bool emptySlot = true;
 
+    // Constructor
     public InventorySlot(ItemInstance itemInstance)
     {
         this.itemInstance = itemInstance;
+        this.emptySlot = itemInstance is null;
+    }
+
+    public bool IsEmpty()
+    {
+        return emptySlot;
     }
 
     public bool CanAdd(ItemInstance newItem)
     {
-        return itemInstance.ItemData == newItem.ItemData;
+        if (IsEmpty()){
+            return true;
+        }
+        else
+        {
+            return itemInstance.ItemData == newItem.ItemData;
+        }
+
     }
 
-    public void AddItem(int amount)
+    public void AddItem(ItemInstance item)
     {
-        itemInstance.AddQuantity(amount);
+        if (!IsEmpty())
+        {
+            itemInstance.AddQuantity(item.Quantity);
+        }
+        else
+        {
+            itemInstance = item;
+            emptySlot = false;
+        }
     }
 
     public void RemoveItem(int amount)
     {
         itemInstance.RemoveQuantity(amount);
+
+        if (itemInstance.Quantity <= 0)
+        {
+            itemInstance = null;
+            emptySlot = true;
+        }
     }
 
     public float GetWeight()
     {
-        return itemInstance.ItemData.weight * itemInstance.Quantity;
+        return IsEmpty() ? 0 : itemInstance.ItemData.weight * itemInstance.Quantity;
     }
 
     public int GetQuantity()
     {
-        return itemInstance.Quantity;
+        return IsEmpty() ? 0 : itemInstance.Quantity;
     }
 }

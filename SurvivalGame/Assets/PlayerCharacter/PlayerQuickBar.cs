@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class PlayerQuickBar : MonoBehaviour
 {
-    [SerializeField] private ItemData selectedItemData; // Assign in Inspector
-    private ItemInstance selectedItemInstance; // Runtime item instance
+    public ItemData defaultEmptyItemData;
+    public ItemInstance defaultItemInstance;
 
+    private ItemData selectedItemData; // Assign in Inspector
+    public int selectedIndex = 1;
+    private ItemInstance selectedItemInstance; // Runtime item instance
+    private InventorySystem inventorySystem;
     private GameManager gm;
 
     private void Start()
     {
         gm = GameManager.Instance;
-
-        // Create an instance at runtime if an ItemData is set
-        if (selectedItemData != null)
-        {
-            selectedItemInstance = new ItemInstance(selectedItemData, 1);
-        }
-
+        inventorySystem = gm.getInventorySystem();
+        defaultItemInstance = new ItemInstance(defaultEmptyItemData, 1);
+        SelectSlot(selectedIndex); // using selectedIndex for now, future: keys
         updateStep();
     }
 
@@ -27,12 +27,7 @@ public class PlayerQuickBar : MonoBehaviour
 
     private void updateStep()
     {
-        // Ensure selectedItemInstance is updated when selectedItemData changes
-        if (selectedItemData != null && (selectedItemInstance == null || selectedItemInstance.ItemData != selectedItemData))
-        {
-            selectedItemInstance = new ItemInstance(selectedItemData, 1);
-        }
-
+        SelectSlot(selectedIndex);
         updateTileSelectionGridVisibility();
     }
 
@@ -57,6 +52,23 @@ public class PlayerQuickBar : MonoBehaviour
         else
         {
             gm.getPlayerTileSelection().SetSelectionVisibility(false);
+        }
+    }
+
+    private void SelectSlot(int slotIndex)
+    {
+        selectedIndex = slotIndex;
+        InventorySlot selectedInventorySlot = inventorySystem.slots[slotIndex - 1];
+        if (selectedInventorySlot.IsEmpty()) {
+            Debug.Log("Selected slot empty");
+            selectedItemInstance = defaultItemInstance;
+            selectedItemData = defaultEmptyItemData;
+        }
+        else
+        {
+            Debug.Log("Selected slot!");
+            selectedItemInstance = selectedInventorySlot.itemInstance;
+            selectedItemData = selectedItemInstance.ItemData;
         }
     }
 }
