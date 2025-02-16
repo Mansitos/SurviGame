@@ -21,13 +21,13 @@ public abstract class Building : WorldObject
     public void Build(GameManager gm)
     {
         // Apply blueprint cost
-        blueprint.Build(gm.getInventorySystem());
+        blueprint.Build(gm.GetInventorySystem());
         gm.isBuildMode = true;
-        gm.getBuildingPlacer().buildingPrefab = this.gameObject;
+        gm.GetBuildingPlacer().buildingPrefab = this.gameObject;
     }
 
     public bool CanBuild(GameManager gm)
     {
-        return blueprint.CanBuild(gm.getInventorySystem());
+        return blueprint.CanBuild(gm.GetInventorySystem());
     }
 }

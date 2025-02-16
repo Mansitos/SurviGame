@@ -25,9 +25,9 @@ public class BuildingPlacer : MonoBehaviour
     private void Start()
     {
         gm = GameManager.Instance;
-        mainCamera = gm.getMainCamera().GetComponent<Camera>();
-        inputHandler = gm.getPlayer().GetComponent<PlayerMovementInputHandler>();
-        xzPositioningOffset = gm.getTerrainGridSystem().GetComponent<Grid>().cellSize.x / 2;
+        mainCamera = gm.GetMainCameraGO().GetComponent<Camera>();
+        inputHandler = gm.GetPlayerGO().GetComponent<PlayerMovementInputHandler>();
+        xzPositioningOffset = gm.GetTerrainGridSystemGO().GetComponent<Grid>().cellSize.x / 2;
         buildingComponent = buildingPrefab.GetComponent<Building>();
 
         // Read building dimensions from prefab

@@ -48,7 +48,7 @@ public class GridManager : MonoBehaviour
 
     public List<Vector3Int> GetPlayerOccupiedTiles()
     {
-        Vector3 playerPos = gm.getPlayer().transform.position;
+        Vector3 playerPos = gm.GetPlayerGO().transform.position;
         Vector3Int playerOccupiedTile = WorldToGrid(playerPos);
         playerOccupiedTile.z = 0; // TODO: A sort of temp fix
 

@@ -83,8 +83,8 @@ public class ItemCraftBlueprint : CraftBlueprint
         if (requiredCraftStationType != CraftStationType.None)
         {
             GameManager gm = GameManager.Instance;
-            Vector3 playerPos = gm.getPlayer().transform.position;
-            GridManager gridManager = gm.getTerrainGridManager();
+            Vector3 playerPos = gm.GetPlayerGO().transform.position;
+            GridManager gridManager = gm.GetTerrainGridManager();
 
             List<GameObject> craftStations = gridManager.GetAllObjectsOfTypeOnTilesByRadius(playerPos, craftStationRequiredDistance, typeof(CraftStationBuillding));
             foreach (GameObject station in craftStations)

@@ -45,3 +45,7 @@
 - Rudimental check for required CraftingTable in-range methods + support methods in TerrainGridSystem
 - Item CanCraft() strong refactoring + fixed bug -> craft causing overweight was not checked
 - InventorySlots now are enumerated + QuickBar logic reworked -> it watches the inventory based on a selectedIndex slot
+---
+16-2-2025
+- Inventory Debug UI now highlihts in red the selected quickbar slot
+- Minor refactoring on quickbar and inventory logic

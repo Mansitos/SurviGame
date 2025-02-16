@@ -12,7 +12,7 @@ public class ItemCraftBlueprintDebug : Editor
 
         if (GUILayout.Button("Craft"))
         {
-            InventorySystem inventory = GameManager.Instance.getInventorySystem();
+            InventorySystem inventory = GameManager.Instance.GetInventorySystem();
 
             blueprint.Craft(inventory);
 

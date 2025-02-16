@@ -30,7 +30,7 @@ public class ResourceObject : WorldObject
     private void Start()
     {
         gm = GameManager.Instance;
-        gridManager = gm.getTerrainGridManager();
+        gridManager = gm.GetTerrainGridManager();
         OccupyTile();
     }
 

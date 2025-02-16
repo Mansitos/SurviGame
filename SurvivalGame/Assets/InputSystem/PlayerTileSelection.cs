@@ -32,10 +32,10 @@ public class PlayerTileSelection : MonoBehaviour
     private void Start()
     {
         gm = GameManager.Instance;
-        mainCamera = gm.getMainCamera().GetComponent<Camera>();
+        mainCamera = gm.GetMainCameraGO().GetComponent<Camera>();
         gridManager = GridManager.Instance;
-        inputHandler = gm.getPlayer().GetComponent<PlayerMovementInputHandler>();
-        playerTransform = gm.getPlayer().transform; // Get the player’s Transform
+        inputHandler = gm.GetPlayerGO().GetComponent<PlayerMovementInputHandler>();
+        playerTransform = gm.GetPlayerGO().transform; // Get the player’s Transform
 
         // Ensure tilemap visibility starts correctly
         playerInputTilemap.gameObject.SetActive(isSelectionVisible);
@@ -103,7 +103,7 @@ public class PlayerTileSelection : MonoBehaviour
     {
         Vector2 mouseScreenPos = inputHandler.mouseScreenPosition;
         Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos);
-        int groundLayerMask = gm.getTerrainGridSystem().GetComponent<BuildingPlacer>().groundLayer;
+        int groundLayerMask = gm.GetTerrainGridSystemGO().GetComponent<BuildingPlacer>().groundLayer;
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
         {
             return hit.point;

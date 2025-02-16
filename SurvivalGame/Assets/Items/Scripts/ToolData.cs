@@ -16,10 +16,10 @@ public class ToolData : ItemData, IUsableItem
 
     public bool PerformMainAction(GameManager gm)
     {
-        Vector3Int? selectedTile = gm.getPlayerTileSelection().GetHoveredTilePosition();
+        Vector3Int? selectedTile = gm.GetPlayerTileSelection().GetHoveredTilePosition();
         if (selectedTile != null)
         {
-            GameObject targetObject = gm.getTerrainGridManager().GetObjectOnTile(selectedTile.Value);
+            GameObject targetObject = gm.GetTerrainGridManager().GetObjectOnTile(selectedTile.Value);
             if (targetObject != null)
             {
                 ResourceObject targetResource = targetObject.GetComponent<ResourceObject>();
@@ -28,7 +28,7 @@ public class ToolData : ItemData, IUsableItem
                     if (targetResource.IsResourceObjectOfType(resourceObjectType))
                     {
                         // Start collect process
-                        PlayerMovement player = gm.getPlayer().GetComponent<PlayerMovement>();
+                        PlayerMovement player = gm.GetPlayerGO().GetComponent<PlayerMovement>();
                         player.StartCollectingResource(targetObject, targetResource.GetCollectionDuration(), resourceObjectType);
                     }
                     else

@@ -68,52 +68,52 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public PlayerTileSelection getPlayerTileSelection()
+    public PlayerTileSelection GetPlayerTileSelection()
     {
         return playerTileSelection;
     }
 
-    public PlayerQuickBar getPlayerQickBar()
+    public PlayerQuickBar GetPlayerQuickBar()
     {
         return playerQuickBar;
     }
 
-    public CameraManager getMainCameraManager()
+    public CameraManager GetMainCameraManager()
     {
         return mainCameraManager;
     }
 
-    public GridManager getTerrainGridManager()
+    public GridManager GetTerrainGridManager()
     {
         return terrainGridManager;
     }
 
-    public BuildingPlacer getBuildingPlacer()
+    public BuildingPlacer GetBuildingPlacer()
     {
         return buildingPlacer;
     }
 
-    public GameObject getPlayer()
+    public GameObject GetPlayerGO()
     {
         return player;
     }
 
-    public GameObject getMainCamera()
+    public GameObject GetMainCameraGO()
     {
         return mainCamera;
     }
 
-    public GameObject getTerrainGridSystem()
+    public GameObject GetTerrainGridSystemGO()
     {
         return terrainGridSystem;
     }
 
-    public InventorySystem getInventorySystem()
+    public InventorySystem GetInventorySystem()
     {
         return inventorySystem;
     }
 
-    public PlayerAnimationsHandler getPlayerAnimationHandler()
+    public PlayerAnimationsHandler GetPlayerAnimationHandler()
     {
         return playerAnimationsHandler;
     }

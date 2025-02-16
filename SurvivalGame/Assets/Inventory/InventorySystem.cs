@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -10,14 +9,18 @@ public class InventorySystem : MonoBehaviour
     public float maxWeight = 100.0f;
 
     public TextMeshProUGUI inventoryDebugUI;
+    private PlayerQuickBar quickBar;
+    private GameManager gm;
 
     private void Awake()
     {
         InitSlots();
     }
+    
     void Start()
     {
-
+        gm = GameManager.Instance;
+        quickBar = gm.GetPlayerQuickBar();
     }
 
     public void Update()
@@ -41,23 +44,34 @@ public class InventorySystem : MonoBehaviour
             return;
         }
 
+        int selectedIndex = quickBar.GetSelectedSlotIndex() - 1;
+
         string inventoryDisplay = $"Weight: {GetCurrentWeight()}/{maxWeight}\n";
         inventoryDisplay += $"Slots: {GetFreeSlots()}/{maxSlots}\n";
 
         for (int i = 0; i < slots.Count; i++)
         {
+            string slotDisplay;
             if (slots[i].IsEmpty())
             {
-                inventoryDisplay += $"{i + 1}: empty\n"; // Display 'empty' for empty slots
+                slotDisplay = $"{i + 1}: empty"; // Display 'empty' for empty slots
             }
             else
             {
-                inventoryDisplay += $"{i + 1}: {slots[i].itemInstance.ItemData.itemName} (x{slots[i].GetQuantity()})\n";
+                slotDisplay = $"{i + 1}: {slots[i].itemInstance.ItemData.itemName} (x{slots[i].GetQuantity()})";
             }
+
+            // Highlight the selected index
+            if (i == selectedIndex)
+            {
+                slotDisplay = $"   <color=red>{slotDisplay}</color>"; // Change color to red
+            }
+            inventoryDisplay += $"{slotDisplay}\n";
         }
 
-        inventoryDebugUI.text = inventoryDisplay; // Set the text of the TextMeshPro component
+        inventoryDebugUI.text = inventoryDisplay; // Assuming inventoryDebugUI is a TextMeshPro component
     }
+
 
     public int GetFreeSlots()
     {

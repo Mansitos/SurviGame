@@ -34,11 +34,11 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         gm = GameManager.Instance;
-        mainCamera = gm.getMainCamera().GetComponent<Camera>();
-        inputHandler = gm.getPlayer().GetComponent<PlayerMovementInputHandler>();
+        mainCamera = gm.GetMainCameraGO().GetComponent<Camera>();
+        inputHandler = gm.GetPlayerGO().GetComponent<PlayerMovementInputHandler>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        playerAnimationsHandler = gm.getPlayerAnimationHandler();
+        playerAnimationsHandler = gm.GetPlayerAnimationHandler();
     }
 
     private void Update()
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!gm.isBuildMode)
             {
-                gm.getPlayerQickBar().GetSelectedItemInstance().PerformMainAction(gm);
+                gm.GetPlayerQuickBar().GetSelectedItemInstance().PerformMainAction(gm);
             }
 
         }

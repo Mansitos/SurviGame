@@ -14,21 +14,21 @@ public class PlayerQuickBar : MonoBehaviour
     private void Start()
     {
         gm = GameManager.Instance;
-        inventorySystem = gm.getInventorySystem();
+        inventorySystem = gm.GetInventorySystem();
         defaultItemInstance = new ItemInstance(defaultEmptyItemData, 1);
         SelectSlot(selectedIndex); // using selectedIndex for now, future: keys
-        updateStep();
+        UpdateStep();
     }
 
     private void Update()
     {
-        updateStep();
+        UpdateStep();
     }
 
-    private void updateStep()
+    private void UpdateStep()
     {
         SelectSlot(selectedIndex);
-        updateTileSelectionGridVisibility();
+        UpdateTileSelectionGridVisibility();
     }
 
     public ItemInstance GetSelectedItemInstance()
@@ -36,22 +36,22 @@ public class PlayerQuickBar : MonoBehaviour
         return selectedItemInstance;
     }
 
-    public void setSelectedItem(ItemInstance itemInstance)
+    public void SetSelectedItem(ItemInstance itemInstance)
     {
         //TODO: checks if corret type of item?
         selectedItemInstance = itemInstance;
-        updateTileSelectionGridVisibility();
+        UpdateTileSelectionGridVisibility();
     }
 
-    private void updateTileSelectionGridVisibility()
+    private void UpdateTileSelectionGridVisibility()
     {
         if (selectedItemInstance.ItemData != null && selectedItemInstance.ItemData.IsItemOfType(ItemType.Tool))
         {
-            gm.getPlayerTileSelection().SetSelectionVisibility(true);
+            gm.GetPlayerTileSelection().SetSelectionVisibility(true);
         }
         else
         {
-            gm.getPlayerTileSelection().SetSelectionVisibility(false);
+            gm.GetPlayerTileSelection().SetSelectionVisibility(false);
         }
     }
 
@@ -70,5 +70,10 @@ public class PlayerQuickBar : MonoBehaviour
             selectedItemInstance = selectedInventorySlot.itemInstance;
             selectedItemData = selectedItemInstance.ItemData;
         }
+    }
+
+    public int GetSelectedSlotIndex()
+    {
+        return selectedIndex;
     }
 }
