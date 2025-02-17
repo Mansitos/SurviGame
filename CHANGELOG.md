@@ -28,24 +28,30 @@
 - PickUp collection type + related animation
 ---
 11-2-2025
-- CraftBlueprint basic ScriptableObject logic (CanCraft, Craft)
+- `CraftBlueprint` basic ScriptableObject logic (`CanCraft()`, `Craft()`)
 - Inventory logics for crafting checks: available items, availalbe slots for the output
 ---
 12-2-2025
-- Debug Editor script for give, remove object and craft CraftBlueprint
+- Debug Editor script for give, remove object and craft `CraftBlueprint`
 - Fixed Inventory CanAdd conditions: there was a missing condition
 ---
 13-2-2025
-- CraftBlueprint is now abstract and extended by ItemCraftBlueprint and BuildingBlueprint
+- `CraftBlueprint` is now abstract and extended by `ItemCraftBlueprint` and `BuildingBlueprint`
 - DebugLogic for building buildings (remove B "building" mode).
 ---
 15-2-2025
 - It is now not possible to build in the 3x3 area occupied by player
-- CraftItemBlueprint can now specify a required type of CraftingTable to be in range (a new subclass of Building)
-- Rudimental check for required CraftingTable in-range methods + support methods in TerrainGridSystem
-- Item CanCraft() strong refactoring + fixed bug -> craft causing overweight was not checked
-- InventorySlots now are enumerated + QuickBar logic reworked -> it watches the inventory based on a selectedIndex slot
+- `CraftItemBlueprint` can now specify a required type of `CraftingTable` to be in range (a new subclass of `Building`)
+- Rudimental check for required `CraftingTable` in-range methods + support methods in `TerrainGridSystem`
+- Item `CanCraft()` strong refactoring + fixed bug -> craft causing overweight was not checked
+- `InventorySlots` now are enumerated + QuickBar logic reworked -> it watches the inventory based on a selectedIndex slot
 ---
 16-2-2025
 - Inventory Debug UI now highlihts in red the selected quickbar slot
 - Minor refactoring on quickbar and inventory logic
+---
+17-2-2025
+- Core prototype (incomplete) for processing buildings (to model things like furnaces), new Building subclass: `ProcessingStation`
+- `ProcessingItemCraftBlueprint` blueprint for declaring input and output (to model things like 5 raw iron -> 1 iron ingot)
+- `ItemInstance` is now serializable and editable from the inspector
+---

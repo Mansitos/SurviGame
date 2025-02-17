@@ -22,7 +22,6 @@ public class ItemCraftBlueprint : CraftBlueprint
         if (WillCauseOverweight(inventory))
             return false;
 
-        Debug.Log("aaa");
         return HasSpaceForOutput(inventory);
     }
 

@@ -3,25 +3,28 @@ using UnityEngine;
 [System.Serializable]
 public class ItemInstance
 {
-    public ItemData ItemData { get; private set; }
-    public int Quantity { get; private set; }
+    [SerializeField] private ItemData itemData;
+    [SerializeField] private int quantity;
+
+    public ItemData ItemData => itemData;
+    public int Quantity => quantity;
 
     public ItemInstance(ItemData itemData, int quantity = 1)
     {
-        ItemData = itemData;
-        Quantity = quantity;
+        this.itemData = itemData;
+        this.quantity = quantity;
     }
 
     public void AddQuantity(int amount)
     {
-        Quantity += amount;
+        quantity += amount;
     }
 
     public bool RemoveQuantity(int amount)
     {
-        if (Quantity >= amount)
+        if (quantity >= amount)
         {
-            Quantity -= amount;
+            quantity -= amount;
             return true;
         }
         return false;
