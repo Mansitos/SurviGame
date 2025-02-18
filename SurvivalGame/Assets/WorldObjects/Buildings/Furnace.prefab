@@ -379,8 +379,21 @@ MonoBehaviour:
   blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
   possibleCrafts:
   - {fileID: 11400000, guid: 1cd8ce13540a1f54aa69874168dfd9bf, type: 2}
-  actualProcess: {fileID: 0}
-  processingTime: 0
+  - {fileID: 11400000, guid: 21de33612594c0246aa7199225277dc0, type: 2}
+  validProcessingFuelRequirements:
+  - item: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
+    quantity: 3
+  processingTime: 5
+  storedFuel:
+    itemData: {fileID: 0}
+    quantity: 0
+  storedInput:
+    itemData: {fileID: 0}
+    quantity: 0
+  storedOutput:
+    itemData: {fileID: 0}
+    quantity: 0
+  ItemCraftBlueprintUnderProcess: {fileID: 0}
   isProcessing: 0
 --- !u!1 &6091701798901672002
 GameObject:

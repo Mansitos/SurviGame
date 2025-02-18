@@ -1,6 +1,6 @@
 # **Changelog**
 
-2-2025
+1-2-2025
 - Pushing project bones
 ---
 2-2-2025
@@ -55,3 +55,6 @@
 - `ProcessingItemCraftBlueprint` blueprint for declaring input and output (to model things like 5 raw iron -> 1 iron ingot)
 - `ItemInstance` is now serializable and editable from the inspector
 ---
+18-2-2025
+- Continued `ProcessingStation` logic: available fuel check and code refactoring
+- BugFound: ItemInstance initiated as null fails at == null. Try to remove [System.Serializable].
