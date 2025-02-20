@@ -15,11 +15,11 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
             GameObject dropped = eventData.pointerDrag;
             DraggableUIItem draggableItem = dropped.GetComponent<DraggableUIItem>();
 
-            Debug.Log(draggableItem.parent);
-
-            draggableItem.GetComponent<DraggableUIItem>().parent.GetComponent<InventoryUISlot>().ClearSlot();
-
+            Transform oldParent = draggableItem.parent;
             draggableItem.parent = transform;
+
+            oldParent.GetComponent<InventoryUISlot>().ClearSlot();
+
             hasDisplayedItem = true;
             childDisplayedItem = dropped;
         }
@@ -34,7 +34,7 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
 
     public void ClearSlot()
     {
-        Destroy(childDisplayedItem);
+        childDisplayedItem = null;
         hasDisplayedItem = false;
     }
 }
