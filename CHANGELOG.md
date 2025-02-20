@@ -58,3 +58,6 @@
 18-2-2025
 - Continued `ProcessingStation` logic: available fuel check and code refactoring
 - BugFound: ItemInstance initiated as null fails at == null. Try to remove [System.Serializable].
+---
+19-2-2025
+- First Inventory UI core logic (w.i.p)

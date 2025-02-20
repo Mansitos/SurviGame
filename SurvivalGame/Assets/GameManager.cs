@@ -21,11 +21,6 @@ public class GameManager : MonoBehaviour
     public bool isBuildMode = false;
     public bool isNormalMode = true;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
-
     private void Awake()
     {
         mainCameraManager = GetComponent<CameraManager>();

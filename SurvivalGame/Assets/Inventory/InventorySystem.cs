@@ -28,6 +28,11 @@ public class InventorySystem : MonoBehaviour
         UpdateDebugUI();
     }
 
+    public List<InventorySlot> GetInventorySlots()
+    {
+        return slots;
+    }
+
     public void InitSlots()
     {
         for (int i = 0; i < maxSlots; i++)
@@ -71,7 +76,6 @@ public class InventorySystem : MonoBehaviour
 
         inventoryDebugUI.text = inventoryDisplay; // Assuming inventoryDebugUI is a TextMeshPro component
     }
-
 
     public int GetFreeSlots()
     {
