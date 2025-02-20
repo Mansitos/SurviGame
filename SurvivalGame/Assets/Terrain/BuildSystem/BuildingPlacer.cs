@@ -42,7 +42,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         VerifyChangeInStatus();
 
-        if (gm.isBuildMode)
+        if (gm.IsInBuildMode())
         {
             HandleBuildActions();
         }
@@ -71,7 +71,7 @@ public class BuildingPlacer : MonoBehaviour
 
     public void VerifyChangeInStatus()
     {
-        if (gm.isBuildMode) CreatePreviewObject();
+        if (gm.IsInBuildMode()) CreatePreviewObject();
         else DestroyPreviewObject();
     }
 
@@ -125,7 +125,7 @@ public class BuildingPlacer : MonoBehaviour
                 Debug.Log($"[BuildingPlacer] Placed building at {gridPos} (Size: {buildingWidth}x{buildingHeight})");
             }
 
-            gm.isBuildMode = false;
+            gm.SetBuildMode(false);
         }
         else
         {

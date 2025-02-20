@@ -43,7 +43,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        HandlePlayerMovement();
+        if (gm.IsInNormalMode()) { 
+            HandlePlayerMovement();
+        }
         HandleCollecting(); // TODO: in future maybe more general "handle action"? not hardcoded for collecting?
     }
 
@@ -59,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         // 2. Check for main action
         if (inputHandler.WasMainActionPressedThisFrame())
         {
-            if (!gm.isBuildMode)
+            if (gm.IsInNormalMode())
             {
                 gm.GetPlayerQuickBar().GetSelectedItemInstance().PerformMainAction(gm);
             }

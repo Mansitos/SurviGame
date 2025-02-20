@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public GameObject terrainGridSystem;
     public GameObject player;
+    public GameObject inventoryUIGO;
 
     private CameraManager mainCameraManager;
     private GridManager terrainGridManager;
@@ -16,10 +17,12 @@ public class GameManager : MonoBehaviour
     private PlayerTileSelection playerTileSelection;
     private PlayerAnimationsHandler playerAnimationsHandler;
     private InventorySystem inventorySystem;
+    private InventoryUI inventoryUI;
 
     // Game modes
-    public bool isBuildMode = false;
-    public bool isNormalMode = true;
+    private bool isBuildMode = false;
+    private bool isInventoryMode = false;
+    private bool isNormalMode = true;
 
     private void Awake()
     {
@@ -29,7 +32,8 @@ public class GameManager : MonoBehaviour
         playerQuickBar = player.GetComponent<PlayerQuickBar>();
         playerTileSelection = player.GetComponent<PlayerTileSelection>();
         playerAnimationsHandler = player.GetComponent<PlayerAnimationsHandler>();
-        inventorySystem = player.GetComponent <InventorySystem>();
+        inventorySystem = player.GetComponent<InventorySystem>();
+        inventoryUI = inventoryUIGO.GetComponent<InventoryUI>();
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -37,13 +41,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        UpdateIsInNormalMode();
     }
 
     public void UpdateIsInNormalMode()
     {
-        if (isBuildMode)
+        if (isBuildMode || isInventoryMode)
         {
+            Debug.Log("not normal mode!");
             isNormalMode = false;
         }
         else
@@ -52,15 +56,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool IsInNormalMode()
+    {
+        UpdateIsInNormalMode();
+        return isNormalMode;
+    }
+
+    public InventoryUI GetInventoryUI()
+    {
+        return inventoryUI;
+    }
+
     public bool IsInBuildMode()
     {
         return isBuildMode;
     }
 
+    public bool IsInInventoryMode()
+    {
+        return isInventoryMode;
+    }
+
     public void SetBuildMode(bool flag)
     {
         isBuildMode = flag;
+    }
 
+    public void SetInventoryMode(bool flag)
+    {
+        isInventoryMode = flag;
     }
 
     public PlayerTileSelection GetPlayerTileSelection()

@@ -73,7 +73,7 @@ public class PlayerMovementInputHandler : MonoBehaviour
         mouseScreenPosition = ctx.ReadValue<Vector2>();
     }
 
-    public bool WasBuildModePressedThisFrame() => controls.Player.BuildMode.WasPressedThisFrame();
+    public bool WasInventoryModePressedThisFrame() => controls.Player.Inventory.WasPressedThisFrame();
     public bool WasMainActionPressedThisFrame() => controls.Player.MainAction.WasPressedThisFrame();
     public bool WasSecondaryActionPressedThisFrame() => controls.Player.SecondaryAction.WasPressedThisFrame();
     public bool WasRotateActionPressedThisFrame() => controls.Player.RotateAction.WasPressedThisFrame();

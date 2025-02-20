@@ -55,15 +55,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""BuildMode"",
-                    ""type"": ""Button"",
-                    ""id"": ""69bb5d09-f57a-4b67-ae9c-1816d6d73ee0"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""MainAction"",
                     ""type"": ""Button"",
                     ""id"": ""7a352cc5-eb57-45ed-ba9a-d63d6bc0cb68"",
@@ -85,6 +76,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""RotateAction"",
                     ""type"": ""Button"",
                     ""id"": ""202e253c-0a1f-4e79-ab6a-a6e243fad862"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""22e71309-21b1-4c44-803f-27345c2f7d79"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -171,17 +171,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""88c6052e-6174-48e2-8b66-2c86a303c500"",
-                    ""path"": ""<Keyboard>/b"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BuildMode"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""82b13d84-2fc4-476e-9869-b9fcbfdc7858"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -210,6 +199,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RotateAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61368540-d175-48bc-b6b3-9827c56cf4c5"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -242,6 +242,54 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""QuickBar"",
+            ""id"": ""ac654d5e-fdc2-49e6-b1e0-1f4e149498e1"",
+            ""actions"": [
+                {
+                    ""name"": ""1"",
+                    ""type"": ""Button"",
+                    ""id"": ""08b8567d-adf6-4fae-9047-88a3e831fc0c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""2"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a63a5ea-6e1d-4585-8bf7-a3ce78835703"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fcf79c3d-175b-4025-ba7c-06320ba26fea"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f52f494-6739-4011-90b1-232d458c51d7"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -251,19 +299,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_BuildMode = m_Player.FindAction("BuildMode", throwIfNotFound: true);
         m_Player_MainAction = m_Player.FindAction("MainAction", throwIfNotFound: true);
         m_Player_SecondaryAction = m_Player.FindAction("SecondaryAction", throwIfNotFound: true);
         m_Player_RotateAction = m_Player.FindAction("RotateAction", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
+        // QuickBar
+        m_QuickBar = asset.FindActionMap("QuickBar", throwIfNotFound: true);
+        m_QuickBar__1 = m_QuickBar.FindAction("1", throwIfNotFound: true);
+        m_QuickBar__2 = m_QuickBar.FindAction("2", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerControls.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Camera.enabled, "This will cause a leak and performance issues, PlayerControls.Camera.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_QuickBar.enabled, "This will cause a leak and performance issues, PlayerControls.QuickBar.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -328,10 +381,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_BuildMode;
     private readonly InputAction m_Player_MainAction;
     private readonly InputAction m_Player_SecondaryAction;
     private readonly InputAction m_Player_RotateAction;
+    private readonly InputAction m_Player_Inventory;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -339,10 +392,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @BuildMode => m_Wrapper.m_Player_BuildMode;
         public InputAction @MainAction => m_Wrapper.m_Player_MainAction;
         public InputAction @SecondaryAction => m_Wrapper.m_Player_SecondaryAction;
         public InputAction @RotateAction => m_Wrapper.m_Player_RotateAction;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -361,9 +414,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @BuildMode.started += instance.OnBuildMode;
-            @BuildMode.performed += instance.OnBuildMode;
-            @BuildMode.canceled += instance.OnBuildMode;
             @MainAction.started += instance.OnMainAction;
             @MainAction.performed += instance.OnMainAction;
             @MainAction.canceled += instance.OnMainAction;
@@ -373,6 +423,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RotateAction.started += instance.OnRotateAction;
             @RotateAction.performed += instance.OnRotateAction;
             @RotateAction.canceled += instance.OnRotateAction;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -386,9 +439,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @BuildMode.started -= instance.OnBuildMode;
-            @BuildMode.performed -= instance.OnBuildMode;
-            @BuildMode.canceled -= instance.OnBuildMode;
             @MainAction.started -= instance.OnMainAction;
             @MainAction.performed -= instance.OnMainAction;
             @MainAction.canceled -= instance.OnMainAction;
@@ -398,6 +448,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RotateAction.started -= instance.OnRotateAction;
             @RotateAction.performed -= instance.OnRotateAction;
             @RotateAction.canceled -= instance.OnRotateAction;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -461,18 +514,77 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public CameraActions @Camera => new CameraActions(this);
+
+    // QuickBar
+    private readonly InputActionMap m_QuickBar;
+    private List<IQuickBarActions> m_QuickBarActionsCallbackInterfaces = new List<IQuickBarActions>();
+    private readonly InputAction m_QuickBar__1;
+    private readonly InputAction m_QuickBar__2;
+    public struct QuickBarActions
+    {
+        private @PlayerControls m_Wrapper;
+        public QuickBarActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @_1 => m_Wrapper.m_QuickBar__1;
+        public InputAction @_2 => m_Wrapper.m_QuickBar__2;
+        public InputActionMap Get() { return m_Wrapper.m_QuickBar; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(QuickBarActions set) { return set.Get(); }
+        public void AddCallbacks(IQuickBarActions instance)
+        {
+            if (instance == null || m_Wrapper.m_QuickBarActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_QuickBarActionsCallbackInterfaces.Add(instance);
+            @_1.started += instance.On_1;
+            @_1.performed += instance.On_1;
+            @_1.canceled += instance.On_1;
+            @_2.started += instance.On_2;
+            @_2.performed += instance.On_2;
+            @_2.canceled += instance.On_2;
+        }
+
+        private void UnregisterCallbacks(IQuickBarActions instance)
+        {
+            @_1.started -= instance.On_1;
+            @_1.performed -= instance.On_1;
+            @_1.canceled -= instance.On_1;
+            @_2.started -= instance.On_2;
+            @_2.performed -= instance.On_2;
+            @_2.canceled -= instance.On_2;
+        }
+
+        public void RemoveCallbacks(IQuickBarActions instance)
+        {
+            if (m_Wrapper.m_QuickBarActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IQuickBarActions instance)
+        {
+            foreach (var item in m_Wrapper.m_QuickBarActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_QuickBarActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public QuickBarActions @QuickBar => new QuickBarActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnBuildMode(InputAction.CallbackContext context);
         void OnMainAction(InputAction.CallbackContext context);
         void OnSecondaryAction(InputAction.CallbackContext context);
         void OnRotateAction(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {
         void OnZoom(InputAction.CallbackContext context);
+    }
+    public interface IQuickBarActions
+    {
+        void On_1(InputAction.CallbackContext context);
+        void On_2(InputAction.CallbackContext context);
     }
 }

@@ -256,33 +256,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.96, z: 0}
---- !u!54 &68304597
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782702500006616816}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &68304598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,8 +443,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1041475099}
   terrainGridSystem: {fileID: 1247652894}
   player: {fileID: 1782702500006616816}
-  isBuildMode: 0
-  isNormalMode: 1
+  inventoryUIGO: {fileID: 272808143}
 --- !u!4 &130149862
 Transform:
   m_ObjectHideFlags: 0
@@ -1088,8 +1060,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUISlotPrefab: {fileID: 5547788593188973609, guid: 42422e00c70dd1c40bacda9cec1dc560, type: 3}
+  inventoryUISlotCounterPrefab: {fileID: 4935196003129248267, guid: 62d54e54a6606274098f955e14a59a5c, type: 3}
   grid: {fileID: 1469085970}
   inventoryUISlots: []
+  inventoryUIQuantitySlots: []
 --- !u!1001 &275555035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3895,7 +3869,7 @@ GameObject:
   - component: {fileID: 519990825}
   - component: {fileID: 519990824}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8253,7 +8227,7 @@ RectTransform:
   m_GameObject: {fileID: 1469085970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2248, y: 1.1677, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 272808144}
@@ -11359,7 +11333,6 @@ GameObject:
   - component: {fileID: 68304596}
   - component: {fileID: 68304595}
   - component: {fileID: 68304594}
-  - component: {fileID: 68304597}
   - component: {fileID: 68304598}
   - component: {fileID: 4540228998779071792}
   - component: {fileID: 4540228998779071793}

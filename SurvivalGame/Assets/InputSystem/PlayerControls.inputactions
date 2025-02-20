@@ -33,15 +33,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "BuildMode",
-                    "type": "Button",
-                    "id": "69bb5d09-f57a-4b67-ae9c-1816d6d73ee0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "MainAction",
                     "type": "Button",
                     "id": "7a352cc5-eb57-45ed-ba9a-d63d6bc0cb68",
@@ -63,6 +54,15 @@
                     "name": "RotateAction",
                     "type": "Button",
                     "id": "202e253c-0a1f-4e79-ab6a-a6e243fad862",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "22e71309-21b1-4c44-803f-27345c2f7d79",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -149,17 +149,6 @@
                 },
                 {
                     "name": "",
-                    "id": "88c6052e-6174-48e2-8b66-2c86a303c500",
-                    "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BuildMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "82b13d84-2fc4-476e-9869-b9fcbfdc7858",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -190,6 +179,17 @@
                     "action": "RotateAction",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61368540-d175-48bc-b6b3-9827c56cf4c5",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -216,6 +216,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "QuickBar",
+            "id": "ac654d5e-fdc2-49e6-b1e0-1f4e149498e1",
+            "actions": [
+                {
+                    "name": "1",
+                    "type": "Button",
+                    "id": "08b8567d-adf6-4fae-9047-88a3e831fc0c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "2",
+                    "type": "Button",
+                    "id": "3a63a5ea-6e1d-4585-8bf7-a3ce78835703",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fcf79c3d-175b-4025-ba7c-06320ba26fea",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f52f494-6739-4011-90b1-232d458c51d7",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

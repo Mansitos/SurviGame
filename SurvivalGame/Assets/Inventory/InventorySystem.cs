@@ -9,6 +9,7 @@ public class InventorySystem : MonoBehaviour
     public float maxWeight = 100.0f;
 
     public TextMeshProUGUI inventoryDebugUI;
+    private InventoryUI ui;
     private PlayerQuickBar quickBar;
     private GameManager gm;
 
@@ -20,6 +21,7 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
+        ui = gm.GetInventoryUI();
         quickBar = gm.GetPlayerQuickBar();
     }
 
@@ -38,6 +40,24 @@ public class InventorySystem : MonoBehaviour
         for (int i = 0; i < maxSlots; i++)
         {
             slots.Add(new InventorySlot(null));
+        }
+    }
+
+    public void SwapSlotContents(int fromIndex, int toIndex)
+    {
+        if (fromIndex != toIndex)
+        {
+            InventorySlot fromSlot = slots[fromIndex];
+            InventorySlot toSlot = slots[toIndex];
+            ItemInstance fromSlotItem = fromSlot.itemInstance;
+            ItemInstance toSlotItem = toSlot.itemInstance;
+            bool fromSlotEmpty = fromSlot.IsEmpty();
+            bool toSlotEmpty = toSlot.IsEmpty();
+
+            fromSlot.itemInstance = toSlotItem;
+            toSlot.itemInstance = fromSlotItem;
+            fromSlot.emptySlot = toSlotEmpty;
+            toSlot.emptySlot = fromSlotEmpty;
         }
     }
 
@@ -161,6 +181,7 @@ public class InventorySystem : MonoBehaviour
             {
                 slot.AddItem(item);
                 Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot.");
+                ui.UpdateInventorySlots();
                 return true;
             }
         }
@@ -172,6 +193,7 @@ public class InventorySystem : MonoBehaviour
             {
                 slot.AddItem(item);
                 Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot.");
+                ui.UpdateInventorySlots();
                 return true;
             }
         }
@@ -210,6 +232,7 @@ public class InventorySystem : MonoBehaviour
                     if (slot.GetQuantity() >= item.Quantity)
                     {
                         slot.RemoveItem(item.Quantity);
+                        ui.UpdateInventorySlots();
                         return true;
                     }
                 }

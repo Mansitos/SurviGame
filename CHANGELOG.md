@@ -61,3 +61,7 @@
 ---
 19-2-2025
 - First Inventory UI core logic (w.i.p)
+---
+20-2-2025
+- Inventory UI logic expanded: now UI swap reflects on inventory + `I` key to open/close and related `InventoryMode` flag.
+- Minor `GameManager` refactoring.

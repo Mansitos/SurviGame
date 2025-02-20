@@ -22,7 +22,7 @@ public abstract class Building : WorldObject
     {
         // Apply blueprint cost
         blueprint.Build(gm.GetInventorySystem());
-        gm.isBuildMode = true;
+        gm.SetBuildMode(true);
         gm.GetBuildingPlacer().buildingPrefab = this.gameObject;
     }
 

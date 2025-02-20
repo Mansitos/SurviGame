@@ -113,3 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3335860776fd6e149a9b17057d722d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  childDisplayedItem: {fileID: 0}
+  index: 0
+  hasDisplayedItem: 0

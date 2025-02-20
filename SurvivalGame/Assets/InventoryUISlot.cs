@@ -5,13 +5,13 @@ using UnityEngine.EventSystems;
 public class InventoryUISlot : MonoBehaviour, IDropHandler
 {
     public GameObject childDisplayedItem;
+    public int index;
     public bool hasDisplayedItem;
 
     public void OnDrop(PointerEventData eventData)
     {
         if (!hasDisplayedItem)
         {
-            Debug.Log("B");
             GameObject dropped = eventData.pointerDrag;
             DraggableUIItem draggableItem = dropped.GetComponent<DraggableUIItem>();
 
@@ -20,9 +20,19 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
 
             oldParent.GetComponent<InventoryUISlot>().ClearSlot();
 
+            int oldSlotIndex = oldParent.GetComponent<InventoryUISlot>().index;
+            int newSlotIndex = index;
+
+            GameManager.Instance.GetInventorySystem().SwapSlotContents(oldSlotIndex, newSlotIndex);
+
             hasDisplayedItem = true;
             childDisplayedItem = dropped;
         }
+    }
+
+    public void SetIndex(int index)
+    {
+        this.index = index;
     }
 
     public void SetDisplayedItem(GameObject item)
@@ -32,9 +42,14 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         childDisplayedItem = item;
     }
 
-    public void ClearSlot()
+    public void ClearSlot(bool destroyChild = false)
     {
+        if (destroyChild)
+        {
+            Destroy(childDisplayedItem);
+        }
         childDisplayedItem = null;
         hasDisplayedItem = false;
     }
+
 }

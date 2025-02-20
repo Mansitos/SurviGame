@@ -13,3 +13,7 @@ _Grid system + buildings placement and occupied area_
 #### **Image from: 10/2/2025**
 _Rudimental inventory system and dropped items after resource collection_
 ![alt text](images/image_2.png)
+
+#### **Image from: 20/2/2025**
+_Rudimental Inventory UI with drag mechanics_
+![alt text](images/image_3.png)

@@ -1,35 +1,53 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] GameObject inventoryUISlotPrefab;
+    [SerializeField] GameObject inventoryUISlotCounterPrefab;
     [SerializeField] GameObject grid;
+    private GameObject quantityGrid;
     [SerializeField] List<GameObject> inventoryUISlots;
+    [SerializeField] List<TextMeshProUGUI> inventoryUIQuantitySlots;
 
     private GameManager gm;
     private InventorySystem inventory;
+    private PlayerMovementInputHandler inputHandler;  
 
     void Start()
     {
         gm = GameManager.Instance;
+        inputHandler = gm.GetPlayerGO().GetComponent<PlayerMovementInputHandler>();
         inventory = gm.GetInventorySystem();
         InitInventorySlots();
         UpdateInventorySlots();
+        grid.SetActive(gm.IsInInventoryMode());
+        quantityGrid.SetActive(gm.IsInInventoryMode());
     }
 
     private void InitInventorySlots()
     {
+        quantityGrid = Instantiate(grid, grid.transform.parent);
+        quantityGrid.name = grid.name + "_quantity";
+        Destroy(quantityGrid.GetComponent<Image>());
+
         int numSlots = inventory.maxSlots;
         for (int i = 0; i < numSlots; i++)
         {
             GameObject slot = Instantiate(inventoryUISlotPrefab, grid.transform);
+            slot.GetComponent<InventoryUISlot>().SetIndex(i);
             inventoryUISlots.Add(slot);
+
+            GameObject slotCounter = Instantiate(inventoryUISlotCounterPrefab, quantityGrid.transform);
+            TextMeshProUGUI counter = slotCounter.GetComponent<TextMeshProUGUI>();
+            counter.raycastTarget = false;
+            inventoryUIQuantitySlots.Add(counter);
         }
     }
 
-    private void UpdateInventorySlots()
+    public void UpdateInventorySlots()
     {
         List<InventorySlot> inventorySlots = inventory.GetInventorySlots();
 
@@ -37,9 +55,11 @@ public class InventoryUI : MonoBehaviour
         {
             InventorySlot inventorySlot = inventorySlots[i];
             InventoryUISlot UISlot = inventoryUISlots[i].GetComponent<InventoryUISlot>();
+            TextMeshProUGUI counter = inventoryUIQuantitySlots[i];
 
             // Clear any previous item display
-            UISlot.ClearSlot();
+            UISlot.ClearSlot(destroyChild:true);
+            counter.text = "";
 
             if (!inventorySlot.IsEmpty())
             {
@@ -60,16 +80,32 @@ public class InventoryUI : MonoBehaviour
                 rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
                 rectTransform.anchoredPosition = Vector2.zero;
 
+                counter.text = itemQuantity.ToString();
+
                 UISlot.SetDisplayedItem(itemIconObject);
 
+                //TODO: count
                 //UISlot.SetItemCount(itemQuantity);
             }
         }
     }
-
-
     void Update()
     {
-        //UpdateInventorySlots();
+        CheckInventoryModeInput();
+    }
+
+    private void CheckInventoryModeInput()
+    {
+        if (inputHandler.WasInventoryModePressedThisFrame())
+        {
+            gm.SetInventoryMode(!gm.IsInInventoryMode());
+            grid.SetActive(gm.IsInInventoryMode());
+            quantityGrid.SetActive(gm.IsInInventoryMode());
+
+            if (gm.IsInInventoryMode())
+            {
+                UpdateInventorySlots();
+            }
+        }
     }
 }

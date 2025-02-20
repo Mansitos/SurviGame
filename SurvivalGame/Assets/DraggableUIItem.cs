@@ -10,7 +10,6 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("A");
         parent = this.transform.parent;
 
         this.transform.SetParent(this.transform.root);
@@ -28,9 +27,8 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("C");
         this.transform.SetParent(parent);
         this.GetComponent<Image>().raycastTarget = true;
-        Debug.Log(parent);
+        GameManager.Instance.GetInventoryUI().UpdateInventorySlots();
     }
 }
