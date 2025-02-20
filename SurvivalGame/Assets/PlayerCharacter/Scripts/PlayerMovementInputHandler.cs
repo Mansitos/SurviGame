@@ -9,10 +9,16 @@ public class PlayerMovementInputHandler : MonoBehaviour
     public Vector2 mouseScreenPosition { get; private set; } // Mouse position on screen
 
     private PlayerControls controls; // Reference to the auto-generated input actions class
+    private GameManager gm;
 
     private void Awake()
     {
         controls = new PlayerControls();
+    }
+
+    private void Start()
+    {
+        gm = GameManager.Instance;
     }
 
     private void OnEnable()
@@ -40,13 +46,16 @@ public class PlayerMovementInputHandler : MonoBehaviour
 
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
-        isWalking = true;
-        movementInputVector = ctx.ReadValue<Vector2>();
-
-        // If running button is already held, start running immediately
-        if (controls.Player.Run.IsPressed() && movementInputVector.sqrMagnitude > 0.001f)
+        if (gm.IsInNormalMode())
         {
-            isRunning = true;
+            isWalking = true;
+            movementInputVector = ctx.ReadValue<Vector2>();
+
+            // If running button is already held, start running immediately
+            if (controls.Player.Run.IsPressed() && movementInputVector.sqrMagnitude > 0.001f)
+            {
+                isRunning = true;
+            }
         }
     }
 

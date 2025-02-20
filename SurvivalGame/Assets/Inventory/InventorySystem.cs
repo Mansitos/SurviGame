@@ -8,10 +8,13 @@ public class InventorySystem : MonoBehaviour
     public List<InventorySlot> slots = new List<InventorySlot>();
     public float maxWeight = 100.0f;
 
-    public TextMeshProUGUI inventoryDebugUI;
-    private InventoryUI ui;
+
     private PlayerQuickBar quickBar;
     private GameManager gm;
+
+    private InventoryUI ui;
+    public TextMeshProUGUI inventoryDebugUI;
+    private QuickBarUI quickBarUI;
 
     private void Awake()
     {
@@ -22,6 +25,7 @@ public class InventorySystem : MonoBehaviour
     {
         gm = GameManager.Instance;
         ui = gm.GetInventoryUI();
+        quickBarUI = gm.GetQuickBarUI();
         quickBar = gm.GetPlayerQuickBar();
     }
 
@@ -181,7 +185,7 @@ public class InventorySystem : MonoBehaviour
             {
                 slot.AddItem(item);
                 Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot.");
-                ui.UpdateInventorySlots();
+                UpdateUI();
                 return true;
             }
         }
@@ -193,7 +197,7 @@ public class InventorySystem : MonoBehaviour
             {
                 slot.AddItem(item);
                 Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot.");
-                ui.UpdateInventorySlots();
+                UpdateUI();
                 return true;
             }
         }
@@ -232,7 +236,7 @@ public class InventorySystem : MonoBehaviour
                     if (slot.GetQuantity() >= item.Quantity)
                     {
                         slot.RemoveItem(item.Quantity);
-                        ui.UpdateInventorySlots();
+                        UpdateUI();
                         return true;
                     }
                 }
@@ -254,5 +258,11 @@ public class InventorySystem : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void UpdateUI()
+    {
+        ui.UpdateInventorySlots();
+        quickBarUI.UpdateQuickBarSlots();
     }
 }

@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     public GameObject terrainGridSystem;
     public GameObject player;
     public GameObject inventoryUIGO;
+    public GameObject quickBarUIGO;
 
+    // Components
     private CameraManager mainCameraManager;
     private GridManager terrainGridManager;
     private BuildingPlacer buildingPlacer;
@@ -17,7 +19,10 @@ public class GameManager : MonoBehaviour
     private PlayerTileSelection playerTileSelection;
     private PlayerAnimationsHandler playerAnimationsHandler;
     private InventorySystem inventorySystem;
+
+    // UIs
     private InventoryUI inventoryUI;
+    private QuickBarUI quickBarUI;
 
     // Game modes
     private bool isBuildMode = false;
@@ -34,6 +39,7 @@ public class GameManager : MonoBehaviour
         playerAnimationsHandler = player.GetComponent<PlayerAnimationsHandler>();
         inventorySystem = player.GetComponent<InventorySystem>();
         inventoryUI = inventoryUIGO.GetComponent<InventoryUI>();
+        quickBarUI = quickBarUIGO.GetComponent <QuickBarUI>();
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -60,6 +66,11 @@ public class GameManager : MonoBehaviour
     {
         UpdateIsInNormalMode();
         return isNormalMode;
+    }
+
+    public QuickBarUI GetQuickBarUI()
+    {
+        return quickBarUI;
     }
 
     public InventoryUI GetInventoryUI()

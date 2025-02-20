@@ -60,8 +60,10 @@
 - BugFound: ItemInstance initiated as null fails at == null. Try to remove [System.Serializable].
 ---
 19-2-2025
-- First Inventory UI core logic (w.i.p)
+- First Inventory UI core logics
 ---
 20-2-2025
 - Inventory UI logic expanded: now UI swap reflects on inventory + `I` key to open/close and related `InventoryMode` flag.
+- QuickBar UI implemented.
+- Dummy sprite for pickaxe, axe, fiber.
 - Minor `GameManager` refactoring.

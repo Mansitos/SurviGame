@@ -5,7 +5,6 @@ public class PlayerQuickBar : MonoBehaviour
     public ItemData defaultEmptyItemData;
     public ItemInstance defaultItemInstance;
 
-    private ItemData selectedItemData; // Assign in Inspector
     public int selectedIndex = 1;
     private ItemInstance selectedItemInstance; // Runtime item instance
     private InventorySystem inventorySystem;
@@ -60,15 +59,11 @@ public class PlayerQuickBar : MonoBehaviour
         selectedIndex = slotIndex;
         InventorySlot selectedInventorySlot = inventorySystem.slots[slotIndex - 1];
         if (selectedInventorySlot.IsEmpty()) {
-            //Debug.Log("Selected slot empty");
             selectedItemInstance = defaultItemInstance;
-            selectedItemData = defaultEmptyItemData;
         }
         else
         {
-            //Debug.Log("Selected slot!");
             selectedItemInstance = selectedInventorySlot.itemInstance;
-            selectedItemData = selectedItemInstance.ItemData;
         }
     }
 

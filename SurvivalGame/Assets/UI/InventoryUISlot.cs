@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -35,10 +34,13 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         this.index = index;
     }
 
-    public void SetDisplayedItem(GameObject item)
+    public void SetDisplayedItem(GameObject item, bool draggable = true)
     {
         hasDisplayedItem = true;
-        item.AddComponent<DraggableUIItem>();
+        if (draggable)
+        {
+            item.AddComponent<DraggableUIItem>();
+        }
         childDisplayedItem = item;
     }
 

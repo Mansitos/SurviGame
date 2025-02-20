@@ -15,5 +15,6 @@ _Rudimental inventory system and dropped items after resource collection_
 ![alt text](images/image_2.png)
 
 #### **Image from: 20/2/2025**
-_Rudimental Inventory UI with drag mechanics_
+_Rudimental Inventory and quickbar UI with drag mechanics_
 ![alt text](images/image_3.png)
+![alt text](images/image_4.png)

@@ -23,8 +23,7 @@ public class InventoryUI : MonoBehaviour
         inventory = gm.GetInventorySystem();
         InitInventorySlots();
         UpdateInventorySlots();
-        grid.SetActive(gm.IsInInventoryMode());
-        quantityGrid.SetActive(gm.IsInInventoryMode());
+        UpdateActiveStatus();
     }
 
     private void InitInventorySlots()
@@ -89,6 +88,7 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+    
     void Update()
     {
         CheckInventoryModeInput();
@@ -99,13 +99,18 @@ public class InventoryUI : MonoBehaviour
         if (inputHandler.WasInventoryModePressedThisFrame())
         {
             gm.SetInventoryMode(!gm.IsInInventoryMode());
-            grid.SetActive(gm.IsInInventoryMode());
-            quantityGrid.SetActive(gm.IsInInventoryMode());
+            UpdateActiveStatus();
 
             if (gm.IsInInventoryMode())
             {
                 UpdateInventorySlots();
             }
         }
+    }
+
+    private void UpdateActiveStatus()
+    {
+        grid.SetActive(gm.IsInInventoryMode());
+        quantityGrid.SetActive(gm.IsInInventoryMode());
     }
 }
