@@ -8,9 +8,9 @@ public class InventorySystem : MonoBehaviour
     public List<InventorySlot> slots = new List<InventorySlot>();
     public float maxWeight = 100.0f;
 
-
     private PlayerQuickBar quickBar;
     private GameManager gm;
+    private UIManager uim;
 
     private InventoryUI ui;
     public TextMeshProUGUI inventoryDebugUI;
@@ -24,8 +24,9 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
-        ui = gm.GetInventoryUI();
-        quickBarUI = gm.GetQuickBarUI();
+        uim = gm.GetUIManager();
+        ui = uim.GetInventoryUI();
+        quickBarUI = uim.GetQuickBarUI();
         quickBar = gm.GetPlayerQuickBar();
     }
 

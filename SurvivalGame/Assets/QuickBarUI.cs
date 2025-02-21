@@ -86,7 +86,6 @@ public class QuickBarUI : MonoBehaviour
 
         if (oldStatus != newStatus)
         {
-            Debug.Log("Need to update quickbar UI");
             UpdateQuickBarSlots();
         }
     }

@@ -5,13 +5,11 @@ using UnityEngine.InputSystem;
 
 public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-
     public Transform parent;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         parent = this.transform.parent;
-
         this.transform.SetParent(this.transform.root);
         this.transform.SetAsLastSibling();
         this.GetComponent<Image>().raycastTarget = false;
@@ -27,8 +25,9 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        // NB: At this point the parent could have changed due to InventoryUISlot.OnDrop()
         this.transform.SetParent(parent);
         this.GetComponent<Image>().raycastTarget = true;
-        GameManager.Instance.GetInventoryUI().UpdateInventorySlots();
+        GameManager.Instance.GetUIManager().GetInventoryUI().UpdateInventorySlots();
     }
 }

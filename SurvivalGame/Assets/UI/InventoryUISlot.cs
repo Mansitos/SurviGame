@@ -11,18 +11,20 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
     {
         if (!hasDisplayedItem)
         {
+            // Dropped draggable item
             GameObject dropped = eventData.pointerDrag;
             DraggableUIItem draggableItem = dropped.GetComponent<DraggableUIItem>();
 
+            // Saving reference of old parent and setting this as the new one
             Transform oldParent = draggableItem.parent;
             draggableItem.parent = transform;
 
-            oldParent.GetComponent<InventoryUISlot>().ClearSlot();
+            // Clear old parent inventory UI slot
+            oldParent.GetComponent<InventoryUISlot>().ClearSlot(destroyChild: false);
 
+            // Reflecting swap also in the inventory
             int oldSlotIndex = oldParent.GetComponent<InventoryUISlot>().index;
-            int newSlotIndex = index;
-
-            GameManager.Instance.GetInventorySystem().SwapSlotContents(oldSlotIndex, newSlotIndex);
+            GameManager.Instance.GetInventorySystem().SwapSlotContents(oldSlotIndex, index);
 
             hasDisplayedItem = true;
             childDisplayedItem = dropped;
@@ -53,5 +55,4 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         childDisplayedItem = null;
         hasDisplayedItem = false;
     }
-
 }

@@ -18,3 +18,7 @@ _Rudimental inventory system and dropped items after resource collection_
 _Rudimental Inventory and quickbar UI with drag mechanics_
 ![alt text](images/image_3.png)
 ![alt text](images/image_4.png)
+
+#### **Image from: 21/2/2025**
+_Organised roadmap on Notion!_
+![alt text](images/image_5.png)

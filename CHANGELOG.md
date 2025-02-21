@@ -67,3 +67,6 @@
 - QuickBar UI implemented.
 - Dummy sprite for pickaxe, axe, fiber.
 - Minor `GameManager` refactoring.
+---
+21-2-2025
+- Minor refactoring: introduction of `UIManager`
