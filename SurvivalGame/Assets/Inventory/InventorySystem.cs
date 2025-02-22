@@ -263,7 +263,7 @@ public class InventorySystem : MonoBehaviour
 
     private void UpdateUI()
     {
-        ui.UpdateInventorySlots();
-        quickBarUI.UpdateQuickBarSlots();
+        ui.UpdateSlots();
+        quickBarUI.UpdateSlots();
     }
 }

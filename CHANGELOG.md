@@ -70,3 +70,6 @@
 ---
 21-2-2025
 - Minor refactoring: introduction of `UIManager`
+---
+22-2-2025
+- Strong inventory and quickbar UI refactoring. Added parent class: `BaseInventoryUI` with common logic.
