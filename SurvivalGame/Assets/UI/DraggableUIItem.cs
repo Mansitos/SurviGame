@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Transform parent;
+    public ItemInstance linkedItemInstance;
 
     public void OnBeginDrag(PointerEventData eventData)
     {

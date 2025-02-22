@@ -15,7 +15,7 @@ public class QuickBarUI : BaseInventoryUI
 
     protected override void InitSlots()
     {
-        PopulateSlots(numSlots);
+        PopulateSlots(numSlots, SlotType.QuickBar);
     }
 
     private void Update()

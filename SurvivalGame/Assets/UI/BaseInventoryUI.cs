@@ -26,12 +26,13 @@ public abstract class BaseInventoryUI : MonoBehaviour
 
     protected abstract void InitSlots(); // Each UI type initializes differently
 
-    protected void PopulateSlots(int numToPopulate)
+    protected void PopulateSlots(int numToPopulate, SlotType slotType)
     {
         for (int i = 0; i < numToPopulate; i++)
         {
             GameObject slot = Instantiate(inventoryUISlotPrefab, grid.transform);
             slot.GetComponent<InventoryUISlot>().SetIndex(i);
+            slot.GetComponent<InventoryUISlot>().SetSlotType(slotType);
             uiSlots.Add(slot);
         }
     }
@@ -52,7 +53,7 @@ public abstract class BaseInventoryUI : MonoBehaviour
             {
                 GameObject itemIconObject = CreateItemIcon(inventorySlot.itemInstance);
                 itemIconObject.transform.SetParent(UISlot.transform, false);
-                UISlot.SetDisplayedItem(itemIconObject, draggable: ItemsAreDraggable);
+                UISlot.SetDisplayedItem(itemIconObject, inventorySlot.itemInstance , draggable: ItemsAreDraggable);
             }
         }
     }

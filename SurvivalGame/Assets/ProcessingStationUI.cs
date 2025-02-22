@@ -20,6 +20,9 @@ public class ProcessingStationUI : BaseInventoryUI
         input = inputSlot.GetComponent<InventoryUISlot>();
         output = outputSlot.GetComponent<InventoryUISlot>();
         fuel = fuelSlot.GetComponent<InventoryUISlot>();
+        input.SetSlotType(SlotType.ProcessingStation);
+        output.SetSlotType(SlotType.ProcessingStation);
+        fuel.SetSlotType (SlotType.ProcessingStation);
         LinkStation(attachedStation);
     }
 
@@ -42,17 +45,17 @@ public class ProcessingStationUI : BaseInventoryUI
         ItemInstance storedInput = processingStation.storedInput;
         ItemInstance storedOutput = processingStation.storedOutput;
 
-        GameObject itemIconObjectInput = CreateItemIcon(storedInput);
-        itemIconObjectInput.transform.SetParent(input.transform, false);
-        input.SetDisplayedItem(itemIconObjectInput, draggable: true);
-
         GameObject itemIconObjectFuel = CreateItemIcon(storedFuel);
         itemIconObjectFuel.transform.SetParent(fuel.transform, false);
-        fuel.SetDisplayedItem(itemIconObjectFuel, draggable: true);
+        fuel.SetDisplayedItem(itemIconObjectFuel, storedFuel, draggable: true);
+
+        GameObject itemIconObjectInput = CreateItemIcon(storedInput);
+        itemIconObjectInput.transform.SetParent(input.transform, false);
+        input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
 
         GameObject itemIconObjectOutput = CreateItemIcon(storedOutput);
         itemIconObjectOutput.transform.SetParent(output.transform, false);
-        output.SetDisplayedItem(itemIconObjectOutput, draggable: true);
+        output.SetDisplayedItem(itemIconObjectOutput, storedOutput, draggable: true);
 
     }
 

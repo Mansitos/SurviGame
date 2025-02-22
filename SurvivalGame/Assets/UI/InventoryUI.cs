@@ -12,7 +12,7 @@ public class InventoryUI : BaseInventoryUI
     protected override void InitSlots()
     {
         numSlots = inventory.maxSlots;
-        PopulateSlots(numSlots);
+        PopulateSlots(numSlots, SlotType.Inventory);
     }
 
     private void Update()

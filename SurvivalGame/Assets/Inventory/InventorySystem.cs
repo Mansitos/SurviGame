@@ -130,6 +130,12 @@ public class InventorySystem : MonoBehaviour
         return false;
     }
 
+    public bool CanAddItemOnSlot(ItemInstance item, int slotIndex)
+    {
+        // TODO.
+        return false;
+    }
+
     public bool CanAddItem(ItemInstance item)
     {
         // First check is to check if weight would be too much!
@@ -171,8 +177,15 @@ public class InventorySystem : MonoBehaviour
         return false;
     }
 
-    public bool TryAddItem(ItemInstance item)
+    public bool TryAddItem(ItemInstance item, bool hasTargetSlot = false, int targetSlotIndex = -1)
     {
+        // Ensure targetSlotIndex is mandatory only if hasTargetSlot is true
+        if (hasTargetSlot && targetSlotIndex < 0)
+        {
+            Debug.LogError("[InventorySystem] Add operation aborted: targetSlotIndex must be specified if hasTargetSlot is true.");
+            return false;
+        }
+
         if (!CanAddItem(item))
         {
             Debug.Log("[InventorySystem] Add operation aborted: Cannot add item.");
@@ -180,11 +193,16 @@ public class InventorySystem : MonoBehaviour
         }
 
         // First, try to add the item to an existing slot that already contains the same item.
-        foreach (InventorySlot slot in slots)
+        for (int i = 0; i < slots.Count; i++)
         {
+            InventorySlot slot = slots[i];
             if (!slot.IsEmpty() && slot.CanAdd(item))
             {
                 slot.AddItem(item);
+                if (hasTargetSlot)
+                {
+                    //SwapSlotContents(i, targetSlotIndex);
+                }
                 Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot.");
                 UpdateUI();
                 return true;
@@ -192,16 +210,22 @@ public class InventorySystem : MonoBehaviour
         }
 
         // If no suitable existing slot is found and there is room for a new slot, add a new slot
-        foreach (InventorySlot slot in slots)
+        for (int i = 0; i < slots.Count; i++)
         {
+            InventorySlot slot = slots[i];
             if (slot.CanAdd(item))
             {
                 slot.AddItem(item);
-                Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot.");
+                if (hasTargetSlot)
+                {
+                    SwapSlotContents(i, targetSlotIndex);
+                }
+                Debug.Log($"[InventorySystem] Added {item.Quantity} {item.ItemData.itemName}(s) to existing slot at index {i}.");
                 UpdateUI();
                 return true;
             }
         }
+
 
         // If there's no room for a new slot, log that the inventory is full
         Debug.Log("[InventorySystem] Inventory full: No free slots available.");
@@ -266,4 +290,5 @@ public class InventorySystem : MonoBehaviour
         ui.UpdateSlots();
         quickBarUI.UpdateSlots();
     }
+
 }

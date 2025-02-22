@@ -1,11 +1,25 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static InventoryUISlot;
+
+
+public enum SlotType
+{
+    Generic,
+    Inventory,
+    QuickBar,
+    ProcessingStation
+}
 
 public class InventoryUISlot : MonoBehaviour, IDropHandler
 {
     public GameObject childDisplayedItem;
     public int index;
     public bool hasDisplayedItem;
+    public SlotType slotType = SlotType.Generic;
+
+    public static event Func<bool> itemMovedToInventory;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -13,21 +27,82 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         {
             // Dropped draggable item
             GameObject dropped = eventData.pointerDrag;
-            DraggableUIItem draggableItem = dropped.GetComponent<DraggableUIItem>();
+            DraggableUIItem droppedDraggableItem = dropped.GetComponent<DraggableUIItem>();
 
-            // Saving reference of old parent and setting this as the new one
-            Transform oldParent = draggableItem.parent;
-            draggableItem.parent = transform;
+            // Saving reference of old parent
+            Transform oldParent = droppedDraggableItem.parent;
+            InventoryUISlot oldParentSlot = oldParent.GetComponent<InventoryUISlot>();
+
+            PerformActionBasedOnTypes(droppedDraggableItem, oldParentSlot, dropped);
+        }
+    }
+
+    private void PerformActionBasedOnTypes(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
+    {
+        if (oldParentSlot.slotType == SlotType.Inventory)
+        {
+            ActionFromInventory(droppedDraggableItem, oldParentSlot, dropped);
+        }
+        else
+        {
+            ActionFromProcessingStation(droppedDraggableItem, oldParentSlot, dropped);
+        }
+    }
+
+    private void ActionFromInventory(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
+    {
+        if (this.slotType == SlotType.Inventory)
+        {
+            // Setting this as new parent
+            droppedDraggableItem.parent = transform;
 
             // Clear old parent inventory UI slot
-            oldParent.GetComponent<InventoryUISlot>().ClearSlot(destroyChild: false);
+            oldParentSlot.ClearSlot(destroyChild: false);
 
             // Reflecting swap also in the inventory
-            int oldSlotIndex = oldParent.GetComponent<InventoryUISlot>().index;
+            int oldSlotIndex = oldParentSlot.index;
             GameManager.Instance.GetInventorySystem().SwapSlotContents(oldSlotIndex, index);
 
             hasDisplayedItem = true;
             childDisplayedItem = dropped;
+        }
+        else
+        {
+            Debug.Log("From inventory to other");
+        }
+    }
+
+    private void ActionFromProcessingStation(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
+    {
+        if (this.slotType == SlotType.Inventory)
+        {
+            ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
+
+            // TODO change with CanAddItemOnSlot
+            if (GameManager.Instance.GetInventorySystem().CanAddItem(itemToAdd))
+            {
+                Debug.Log("YES YOU CAN");
+
+                // Setting this as new parent
+                droppedDraggableItem.parent = transform;
+
+                // Clear old parent inventory UI slot
+                oldParentSlot.ClearSlot(destroyChild: false);
+
+                GameManager.Instance.GetInventorySystem().TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
+
+                hasDisplayedItem = true;
+                childDisplayedItem = dropped;
+
+            }
+            else
+            {
+                Debug.Log("YOU CANT!!!!!!!!!");
+            }
+        }
+        else
+        {
+            Debug.Log("From other to other");
         }
     }
 
@@ -36,12 +111,18 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         this.index = index;
     }
 
-    public void SetDisplayedItem(GameObject item, bool draggable = true)
+    public void SetSlotType(SlotType slotType)
+    {
+        this.slotType = slotType;
+    }
+
+    public void SetDisplayedItem(GameObject item, ItemInstance linkedItemInstance, bool draggable = true)
     {
         hasDisplayedItem = true;
         if (draggable)
         {
             item.AddComponent<DraggableUIItem>();
+            item.GetComponent<DraggableUIItem>().linkedItemInstance = linkedItemInstance;
         }
         childDisplayedItem = item;
     }

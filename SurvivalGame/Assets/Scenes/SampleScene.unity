@@ -912,7 +912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &183206434
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8948,6 +8948,14 @@ PrefabInstance:
       propertyPath: storedInput.quantity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5641343652501702889, guid: ef3647bb47e9cb441b2ab54629e3507c, type: 3}
+      propertyPath: storedOutput.itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
+    - target: {fileID: 5641343652501702889, guid: ef3647bb47e9cb441b2ab54629e3507c, type: 3}
+      propertyPath: storedOutput.quantity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8966,6 +8974,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1189531078}
     m_Modifications:
+    - target: {fileID: 2887413831661960341, guid: 42422e00c70dd1c40bacda9cec1dc560, type: 3}
+      propertyPath: index
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4875515864366743945, guid: 42422e00c70dd1c40bacda9cec1dc560, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9768,6 +9780,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1189531078}
     m_Modifications:
+    - target: {fileID: 2887413831661960341, guid: 42422e00c70dd1c40bacda9cec1dc560, type: 3}
+      propertyPath: index
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4875515864366743945, guid: 42422e00c70dd1c40bacda9cec1dc560, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10978,6 +10994,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1189531078}
     m_Modifications:
+    - target: {fileID: 2887413831661960341, guid: 42422e00c70dd1c40bacda9cec1dc560, type: 3}
+      propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4875515864366743945, guid: 42422e00c70dd1c40bacda9cec1dc560, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
