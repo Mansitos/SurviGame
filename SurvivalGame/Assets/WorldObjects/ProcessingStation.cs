@@ -27,7 +27,6 @@ public class ProcessingStation : Building
     {
         ResetStateNulls();
         CheckStartProcessingConditions(); //TODO: in future, for optimization, only when thigs added
-
     }
 
     // TODO: i still not understand this unity/c# ... behaviour

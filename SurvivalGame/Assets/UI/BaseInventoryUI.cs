@@ -50,21 +50,21 @@ public abstract class BaseInventoryUI : MonoBehaviour
 
             if (!inventorySlot.IsEmpty())
             {
-                GameObject itemIconObject = CreateItemIcon(UISlot, inventorySlot);
+                GameObject itemIconObject = CreateItemIcon(inventorySlot.itemInstance);
+                itemIconObject.transform.SetParent(UISlot.transform, false);
                 UISlot.SetDisplayedItem(itemIconObject, draggable: ItemsAreDraggable);
             }
         }
     }
 
-    protected GameObject CreateItemIcon(InventoryUISlot uiSlot, InventorySlot inventorySlot)
+    protected GameObject CreateItemIcon(ItemInstance itemInstance)
     {
-        Sprite itemSprite = inventorySlot.itemInstance.ItemData.uiIcon;
-        int itemQuantity = inventorySlot.itemInstance.Quantity;
+        Sprite itemSprite = itemInstance.ItemData.uiIcon;
+        int itemQuantity = itemInstance.Quantity;
 
         // Create a new GameObject for the item icon
         GameObject itemIconObject = new GameObject("ItemIcon");
-        itemIconObject.transform.SetParent(uiSlot.transform, false);
-
+        
         // Add Image component and assign sprite
         Image itemImage = itemIconObject.AddComponent<Image>();
         itemImage.sprite = itemSprite;

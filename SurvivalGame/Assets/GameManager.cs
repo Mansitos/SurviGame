@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public GameObject terrainGridSystem;
     public GameObject player;
+    public GameObject timeManager;
 
     // Script Components
     private CameraManager mainCameraManager;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     private PlayerTileSelection playerTileSelection;
     private PlayerAnimationsHandler playerAnimationsHandler;
     private InventorySystem inventorySystem;
+    private GameTimeManager gameTimeManager;
 
     // Game modes
     private bool isBuildMode = false;
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         playerTileSelection = player.GetComponent<PlayerTileSelection>();
         playerAnimationsHandler = player.GetComponent<PlayerAnimationsHandler>();
         inventorySystem = player.GetComponent<InventorySystem>();
+        gameTimeManager = timeManager.GetComponent<GameTimeManager>();
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -80,6 +83,11 @@ public class GameManager : MonoBehaviour
     {
         isInventoryMode = flag;
         UpdateIsInNormalMode();
+    }
+
+    public GameTimeManager GetGameTimeManager()
+    {
+        return gameTimeManager;
     }
 
     public PlayerTileSelection GetPlayerTileSelection()

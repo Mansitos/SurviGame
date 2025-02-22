@@ -1,0 +1,96 @@
+using UnityEngine;
+using System;
+
+public class GameTimeManager : MonoBehaviour
+{
+    public int startHour = 8;  // Start of day (8:00 AM)
+    public int endHour = 22;   // End of day (10:00 PM)
+    public float realTimeDayDuration = 600f; // Full day duration in seconds (10 min IRL)
+
+    private int currentDay = 1;
+    private int currentHour;
+    private int currentMinute;
+    private float timePerSlot;
+    private float timer = 0;
+
+    public event Action<int, int> OnTimeChanged;  // Event for UI updates
+    public event Action<int> OnDayEnded;  // Event when day ends
+
+    void Start()
+    {
+        ResetDay();
+    }
+
+    void Update()
+    {
+        timer += Time.deltaTime;
+
+        while (timer >= timePerSlot)
+        {
+            timer -= timePerSlot;
+            AdvanceTime();
+        }
+    }
+
+    private void ResetDay()
+    {
+        currentHour = startHour;
+        currentMinute = 0;
+        timer = 0f;
+
+        // Calculate real time duration for each 10-minute slot
+        int totalGameMinutes = (endHour - startHour) * 60; // Total in-game minutes in a day
+        int totalSlots = totalGameMinutes / 10; // Number of 10-minute slots
+        timePerSlot = realTimeDayDuration / totalSlots; // Time per slot in real-world seconds
+
+        OnTimeChanged?.Invoke(currentHour, currentMinute);
+    }
+
+    private void AdvanceTime()
+    {
+        currentMinute += 10;
+
+        if (currentMinute >= 60)
+        {
+            currentMinute = 0;
+            currentHour++;
+        }
+
+        if (currentHour >= endHour)
+        {
+            EndDay();
+        }
+        else
+        {
+            OnTimeChanged?.Invoke(currentHour, currentMinute);
+        }
+    }
+
+    private void EndDay()
+    {
+        currentDay++;
+        OnDayEnded?.Invoke(currentDay);
+        Debug.Log("DAY END!");
+        ResetDay();
+    }
+
+    public int GetCurrentDay()
+    {
+        return currentDay;
+    }
+
+    public int GetCurrentHour()
+    {
+        return currentHour;
+    }
+
+    public int GetCurrentMinutes()
+    {
+        return currentMinute;
+    }
+
+    public string GetCurrentTimeFormatted()
+    {
+        return $"{currentHour:D2}:{currentMinute:D2}";
+    }
+}
