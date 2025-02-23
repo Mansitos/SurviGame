@@ -76,3 +76,7 @@
 - Rudimental `ProcessingStationUI` with some of the starting logic.
 - Implemented base game time logics with related `GameTimeManager`.
 - Partial code for moving Items between difference UI inventories (e.g. ProcessingStation -> Inventory). 
+---
+23-2-2025
+- Fixed potential bug in `InventorySystem`. `AddItem()` now if the slot is empty create a clone of the given `ItemInstance`, does not save the reference. Just for safety to avoid duplication glitches.
+- Completed rudimental UI logic to move objects between inventory and processing station: still to refine, refactor and fix bugs.

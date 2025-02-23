@@ -39,7 +39,7 @@ public class ItemCraftBlueprint : CraftBlueprint
     {
         foreach (ItemRequirement requirement in requirements)
         {
-            if (!inventory.isItemAvailable(new ItemInstance(requirement.item, requirement.quantity)))
+            if (!inventory.IsItemAvailable(new ItemInstance(requirement.item, requirement.quantity)))
             {
                 Debug.Log($"[ItemCraftBlueprint] Can't craft item because {requirement.item.itemName} with quantity {requirement.quantity} is not available");
                 return false;

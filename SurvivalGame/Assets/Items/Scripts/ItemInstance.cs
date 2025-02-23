@@ -15,6 +15,11 @@ public class ItemInstance
         this.quantity = quantity;
     }
 
+    public ItemInstance Clone()
+    {
+        return new ItemInstance(this.itemData, this.quantity);
+    }
+
     public void AddQuantity(int amount)
     {
         quantity += amount;

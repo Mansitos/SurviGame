@@ -8,7 +8,7 @@ public class BuildingBlueprint : CraftBlueprint
         // First simple check is to check whenever the required items are available
         foreach (ItemRequirement requirement in requirements)
         {
-            if (!inventory.isItemAvailable(new ItemInstance(requirement.item, requirement.quantity)))
+            if (!inventory.IsItemAvailable(new ItemInstance(requirement.item, requirement.quantity)))
             {
                 Debug.Log($"[BuildingBlueprint] Can't build because {requirement.item.itemName} with quantity {requirement.quantity} is not available");
                 return false;

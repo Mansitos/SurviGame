@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static InventoryUISlot;
-
 
 public enum SlotType
 {
@@ -15,11 +13,9 @@ public enum SlotType
 public class InventoryUISlot : MonoBehaviour, IDropHandler
 {
     public GameObject childDisplayedItem;
-    public int index;
+    private int index;
     public bool hasDisplayedItem;
     public SlotType slotType = SlotType.Generic;
-
-    public static event Func<bool> itemMovedToInventory;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -37,6 +33,11 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         }
     }
 
+    public int GetIndex()
+    {
+        return index;
+    }
+
     private void PerformActionBasedOnTypes(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
     {
         if (oldParentSlot.slotType == SlotType.Inventory)
@@ -51,24 +52,33 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
 
     private void ActionFromInventory(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
     {
+        int oldSlotIndex = oldParentSlot.index;
+
         if (this.slotType == SlotType.Inventory)
         {
-            // Setting this as new parent
-            droppedDraggableItem.parent = transform;
-
-            // Clear old parent inventory UI slot
-            oldParentSlot.ClearSlot(destroyChild: false);
-
-            // Reflecting swap also in the inventory
-            int oldSlotIndex = oldParentSlot.index;
             GameManager.Instance.GetInventorySystem().SwapSlotContents(oldSlotIndex, index);
+            GameManager.Instance.GetUIManager().GetInventoryUI().UpdateSlots();
+        }
+        else if (this.slotType == SlotType.ProcessingStation)
+        {
+            // Get inventory content at index
+            InventorySlot incomingItemSlot = GameManager.Instance.GetInventorySystem().GetInventorySlotAtIndex(oldSlotIndex);
+            ItemInstance incomingItem = incomingItemSlot.itemInstance;
+            ProcessingStationUI stationUI = GameManager.Instance.GetUIManager().GetProcessingStationUI();
 
-            hasDisplayedItem = true;
-            childDisplayedItem = dropped;
+            if (stationUI.VerifyCanAddToSlot(incomingItem.ItemData, this.index)){
+                Debug.Log("asd");
+                stationUI.AddToSlot(incomingItem, this.index);
+                GameManager.Instance.GetInventorySystem().TryRemoveItem(incomingItem);
+            }
+            else
+            {
+                Debug.Log("Cannot add this item in this slot");
+            }
         }
         else
         {
-            Debug.Log("From inventory to other");
+            Debug.Log("not handled! should never happend!");
         }
     }
 
@@ -81,28 +91,22 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
             // TODO change with CanAddItemOnSlot
             if (GameManager.Instance.GetInventorySystem().CanAddItem(itemToAdd))
             {
-                Debug.Log("YES YOU CAN");
-
-                // Setting this as new parent
-                droppedDraggableItem.parent = transform;
-
-                // Clear old parent inventory UI slot
-                oldParentSlot.ClearSlot(destroyChild: false);
-
                 GameManager.Instance.GetInventorySystem().TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
-
-                hasDisplayedItem = true;
-                childDisplayedItem = dropped;
-
+                ProcessingStationUI stationUI = GameManager.Instance.GetUIManager().GetProcessingStationUI();
+                stationUI.RemoveItemFromIndexSlot(oldParentSlot.GetIndex());
             }
             else
             {
-                Debug.Log("YOU CANT!!!!!!!!!");
+                Debug.Log("Cannot move item from processing station to inventory.");
             }
+        }
+        else if (this.slotType == SlotType.ProcessingStation)
+        {
+            Debug.Log("Moving station to station: not supported for now!");
         }
         else
         {
-            Debug.Log("From other to other");
+            Debug.Log("not handled! should never happend!");
         }
     }
 

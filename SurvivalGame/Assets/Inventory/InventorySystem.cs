@@ -270,7 +270,7 @@ public class InventorySystem : MonoBehaviour
         return false;
     }
 
-    public bool isItemAvailable(ItemInstance item)
+    public bool IsItemAvailable(ItemInstance item)
     {
         foreach (InventorySlot slot in slots)
         {
@@ -291,4 +291,8 @@ public class InventorySystem : MonoBehaviour
         quickBarUI.UpdateSlots();
     }
 
+    public InventorySlot GetInventorySlotAtIndex(int index)
+    {
+        return slots[index];
+    }
 }

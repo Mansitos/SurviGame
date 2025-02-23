@@ -38,7 +38,7 @@ public class InventorySlot
         }
         else
         {
-            itemInstance = item;
+            itemInstance = item.Clone(); // We want a different reference!
             emptySlot = false;
         }
     }

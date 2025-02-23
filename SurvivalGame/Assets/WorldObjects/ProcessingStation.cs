@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ProcessingStation : Building
 {
@@ -22,6 +23,9 @@ public class ProcessingStation : Building
     public ItemInstance storedOutput;
     public ProcessingItemCraftBlueprint ItemCraftBlueprintUnderProcess = null;
     public bool isProcessing;
+
+    // Events
+    public event Action OnStartProcessing;
 
     void Update()
     {
@@ -51,23 +55,25 @@ public class ProcessingStation : Building
         return isProcessing;
     }
 
-    private bool HasStoredFuel()
+    public bool HasStoredFuel()
     {
-        Debug.Log(storedFuel);
+        ResetStateNulls();
         return (storedFuel != null);
     }
 
-    private bool HasStoredInput()
+    public bool HasStoredInput()
     {
+        ResetStateNulls();
         return (storedInput != null);
     }
 
-    private bool HasStoredOutput()
+    public bool HasStoredOutput()
     {
-        Debug.Log(storedOutput);
+        ResetStateNulls();
         return (storedOutput != null);
     }
 
+    // TODO: refactor to use IsValidFuel()
     private (bool, int) HasAvailableValidFuel()
     {
         if (!HasStoredFuel())
@@ -93,6 +99,37 @@ public class ProcessingStation : Building
         }
     }
 
+    public bool IsValidFuel(ItemData targetData)
+    {
+        foreach (var requiredFuel in validProcessingFuelRequirements)
+        {
+            if (requiredFuel.item == targetData)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // TODO: refactor and use where needed to clean code
+    public bool IsValidInput(ItemData targetData)
+    {
+        foreach (var craft in possibleCrafts)
+        {
+            if (craft.itemInput == targetData)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // TODO: implement and refactor who does this check
+    public bool IsValidOutput()
+    {
+        return false;
+    }
+
     private void CheckStartProcessingConditions()
     {
         // Check if a new processing step coroutine should be started
@@ -113,6 +150,7 @@ public class ProcessingStation : Building
                             Debug.Log("Starting processing conditions met! Starting!");
                             ItemCraftBlueprintUnderProcess = craft;
                             StartCoroutine(ProcessCoroutine(fuelAmountToConsume));
+                            OnStartProcessing?.Invoke();
                             break; // Break as soon as we find a valid craft to process
                         }
 
@@ -131,42 +169,75 @@ public class ProcessingStation : Building
     }
 
     //TODO: da rivedere, servirà come metodo da chiamare quando aggiungo quantità da UI? forse useless now?
-    public bool AddProcessingRequirement(ItemInstance item)
+    public bool AddProcessingInputRequirement(ItemInstance item)
     {
-        foreach (var craft in possibleCrafts)
+        if (IsValidInput(item.ItemData))
         {
-            if (craft.itemInput == item.ItemData)
+            if (storedInput == null)
             {
-                if (storedInput == null)
+                storedInput = item.Clone();
+                Debug.Log("Valid input, input was none");
+                return true;
+            }
+            else
+            {
+                if (storedInput.ItemData == item.ItemData)
                 {
-                    storedInput = item;
-                    Debug.Log("Valid input, input was none");
+                    storedInput.AddQuantity(item.Quantity);
+                    Debug.Log("Valid input, input was present, adding");
                     return true;
                 }
                 else
                 {
-                    if (storedInput.ItemData == item.ItemData)
-                    {
-                        storedInput.AddQuantity(item.Quantity);
-                        Debug.Log("Valid input, input was present, adding");
-                        return true;
-                    }
-                    else
-                    {
-                        Debug.Log("Valid input, but input was present and different");
-                        return false;
-                    }
-
+                    Debug.Log("Valid input, but input was present and different");
+                    return false;
                 }
+
             }
         }
-        Debug.Log("Invalid input. no crafts needs it");
-        return false;
+        else
+        {
+            Debug.Log("Invalid input. no crafts needs it");
+            return false;
+        }
+    }
+
+    // Code replication between this and AddInput: refactor needed!
+    public bool AddFuel(ItemInstance item)
+    {
+        if (IsValidFuel(item.ItemData))
+        {
+            if (storedFuel == null)
+            {
+                storedFuel = item.Clone();
+                Debug.Log("Valid fuel, input was none");
+                return true;
+            }
+            else
+            {
+                if (storedFuel.ItemData == item.ItemData)
+                {
+                    storedFuel.AddQuantity(item.Quantity);
+                    Debug.Log("Valid fuel, input was present, adding");
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("Valid fuel, but input was present and different");
+                    return false;
+                }
+
+            }
+        }
+        else
+        {
+            Debug.Log("Invalid fuel. no crafts needs it");
+            return false;
+        }
     }
 
     private void RemoveProcessingRequirement(int inputAmountToConsume, int fuelAmountToConsume)
     {
-        Debug.Log("Removing fuel:" + fuelAmountToConsume);
         storedInput.RemoveQuantity(inputAmountToConsume);
         storedFuel.RemoveQuantity(fuelAmountToConsume);
     }
@@ -197,5 +268,6 @@ public class ProcessingStation : Building
         // Ensure flag and status is reset when processing is done
         ItemCraftBlueprintUnderProcess = null;
         isProcessing = false;
+        OnStartProcessing?.Invoke();
     }
 }

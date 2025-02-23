@@ -1,3 +1,5 @@
+using NUnit.Framework.Interfaces;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProcessingStationUI : BaseInventoryUI
@@ -6,61 +8,159 @@ public class ProcessingStationUI : BaseInventoryUI
     [SerializeField] public GameObject outputSlot;
     [SerializeField] public GameObject fuelSlot;
     [SerializeField] public GameObject attachedStation;
+    [SerializeField] public GameObject processingUIIcon;
 
     private ProcessingStation processingStation;
     private InventoryUISlot input;
     private InventoryUISlot output;
     private InventoryUISlot fuel;
 
+    private List<InventoryUISlot> slots = new List<InventoryUISlot>();
+
     protected new GameManager gm;
 
     void Start()
     {
         gm = GameManager.Instance;
-        input = inputSlot.GetComponent<InventoryUISlot>();
-        output = outputSlot.GetComponent<InventoryUISlot>();
-        fuel = fuelSlot.GetComponent<InventoryUISlot>();
-        input.SetSlotType(SlotType.ProcessingStation);
-        output.SetSlotType(SlotType.ProcessingStation);
-        fuel.SetSlotType (SlotType.ProcessingStation);
+        InitSlots();
         LinkStation(attachedStation);
     }
 
     protected override void InitSlots()
     {
-        return;
+        input = inputSlot.GetComponent<InventoryUISlot>();
+        output = outputSlot.GetComponent<InventoryUISlot>();
+        fuel = fuelSlot.GetComponent<InventoryUISlot>();
+
+        input.SetSlotType(SlotType.ProcessingStation);
+        output.SetSlotType(SlotType.ProcessingStation);
+        fuel.SetSlotType(SlotType.ProcessingStation);
+
+        input.SetIndex(0);
+        fuel.SetIndex(1);
+        output.SetIndex(2);
+
+        slots.Add(input);
+        slots.Add(fuel);
+        slots.Add(output);
     }
 
-    void Update()
+    public ProcessingStation GetLinkedProcessingStation()
     {
-        
+        return processingStation;
     }
 
     public void LinkStation(GameObject newStation)
     {
         attachedStation = newStation;
         processingStation = newStation.GetComponent<ProcessingStation>();
+        processingStation.OnStartProcessing += UpdateUI;
+        UpdateUI();
+    }
 
-        ItemInstance storedFuel = processingStation.storedFuel;
+    public void UpdateUI()
+    {
+        UpdateSlots();
+        UpdateProcessingIcon();
+    }
+
+    private void UpdateProcessingIcon()
+    {
+        processingUIIcon.SetActive(processingStation.isProcessing);
+    }
+
+    public override void UpdateSlots()
+    {
+        input.ClearSlot(destroyChild: true);
+        fuel.ClearSlot(destroyChild: true);
+        output.ClearSlot(destroyChild: true);
+
         ItemInstance storedInput = processingStation.storedInput;
+        ItemInstance storedFuel = processingStation.storedFuel;
         ItemInstance storedOutput = processingStation.storedOutput;
 
-        GameObject itemIconObjectFuel = CreateItemIcon(storedFuel);
-        itemIconObjectFuel.transform.SetParent(fuel.transform, false);
-        fuel.SetDisplayedItem(itemIconObjectFuel, storedFuel, draggable: true);
+        if (processingStation.HasStoredInput())
+        {
+            GameObject itemIconObjectInput = CreateItemIcon(storedInput);
+            itemIconObjectInput.transform.SetParent(input.transform, false);
+            input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
+        }
+        if (processingStation.HasStoredFuel())
+        {
+            GameObject itemIconObjectFuel = CreateItemIcon(storedFuel);
+            itemIconObjectFuel.transform.SetParent(fuel.transform, false);
+            fuel.SetDisplayedItem(itemIconObjectFuel, storedFuel, draggable: true);
+        }
+        if (processingStation.HasStoredOutput())
+        {
+            GameObject itemIconObjectOutput = CreateItemIcon(storedOutput);
+            itemIconObjectOutput.transform.SetParent(output.transform, false);
+            output.SetDisplayedItem(itemIconObjectOutput, storedOutput, draggable: true);
+        }
+    }
 
-        GameObject itemIconObjectInput = CreateItemIcon(storedInput);
-        itemIconObjectInput.transform.SetParent(input.transform, false);
-        input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
+    public void RemoveItemFromIndexSlot(int index)
+    {
+        foreach (InventoryUISlot slot in slots)
+        {
+            if (slot.GetIndex() == index)
+            {
+                slot.ClearSlot(destroyChild: true);
+                switch (index)
+                {
+                    case 0:
+                        processingStation.storedInput = null;
+                        break;
+                    case 1:
+                        processingStation.storedFuel = null;
+                        break;
+                    case 2:
+                        processingStation.storedOutput = null;
+                        break;
+                }
+            }
+        }
+        UpdateUI();
+    }
 
-        GameObject itemIconObjectOutput = CreateItemIcon(storedOutput);
-        itemIconObjectOutput.transform.SetParent(output.transform, false);
-        output.SetDisplayedItem(itemIconObjectOutput, storedOutput, draggable: true);
+    public bool VerifyCanAddToSlot(ItemData itemData,  int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return this.GetLinkedProcessingStation().IsValidInput(itemData);
+            case 1:
+                return this.GetLinkedProcessingStation().IsValidFuel(itemData);
+            case 2:
+                Debug.Log("Cannot add items to the output slot!");
+                return false;
+        }
 
+        return false;
+    }
+
+    public void AddToSlot(ItemInstance item, int index)
+    {
+        switch (index)
+        {
+            case 0:
+                this.GetLinkedProcessingStation().AddProcessingInputRequirement(item);
+                break;
+            case 1:
+                Debug.Log("add fuel");
+                this.GetLinkedProcessingStation().AddFuel(item);
+                break;
+            case 2:
+                Debug.Log("This should never be called since cannot add items to the output slot!");
+                break;
+        }
+        UpdateUI();
     }
 
     public void UnLinkStation()
     {
-        Debug.Log("Implement");
+        processingStation.OnStartProcessing -= UpdateUI;
+        attachedStation = null;
+        processingStation = null;
     }
 }

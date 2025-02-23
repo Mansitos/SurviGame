@@ -22,3 +22,7 @@ _Rudimental Inventory and quickbar UI with drag mechanics_
 #### **Image from: 21/2/2025**
 _Organised roadmap on Notion!_
 ![alt text](images/image_5.png)
+
+#### **Image from: 23/2/2025**
+_Rudimental ProcessingStation UI with buggy interaction with inventory!_
+![alt text](images/image_6.png)

@@ -37,7 +37,7 @@ public abstract class BaseInventoryUI : MonoBehaviour
         }
     }
 
-    public void UpdateSlots()
+    public virtual void UpdateSlots()
     {
         List<InventorySlot> inventorySlots = inventory.GetInventorySlots();
 
