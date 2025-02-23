@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,8 +18,6 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        //if (!hasDisplayedItem)
-
         // Dropped draggable item
         GameObject dropped = eventData.pointerDrag;
         DraggableUIItem droppedDraggableItem = dropped.GetComponent<DraggableUIItem>();
@@ -138,5 +135,10 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         }
         childDisplayedItem = null;
         hasDisplayedItem = false;
+    }
+
+    public GameObject GetDisplayedItem()
+    {
+        return childDisplayedItem;
     }
 }

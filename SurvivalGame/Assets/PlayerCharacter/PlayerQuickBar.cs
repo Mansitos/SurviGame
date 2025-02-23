@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerQuickBar : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerQuickBar : MonoBehaviour
     private ItemInstance selectedItemInstance; // Runtime item instance
     private InventorySystem inventorySystem;
     private GameManager gm;
+
+    public event Action<int> OnChangedQuickBarSelection;
 
     private void Start()
     {
@@ -26,8 +29,14 @@ public class PlayerQuickBar : MonoBehaviour
 
     private void UpdateStep()
     {
+        CheckInputForQuickBarSelection();
         SelectSlot(selectedIndex);
         UpdateTileSelectionGridVisibility();
+    }
+
+    private void CheckInputForQuickBarSelection()
+    {
+        //TODO check 1,2,3..0
     }
 
     public ItemInstance GetSelectedItemInstance()

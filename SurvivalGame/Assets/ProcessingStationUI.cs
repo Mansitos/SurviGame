@@ -1,6 +1,7 @@
-using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProcessingStationUI : BaseInventoryUI
 {
@@ -8,12 +9,14 @@ public class ProcessingStationUI : BaseInventoryUI
     [SerializeField] public GameObject outputSlot;
     [SerializeField] public GameObject fuelSlot;
     [SerializeField] public GameObject attachedStation;
+    [SerializeField] public GameObject nameTextGO;
     [SerializeField] public GameObject processingUIIcon;
 
     private ProcessingStation processingStation;
     private InventoryUISlot input;
     private InventoryUISlot output;
     private InventoryUISlot fuel;
+    private TextMeshProUGUI nameText;
 
     private List<InventoryUISlot> slots = new List<InventoryUISlot>();
 
@@ -22,6 +25,7 @@ public class ProcessingStationUI : BaseInventoryUI
     void Start()
     {
         gm = GameManager.Instance;
+        nameText = nameTextGO.GetComponent<TextMeshProUGUI>();
         InitSlots();
         LinkStation(attachedStation);
     }
@@ -54,6 +58,7 @@ public class ProcessingStationUI : BaseInventoryUI
     {
         attachedStation = newStation;
         processingStation = newStation.GetComponent<ProcessingStation>();
+
         processingStation.OnStartProcessing += UpdateUI;
         UpdateUI();
     }
@@ -62,6 +67,7 @@ public class ProcessingStationUI : BaseInventoryUI
     {
         UpdateSlots();
         UpdateProcessingIcon();
+        nameText.text = GetLinkedProcessingStation().name;
     }
 
     private void UpdateProcessingIcon()

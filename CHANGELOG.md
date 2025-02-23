@@ -82,3 +82,4 @@
 - Completed rudimental UI logic to move objects between inventory and processing station: still to refine, refactor and fix bugs.
 - Modified Inventory to Inventory item move so that items are swapped if target slot is not empty
 - Fixed: you can now drop item x on item x and it executes add logic
+- Quickbar rudimental item selection UI highlight

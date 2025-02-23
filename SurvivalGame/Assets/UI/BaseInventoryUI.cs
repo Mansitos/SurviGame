@@ -88,6 +88,9 @@ public abstract class BaseInventoryUI : MonoBehaviour
 
     protected virtual void UpdateActiveStatus()
     {
-        grid.SetActive(gm.IsInInventoryMode());
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(gm.IsInInventoryMode());
+        }
     }
 }

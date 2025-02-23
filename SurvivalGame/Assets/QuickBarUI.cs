@@ -1,16 +1,16 @@
+using UnityEngine.UI;
 using UnityEngine;
 
 public class QuickBarUI : BaseInventoryUI
 {
-    private PlayerQuickBar quickBar;
+    private int quickBarSize = 10;
     protected override bool ItemsAreDraggable => false;
-    public int quickBarSize = 10;
 
     protected override void Start()
     {
         numSlots = quickBarSize;
+        GameManager.Instance.GetPlayerQuickBar().OnChangedQuickBarSelection += HighlightSelectedSlot;
         base.Start();
-        quickBar = gm.GetPlayerQuickBar();
     }
 
     protected override void InitSlots()
@@ -21,6 +21,9 @@ public class QuickBarUI : BaseInventoryUI
     private void Update()
     {
         UpdateActiveStatus();
+
+        //TODO: dummy for now, in future event called when changed
+        HighlightSelectedSlot(GameManager.Instance.GetPlayerQuickBar().selectedIndex);
     }
 
     protected override void UpdateActiveStatus()
@@ -34,5 +37,12 @@ public class QuickBarUI : BaseInventoryUI
         {
             UpdateSlots();
         }
+    }
+
+    public void HighlightSelectedSlot(int index)
+    {
+        GameObject selectedSlot = uiSlots[index];
+        Debug.Log(selectedSlot);
+        selectedSlot.GetComponent<Image>().color = Color.red;
     }
 }
