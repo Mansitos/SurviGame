@@ -80,3 +80,5 @@
 23-2-2025
 - Fixed potential bug in `InventorySystem`. `AddItem()` now if the slot is empty create a clone of the given `ItemInstance`, does not save the reference. Just for safety to avoid duplication glitches.
 - Completed rudimental UI logic to move objects between inventory and processing station: still to refine, refactor and fix bugs.
+- Modified Inventory to Inventory item move so that items are swapped if target slot is not empty
+- Fixed: you can now drop item x on item x and it executes add logic

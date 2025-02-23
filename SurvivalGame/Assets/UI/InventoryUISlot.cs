@@ -19,18 +19,17 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (!hasDisplayedItem)
-        {
-            // Dropped draggable item
-            GameObject dropped = eventData.pointerDrag;
-            DraggableUIItem droppedDraggableItem = dropped.GetComponent<DraggableUIItem>();
+        //if (!hasDisplayedItem)
 
-            // Saving reference of old parent
-            Transform oldParent = droppedDraggableItem.parent;
-            InventoryUISlot oldParentSlot = oldParent.GetComponent<InventoryUISlot>();
+        // Dropped draggable item
+        GameObject dropped = eventData.pointerDrag;
+        DraggableUIItem droppedDraggableItem = dropped.GetComponent<DraggableUIItem>();
 
-            PerformActionBasedOnTypes(droppedDraggableItem, oldParentSlot, dropped);
-        }
+        // Saving reference of old parent
+        Transform oldParent = droppedDraggableItem.parent;
+        InventoryUISlot oldParentSlot = oldParent.GetComponent<InventoryUISlot>();
+
+        PerformActionBasedOnTypes(droppedDraggableItem, oldParentSlot, dropped);
     }
 
     public int GetIndex()
