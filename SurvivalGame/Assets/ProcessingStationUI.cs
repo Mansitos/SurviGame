@@ -63,7 +63,7 @@ public class ProcessingStationUI : BaseInventoryUI
         UpdateUI();
     }
 
-    public void UpdateUI()
+    public override void UpdateUI()
     {
         UpdateSlots();
         UpdateProcessingIcon();
@@ -75,7 +75,7 @@ public class ProcessingStationUI : BaseInventoryUI
         processingUIIcon.SetActive(processingStation.isProcessing);
     }
 
-    public override void UpdateSlots()
+    protected override void UpdateSlots()
     {
         input.ClearSlot(destroyChild: true);
         fuel.ClearSlot(destroyChild: true);

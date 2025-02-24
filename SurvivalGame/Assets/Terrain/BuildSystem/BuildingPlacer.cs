@@ -14,7 +14,7 @@ public class BuildingPlacer : MonoBehaviour
 
     private GameManager gm;
     private GameObject previewObject;
-    private PlayerMovementInputHandler inputHandler;
+    private InputHandler inputHandler;
     private Building buildingComponent;
     private Camera mainCamera;
     private int currentRotation = 0; // Rotation angle (90° increments)
@@ -26,7 +26,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         gm = GameManager.Instance;
         mainCamera = gm.GetMainCameraGO().GetComponent<Camera>();
-        inputHandler = gm.GetPlayerGO().GetComponent<PlayerMovementInputHandler>();
+        inputHandler = gm.GetPlayerGO().GetComponent<InputHandler>();
         xzPositioningOffset = gm.GetTerrainGridSystemGO().GetComponent<Grid>().cellSize.x / 2;
         buildingComponent = buildingPrefab.GetComponent<Building>();
 

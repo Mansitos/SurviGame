@@ -80,15 +80,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Inventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""22e71309-21b1-4c44-803f-27345c2f7d79"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -201,17 +192,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""RotateAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""61368540-d175-48bc-b6b3-9827c56cf4c5"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Inventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -264,6 +244,87 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""3"",
+                    ""type"": ""Button"",
+                    ""id"": ""211a29b3-7314-450c-adb4-bf0c256b69cf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""4"",
+                    ""type"": ""Button"",
+                    ""id"": ""aacc5e0e-d920-40c4-a3c0-1e1a8a6cb2f3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""5"",
+                    ""type"": ""Button"",
+                    ""id"": ""981b147c-a201-4719-b0b9-a979d6daab1e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""6"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e4ac3a6-4d85-4a74-b0dd-e8b84fb91ef2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""7"",
+                    ""type"": ""Button"",
+                    ""id"": ""60b5bba5-f4ed-4325-bec8-92a1f1d766ec"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""8"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb6f1872-96b7-46cd-9769-8c199b849b44"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""9"",
+                    ""type"": ""Button"",
+                    ""id"": ""36219a04-39a2-488e-8045-42db99cbee37"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""0"",
+                    ""type"": ""Button"",
+                    ""id"": ""9fff9e1b-0787-475c-9f8d-005ccfeaea38"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1e97765-ac91-481f-a857-50515f1e56d2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -288,6 +349,133 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24e94114-3d51-479b-92d9-83403d09e72c"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b2b88184-ed4d-4dd0-9b02-ab2cb25d107c"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0285b83a-9ea5-4d88-8f59-e869e9bd460c"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93c25a49-89e7-47d1-ace2-2f1a131143d8"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff0f4e4d-d5c9-4a7c-b1a3-4951baba9c35"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7c7f8b5-c0d7-4dba-ad40-41907646997e"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35bd0d94-7502-4a52-93d3-978edf0db7bc"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ac5a4a6-0cb3-4c68-9d25-bb90505632cc"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53283811-7b00-4ca9-a054-d00868a726cd"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""5206024d-48b9-4b3f-be8b-72b8bbb0b623"",
+            ""actions"": [
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""52658e8c-7eff-4d73-be1e-29224ac78e17"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a9d33a52-e4e8-48de-94a8-5e87f846aa54"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -302,7 +490,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_MainAction = m_Player.FindAction("MainAction", throwIfNotFound: true);
         m_Player_SecondaryAction = m_Player.FindAction("SecondaryAction", throwIfNotFound: true);
         m_Player_RotateAction = m_Player.FindAction("RotateAction", throwIfNotFound: true);
-        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
@@ -310,6 +497,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_QuickBar = asset.FindActionMap("QuickBar", throwIfNotFound: true);
         m_QuickBar__1 = m_QuickBar.FindAction("1", throwIfNotFound: true);
         m_QuickBar__2 = m_QuickBar.FindAction("2", throwIfNotFound: true);
+        m_QuickBar__3 = m_QuickBar.FindAction("3", throwIfNotFound: true);
+        m_QuickBar__4 = m_QuickBar.FindAction("4", throwIfNotFound: true);
+        m_QuickBar__5 = m_QuickBar.FindAction("5", throwIfNotFound: true);
+        m_QuickBar__6 = m_QuickBar.FindAction("6", throwIfNotFound: true);
+        m_QuickBar__7 = m_QuickBar.FindAction("7", throwIfNotFound: true);
+        m_QuickBar__8 = m_QuickBar.FindAction("8", throwIfNotFound: true);
+        m_QuickBar__9 = m_QuickBar.FindAction("9", throwIfNotFound: true);
+        m_QuickBar__0 = m_QuickBar.FindAction("0", throwIfNotFound: true);
+        m_QuickBar_Tab = m_QuickBar.FindAction("Tab", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -317,6 +516,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerControls.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Camera.enabled, "This will cause a leak and performance issues, PlayerControls.Camera.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_QuickBar.enabled, "This will cause a leak and performance issues, PlayerControls.QuickBar.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerControls.UI.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -384,7 +584,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MainAction;
     private readonly InputAction m_Player_SecondaryAction;
     private readonly InputAction m_Player_RotateAction;
-    private readonly InputAction m_Player_Inventory;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -395,7 +594,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @MainAction => m_Wrapper.m_Player_MainAction;
         public InputAction @SecondaryAction => m_Wrapper.m_Player_SecondaryAction;
         public InputAction @RotateAction => m_Wrapper.m_Player_RotateAction;
-        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -423,9 +621,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RotateAction.started += instance.OnRotateAction;
             @RotateAction.performed += instance.OnRotateAction;
             @RotateAction.canceled += instance.OnRotateAction;
-            @Inventory.started += instance.OnInventory;
-            @Inventory.performed += instance.OnInventory;
-            @Inventory.canceled += instance.OnInventory;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -448,9 +643,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RotateAction.started -= instance.OnRotateAction;
             @RotateAction.performed -= instance.OnRotateAction;
             @RotateAction.canceled -= instance.OnRotateAction;
-            @Inventory.started -= instance.OnInventory;
-            @Inventory.performed -= instance.OnInventory;
-            @Inventory.canceled -= instance.OnInventory;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -520,12 +712,30 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IQuickBarActions> m_QuickBarActionsCallbackInterfaces = new List<IQuickBarActions>();
     private readonly InputAction m_QuickBar__1;
     private readonly InputAction m_QuickBar__2;
+    private readonly InputAction m_QuickBar__3;
+    private readonly InputAction m_QuickBar__4;
+    private readonly InputAction m_QuickBar__5;
+    private readonly InputAction m_QuickBar__6;
+    private readonly InputAction m_QuickBar__7;
+    private readonly InputAction m_QuickBar__8;
+    private readonly InputAction m_QuickBar__9;
+    private readonly InputAction m_QuickBar__0;
+    private readonly InputAction m_QuickBar_Tab;
     public struct QuickBarActions
     {
         private @PlayerControls m_Wrapper;
         public QuickBarActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @_1 => m_Wrapper.m_QuickBar__1;
         public InputAction @_2 => m_Wrapper.m_QuickBar__2;
+        public InputAction @_3 => m_Wrapper.m_QuickBar__3;
+        public InputAction @_4 => m_Wrapper.m_QuickBar__4;
+        public InputAction @_5 => m_Wrapper.m_QuickBar__5;
+        public InputAction @_6 => m_Wrapper.m_QuickBar__6;
+        public InputAction @_7 => m_Wrapper.m_QuickBar__7;
+        public InputAction @_8 => m_Wrapper.m_QuickBar__8;
+        public InputAction @_9 => m_Wrapper.m_QuickBar__9;
+        public InputAction @_0 => m_Wrapper.m_QuickBar__0;
+        public InputAction @Tab => m_Wrapper.m_QuickBar_Tab;
         public InputActionMap Get() { return m_Wrapper.m_QuickBar; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -541,6 +751,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @_2.started += instance.On_2;
             @_2.performed += instance.On_2;
             @_2.canceled += instance.On_2;
+            @_3.started += instance.On_3;
+            @_3.performed += instance.On_3;
+            @_3.canceled += instance.On_3;
+            @_4.started += instance.On_4;
+            @_4.performed += instance.On_4;
+            @_4.canceled += instance.On_4;
+            @_5.started += instance.On_5;
+            @_5.performed += instance.On_5;
+            @_5.canceled += instance.On_5;
+            @_6.started += instance.On_6;
+            @_6.performed += instance.On_6;
+            @_6.canceled += instance.On_6;
+            @_7.started += instance.On_7;
+            @_7.performed += instance.On_7;
+            @_7.canceled += instance.On_7;
+            @_8.started += instance.On_8;
+            @_8.performed += instance.On_8;
+            @_8.canceled += instance.On_8;
+            @_9.started += instance.On_9;
+            @_9.performed += instance.On_9;
+            @_9.canceled += instance.On_9;
+            @_0.started += instance.On_0;
+            @_0.performed += instance.On_0;
+            @_0.canceled += instance.On_0;
+            @Tab.started += instance.OnTab;
+            @Tab.performed += instance.OnTab;
+            @Tab.canceled += instance.OnTab;
         }
 
         private void UnregisterCallbacks(IQuickBarActions instance)
@@ -551,6 +788,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @_2.started -= instance.On_2;
             @_2.performed -= instance.On_2;
             @_2.canceled -= instance.On_2;
+            @_3.started -= instance.On_3;
+            @_3.performed -= instance.On_3;
+            @_3.canceled -= instance.On_3;
+            @_4.started -= instance.On_4;
+            @_4.performed -= instance.On_4;
+            @_4.canceled -= instance.On_4;
+            @_5.started -= instance.On_5;
+            @_5.performed -= instance.On_5;
+            @_5.canceled -= instance.On_5;
+            @_6.started -= instance.On_6;
+            @_6.performed -= instance.On_6;
+            @_6.canceled -= instance.On_6;
+            @_7.started -= instance.On_7;
+            @_7.performed -= instance.On_7;
+            @_7.canceled -= instance.On_7;
+            @_8.started -= instance.On_8;
+            @_8.performed -= instance.On_8;
+            @_8.canceled -= instance.On_8;
+            @_9.started -= instance.On_9;
+            @_9.performed -= instance.On_9;
+            @_9.canceled -= instance.On_9;
+            @_0.started -= instance.On_0;
+            @_0.performed -= instance.On_0;
+            @_0.canceled -= instance.On_0;
+            @Tab.started -= instance.OnTab;
+            @Tab.performed -= instance.OnTab;
+            @Tab.canceled -= instance.OnTab;
         }
 
         public void RemoveCallbacks(IQuickBarActions instance)
@@ -568,6 +832,52 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public QuickBarActions @QuickBar => new QuickBarActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_Inventory;
+    public struct UIActions
+    {
+        private @PlayerControls m_Wrapper;
+        public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Inventory => m_Wrapper.m_UI_Inventory;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -576,7 +886,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMainAction(InputAction.CallbackContext context);
         void OnSecondaryAction(InputAction.CallbackContext context);
         void OnRotateAction(InputAction.CallbackContext context);
-        void OnInventory(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {
@@ -586,5 +895,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void On_1(InputAction.CallbackContext context);
         void On_2(InputAction.CallbackContext context);
+        void On_3(InputAction.CallbackContext context);
+        void On_4(InputAction.CallbackContext context);
+        void On_5(InputAction.CallbackContext context);
+        void On_6(InputAction.CallbackContext context);
+        void On_7(InputAction.CallbackContext context);
+        void On_8(InputAction.CallbackContext context);
+        void On_9(InputAction.CallbackContext context);
+        void On_0(InputAction.CallbackContext context);
+        void OnTab(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

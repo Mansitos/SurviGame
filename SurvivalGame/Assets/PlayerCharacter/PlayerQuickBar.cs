@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static PlayerControls;
 
 public class PlayerQuickBar : MonoBehaviour
 {
@@ -36,7 +38,18 @@ public class PlayerQuickBar : MonoBehaviour
 
     private void CheckInputForQuickBarSelection()
     {
-        //TODO check 1,2,3..0
+        InputHandler input = gm.GetInputHandler();
+        for (int key = 1; key <= 9; key++) // Check 1-9
+        {
+            if (input.WasQuickBarKeyPressedThisFrame(key))
+            {
+                selectedIndex = key-1;
+            }
+        }
+        if (input.WasQuickBarKeyPressedThisFrame(0))
+        {
+            selectedIndex = 9;
+        }
     }
 
     public ItemInstance GetSelectedItemInstance()
@@ -66,7 +79,7 @@ public class PlayerQuickBar : MonoBehaviour
     private void SelectSlot(int slotIndex)
     {
         selectedIndex = slotIndex;
-        InventorySlot selectedInventorySlot = inventorySystem.slots[slotIndex - 1];
+        InventorySlot selectedInventorySlot = inventorySystem.slots[slotIndex];
         if (selectedInventorySlot.IsEmpty()) {
             selectedItemInstance = defaultItemInstance;
         }

@@ -83,3 +83,8 @@
 - Modified Inventory to Inventory item move so that items are swapped if target slot is not empty
 - Fixed: you can now drop item x on item x and it executes add logic
 - Quickbar rudimental item selection UI highlight
+---
+24-2-2025
+- `QuickBar` selection with keys
+- weight counter in `InventoryUI`
+- Renamed `PlayerInputHandler` in `InputHandler`

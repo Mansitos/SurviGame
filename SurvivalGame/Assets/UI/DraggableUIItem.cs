@@ -28,6 +28,6 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         this.transform.SetParent(parent);
         this.GetComponent<Image>().raycastTarget = true;
-        GameManager.Instance.GetUIManager().GetInventoryUI().UpdateSlots();
+        GameManager.Instance.GetUIManager().GetInventoryUI().UpdateUI();
     }
 }

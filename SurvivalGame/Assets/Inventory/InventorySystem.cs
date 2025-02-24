@@ -237,7 +237,7 @@ public class InventorySystem : MonoBehaviour
         return GetCurrentWeight() + additionalWeight > maxWeight;
     }
 
-    private float GetCurrentWeight()
+    public float GetCurrentWeight()
     {
         float currentWeight = 0;
         foreach (InventorySlot slot in slots)
@@ -287,8 +287,8 @@ public class InventorySystem : MonoBehaviour
 
     private void UpdateUI()
     {
-        ui.UpdateSlots();
-        quickBarUI.UpdateSlots();
+        ui.UpdateUI();
+        quickBarUI.UpdateUI();
     }
 
     public InventorySlot GetInventorySlotAtIndex(int index)

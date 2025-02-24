@@ -1,12 +1,17 @@
+using TMPro;
+using UnityEngine;
+
 public class InventoryUI : BaseInventoryUI
 {
-    private PlayerMovementInputHandler inputHandler;
+    public GameObject weightUI;
+
+    private InputHandler inputHandler;
     protected override bool ItemsAreDraggable => true;
 
     protected override void Start()
     {
         base.Start();
-        inputHandler = gm.GetPlayerGO().GetComponent<PlayerMovementInputHandler>();
+        inputHandler = gm.GetPlayerGO().GetComponent<InputHandler>();
     }
 
     protected override void InitSlots()
@@ -32,5 +37,16 @@ public class InventoryUI : BaseInventoryUI
                 UpdateSlots();
             }
         }
+    }
+
+    public override void UpdateUI()
+    {
+        UpdateSlots();
+        UpdateWeightText();
+    }
+
+    private void UpdateWeightText()
+    {
+        weightUI.GetComponent<TextMeshProUGUI>().text = "Weight: " + inventory.GetCurrentWeight() + "/" + inventory.maxWeight;
     }
 }

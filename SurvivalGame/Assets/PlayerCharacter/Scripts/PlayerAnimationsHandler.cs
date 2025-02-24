@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerAnimationsHandler : MonoBehaviour
 {
 
-    private PlayerMovementInputHandler inputHandler;
+    private InputHandler inputHandler;
     private PlayerMovement playerMovement;
     private Animator animator;
 
@@ -16,7 +16,7 @@ public class PlayerAnimationsHandler : MonoBehaviour
 
     void Start()
     {
-        inputHandler = GetComponent<PlayerMovementInputHandler>();
+        inputHandler = GetComponent<InputHandler>();
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
     }

@@ -6,11 +6,15 @@ public class QuickBarUI : BaseInventoryUI
     private int quickBarSize = 10;
     protected override bool ItemsAreDraggable => false;
 
+    private Color unselectedColor;
+
     protected override void Start()
     {
         numSlots = quickBarSize;
         GameManager.Instance.GetPlayerQuickBar().OnChangedQuickBarSelection += HighlightSelectedSlot;
         base.Start();
+
+        unselectedColor = uiSlots[0].GetComponent<Image>().color;
     }
 
     protected override void InitSlots()
@@ -41,8 +45,12 @@ public class QuickBarUI : BaseInventoryUI
 
     public void HighlightSelectedSlot(int index)
     {
+        foreach (GameObject slot in uiSlots)
+        {
+            slot.GetComponent<Image>().color = unselectedColor;
+        }
+
         GameObject selectedSlot = uiSlots[index];
-        Debug.Log(selectedSlot);
         selectedSlot.GetComponent<Image>().color = Color.red;
     }
 }

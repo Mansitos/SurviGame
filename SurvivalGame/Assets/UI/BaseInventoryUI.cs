@@ -20,7 +20,7 @@ public abstract class BaseInventoryUI : MonoBehaviour
         gm = GameManager.Instance;
         inventory = gm.GetInventorySystem();
         InitSlots();
-        UpdateSlots();
+        UpdateUI();
         UpdateActiveStatus();
     }
 
@@ -37,7 +37,7 @@ public abstract class BaseInventoryUI : MonoBehaviour
         }
     }
 
-    public virtual void UpdateSlots()
+    protected virtual void UpdateSlots()
     {
         List<InventorySlot> inventorySlots = inventory.GetInventorySlots();
 
@@ -92,5 +92,10 @@ public abstract class BaseInventoryUI : MonoBehaviour
         {
             child.gameObject.SetActive(gm.IsInInventoryMode());
         }
+    }
+
+    public virtual void UpdateUI()
+    {
+        UpdateSlots();
     }
 }

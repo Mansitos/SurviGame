@@ -53,7 +53,7 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         if (this.slotType == SlotType.Inventory)
         {
             GameManager.Instance.GetInventorySystem().SwapSlotContents(oldSlotIndex, index);
-            GameManager.Instance.GetUIManager().GetInventoryUI().UpdateSlots();
+            GameManager.Instance.GetUIManager().GetInventoryUI().UpdateUI();
         }
         else if (this.slotType == SlotType.ProcessingStation)
         {

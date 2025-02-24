@@ -345,7 +345,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1782702500006616816}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 351f06c0563b7624cbe7c9f616aa5f11, type: 3}
+  m_Script: {fileID: 11500000, guid: a16d7608feba5d442ab7a22c4ba06a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &68304595
@@ -1502,6 +1502,7 @@ MonoBehaviour:
   inventoryUISlotPrefab: {fileID: 5547788593188973609, guid: 42422e00c70dd1c40bacda9cec1dc560, type: 3}
   inventoryUISlotCounterPrefab: {fileID: 4935196003129248267, guid: 62d54e54a6606274098f955e14a59a5c, type: 3}
   uiSlots: []
+  weightUI: {fileID: 1616914491}
 --- !u!1001 &275555035
 PrefabInstance:
   m_ObjectHideFlags: 0

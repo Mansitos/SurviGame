@@ -25,7 +25,7 @@ public class PlayerTileSelection : MonoBehaviour
     private Camera mainCamera;
     private GameManager gm;
     private GridManager gridManager;
-    private PlayerMovementInputHandler inputHandler;
+    private InputHandler inputHandler;
     private Transform playerTransform; // Reference to the player's position
     private bool isSelectionVisible = true;
 
@@ -34,7 +34,7 @@ public class PlayerTileSelection : MonoBehaviour
         gm = GameManager.Instance;
         mainCamera = gm.GetMainCameraGO().GetComponent<Camera>();
         gridManager = GridManager.Instance;
-        inputHandler = gm.GetPlayerGO().GetComponent<PlayerMovementInputHandler>();
+        inputHandler = gm.GetPlayerGO().GetComponent<InputHandler>();
         playerTransform = gm.GetPlayerGO().transform; // Get the player’s Transform
 
         // Ensure tilemap visibility starts correctly

@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public bool debugLogs = false;
 
     // Private references
-    private PlayerMovementInputHandler inputHandler;
+    private InputHandler inputHandler;
     private CharacterController controller;
     private GameManager gm;
     private Animator animator;
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     {
         gm = GameManager.Instance;
         mainCamera = gm.GetMainCameraGO().GetComponent<Camera>();
-        inputHandler = gm.GetPlayerGO().GetComponent<PlayerMovementInputHandler>();
+        inputHandler = gm.GetPlayerGO().GetComponent<InputHandler>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerAnimationsHandler = gm.GetPlayerAnimationHandler();
