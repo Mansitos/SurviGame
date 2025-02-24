@@ -27,7 +27,7 @@ public class ProcessingStationUI : BaseInventoryUI
         gm = GameManager.Instance;
         nameText = nameTextGO.GetComponent<TextMeshProUGUI>();
         InitSlots();
-        LinkStation(attachedStation);
+        this.gameObject.SetActive(false);
     }
 
     protected override void InitSlots()
@@ -60,6 +60,8 @@ public class ProcessingStationUI : BaseInventoryUI
         processingStation = newStation.GetComponent<ProcessingStation>();
 
         processingStation.OnStartProcessing += UpdateUI;
+        this.gameObject.SetActive(true);
+        gm.GetUIManager().GetInventoryUI().SetActive(true);
         UpdateUI();
     }
 
@@ -168,5 +170,6 @@ public class ProcessingStationUI : BaseInventoryUI
         processingStation.OnStartProcessing -= UpdateUI;
         attachedStation = null;
         processingStation = null;
+        this.gameObject.SetActive(false);
     }
 }

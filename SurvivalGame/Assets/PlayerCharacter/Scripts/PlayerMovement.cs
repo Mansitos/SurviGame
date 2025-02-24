@@ -43,10 +43,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (gm.IsInNormalMode()) { 
+        if (gm.IsInNormalMode() || gm.IsInBuildMode()) { 
             HandlePlayerMovement();
         }
         HandleCollecting(); // TODO: in future maybe more general "handle action"? not hardcoded for collecting?
+        CheckMainAction();
+        CheckSecondaryAction();
+    }
+
+    private void CheckMainAction()
+    {
+        if (inputHandler.WasMainActionPressedThisFrame())
+        {
+            if (gm.IsInNormalMode())
+            {
+                gm.GetPlayerQuickBar().GetSelectedItemInstance().PerformMainAction(gm);
+            }
+
+        }
+    }
+
+    private void CheckSecondaryAction()
+    {
+        if (inputHandler.WasSecondaryActionPressedThisFrame())
+        {
+            if (gm.IsInNormalMode())
+            {
+                gm.GetPlayerQuickBar().GetSelectedItemInstance().PerformSecondaryAction(gm);
+            }
+
+        }
     }
 
     private void HandleCollecting()
@@ -56,16 +82,6 @@ public class PlayerMovement : MonoBehaviour
         {
             StopCollectingResource();
             Log("[PlayerMovement] Collecting resource stopped since movement detected!");
-        }
-
-        // 2. Check for main action
-        if (inputHandler.WasMainActionPressedThisFrame())
-        {
-            if (gm.IsInNormalMode())
-            {
-                gm.GetPlayerQuickBar().GetSelectedItemInstance().PerformMainAction(gm);
-            }
-
         }
     }
 

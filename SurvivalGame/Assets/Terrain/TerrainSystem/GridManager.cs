@@ -255,7 +255,6 @@ public class GridManager : MonoBehaviour
         return withinRadius;
     }
 
-
     // Filters a list of game objects by type, returning only those which match the specified type.
     public List<GameObject> FilterGameObjectsByType(List<GameObject> gameObjects, System.Type type)
     {

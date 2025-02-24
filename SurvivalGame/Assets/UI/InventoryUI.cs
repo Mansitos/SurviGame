@@ -34,7 +34,7 @@ public class InventoryUI : BaseInventoryUI
 
             if (gm.IsInInventoryMode())
             {
-                UpdateSlots();
+                UpdateUI();
             }
         }
     }
@@ -49,4 +49,13 @@ public class InventoryUI : BaseInventoryUI
     {
         weightUI.GetComponent<TextMeshProUGUI>().text = "Weight: " + inventory.GetCurrentWeight() + "/" + inventory.maxWeight;
     }
+
+    public void SetActive(bool flag)
+    {
+        gm.SetInventoryMode(flag);
+        UpdateActiveStatus();
+        UpdateUI();
+    }
+
+
 }

@@ -29,7 +29,7 @@ public class InputHandler : MonoBehaviour
 
     private void UpdateActionMapActiveStatus()
     {
-        if (gm.IsInNormalMode())
+        if (gm.IsInNormalMode() || gm.IsInBuildMode()) // improve
         {
             if (!controls.Player.enabled)
             {
@@ -96,6 +96,7 @@ public class InputHandler : MonoBehaviour
 
     // --- UI ---
     public bool WasInventoryModePressedThisFrame() => controls.UI.Inventory.WasPressedThisFrame();
+    public bool WasEscInventoryPressedThisFrame() => controls.UI.Close.WasPressedThisFrame();
 
     // --- QuickBar ---
     public bool WasQuickBarKeyPressedThisFrame(int key)

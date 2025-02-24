@@ -24,20 +24,16 @@ public class ResourceObject : WorldObject
     [SerializeField] private float spawnRadius = 2.0f;
     [SerializeField] private List<SpawnableItem> spawnableItems;
 
-    private GameManager gm;
-    private GridManager gridManager;
-
-    private void Start()
+    protected override void Start()
     {
-        gm = GameManager.Instance;
-        gridManager = gm.GetTerrainGridManager();
+        base.Start();
         OccupyTile();
     }
 
     public void OccupyTile()
     {
         Vector3Int gridPos = gridManager.WorldToGrid(this.transform.position);
-        if (gridManager.CanPlaceBuilding(gridPos, 1, 1, 0, checkAgainstPlayer:false))
+        if (gridManager.CanPlaceBuilding(gridPos, 1, 1, 0, checkAgainstPlayer: false))
         {
             gridManager.PlaceObjectOnTiles(gridPos, 1, 1, this.gameObject, 0);
         }
@@ -57,6 +53,7 @@ public class ResourceObject : WorldObject
     {
         return collectionTime;
     }
+
 
     public void Collect()
     {

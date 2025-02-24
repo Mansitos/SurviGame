@@ -27,6 +27,11 @@ public class ProcessingStation : Building
     // Events
     public event Action OnStartProcessing;
 
+    protected override void Start()
+    {
+        base.Start();
+    }
+
     void Update()
     {
         ResetStateNulls();
@@ -240,6 +245,12 @@ public class ProcessingStation : Building
     {
         storedInput.RemoveQuantity(inputAmountToConsume);
         storedFuel.RemoveQuantity(fuelAmountToConsume);
+    }
+
+    override public bool InteractWithBuilding()
+    {
+        gm.GetUIManager().GetProcessingStationUI().LinkStation(this.gameObject);
+        return true;
     }
 
     public IEnumerator ProcessCoroutine(int fuelAmountToConsume)

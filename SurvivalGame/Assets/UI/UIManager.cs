@@ -24,6 +24,15 @@ public class UIManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    public void Update()
+    {
+        if (GameManager.Instance.GetInputHandler().WasEscInventoryPressedThisFrame())
+        {
+            CloseOpenInventoryTabs();
+            Debug.Log("CLOSEEE");
+        }
+    }
+
     public QuickBarUI GetQuickBarUI()
     {
         return quickBarUI;
@@ -37,5 +46,12 @@ public class UIManager : MonoBehaviour
     public ProcessingStationUI GetProcessingStationUI()
     {
         return processingStationUI;
+    }
+
+    public void CloseOpenInventoryTabs()
+    {
+        GameManager.Instance.SetInventoryMode(false);
+        inventoryUI.SetActive(false);
+        processingStationUIGO.SetActive(false);
     }
 }

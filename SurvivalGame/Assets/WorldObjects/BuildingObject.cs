@@ -14,8 +14,9 @@ public abstract class Building : WorldObject
     public int zdimension = 1;
     public BuildingBlueprint blueprint;
 
-    public void Start()
+    protected override void Start()
     {
+        base.Start();
     }
 
     public void Build(GameManager gm)
@@ -29,5 +30,11 @@ public abstract class Building : WorldObject
     public bool CanBuild(GameManager gm)
     {
         return blueprint.CanBuild(gm.GetInventorySystem());
+    }
+
+    public virtual bool InteractWithBuilding()
+    {
+        Debug.Log("interacted with building!");
+        return true;
     }
 }

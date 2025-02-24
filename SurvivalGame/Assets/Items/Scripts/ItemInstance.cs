@@ -46,4 +46,36 @@ public class ItemInstance
             return false;
         }
     }
+
+    public bool PerformSecondaryAction(GameManager gameManager)
+    {
+        Debug.Log("Perform secondary action");
+        Vector3Int? selectedTile = gameManager.GetPlayerTileSelection().GetHoveredTilePosition();
+        if (selectedTile != null)
+        {
+            GameObject targetObject = gameManager.GetTerrainGridManager().GetObjectOnTile(selectedTile.Value);
+            if (targetObject != null)
+            {
+                Building targetBuilding = targetObject.GetComponent<Building>();
+                if (targetBuilding != null)
+                {
+                    targetBuilding.InteractWithBuilding();
+                }
+                else
+                {
+                    Debug.Log("Object is not a building object");
+                }
+            }
+            else
+            {
+                Debug.Log("Empty tile for the 2nd action");
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot perform 2nd action since no tile selected");
+        }
+
+        return true;
+    }
 }

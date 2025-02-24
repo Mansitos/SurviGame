@@ -88,3 +88,4 @@
 - `QuickBar` selection with keys
 - weight counter in `InventoryUI`
 - Renamed `PlayerInputHandler` in `InputHandler`
+- SecondaryAction implemented. You can now interact with buildings and open `ProcessingStations`
