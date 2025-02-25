@@ -14,6 +14,7 @@ public abstract class BaseInventoryUI : MonoBehaviour
     protected GameManager gm;
     protected InventorySystem inventory;
     protected int numSlots;
+    protected bool isActive;
 
     protected virtual void Start()
     {
@@ -21,7 +22,6 @@ public abstract class BaseInventoryUI : MonoBehaviour
         inventory = gm.GetInventorySystem();
         InitSlots();
         UpdateUI();
-        UpdateActiveStatus();
     }
 
     protected abstract void InitSlots(); // Each UI type initializes differently
@@ -34,27 +34,6 @@ public abstract class BaseInventoryUI : MonoBehaviour
             slot.GetComponent<InventoryUISlot>().SetIndex(i);
             slot.GetComponent<InventoryUISlot>().SetSlotType(slotType);
             uiSlots.Add(slot);
-        }
-    }
-
-    protected virtual void UpdateSlots()
-    {
-        List<InventorySlot> inventorySlots = inventory.GetInventorySlots();
-
-        for (int i = 0; i < numSlots; i++)
-        {
-            InventorySlot inventorySlot = inventorySlots[i];
-            InventoryUISlot UISlot = uiSlots[i].GetComponent<InventoryUISlot>();
-
-            // Clear any previous item display
-            UISlot.ClearSlot(destroyChild: true);
-
-            if (!inventorySlot.IsEmpty())
-            {
-                GameObject itemIconObject = CreateItemIcon(inventorySlot.itemInstance);
-                itemIconObject.transform.SetParent(UISlot.transform, false);
-                UISlot.SetDisplayedItem(itemIconObject, inventorySlot.itemInstance , draggable: ItemsAreDraggable);
-            }
         }
     }
 
@@ -86,16 +65,49 @@ public abstract class BaseInventoryUI : MonoBehaviour
         return itemIconObject;
     }
 
-    protected virtual void UpdateActiveStatus()
+    public virtual void SetActive(bool flag)
     {
         foreach (Transform child in transform)
         {
-            child.gameObject.SetActive(gm.IsInInventoryMode());
+            child.gameObject.SetActive(flag);
         }
+
+        if (flag == true)
+        {
+            UpdateUI();
+        }
+
+        isActive = flag;
     }
+
+    public virtual bool IsActive() { return isActive; }
+
+    // --- Update/Redraw UI Methods ---
 
     public virtual void UpdateUI()
     {
         UpdateSlots();
     }
+
+    protected virtual void UpdateSlots()
+    {
+        List<InventorySlot> inventorySlots = inventory.GetInventorySlots();
+
+        for (int i = 0; i < numSlots; i++)
+        {
+            InventorySlot inventorySlot = inventorySlots[i];
+            InventoryUISlot UISlot = uiSlots[i].GetComponent<InventoryUISlot>();
+
+            // Clear any previous item display
+            UISlot.ClearSlot(destroyChild: true);
+
+            if (!inventorySlot.IsEmpty())
+            {
+                GameObject itemIconObject = CreateItemIcon(inventorySlot.itemInstance);
+                itemIconObject.transform.SetParent(UISlot.transform, false);
+                UISlot.SetDisplayedItem(itemIconObject, inventorySlot.itemInstance, draggable: ItemsAreDraggable);
+            }
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Windows;
 
 public enum SlotType
 {
@@ -118,13 +119,23 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
 
     public void SetDisplayedItem(GameObject item, ItemInstance linkedItemInstance, bool draggable = true)
     {
-        hasDisplayedItem = true;
-        if (draggable)
-        {
-            item.AddComponent<DraggableUIItem>();
-            item.GetComponent<DraggableUIItem>().linkedItemInstance = linkedItemInstance;
+        if (hasDisplayedItem == false) { 
+            hasDisplayedItem = true;
+            if (draggable)
+            {
+                item.AddComponent<DraggableUIItem>();
+                item.GetComponent<DraggableUIItem>().linkedItemInstance = linkedItemInstance;
+
+                item.transform.SetParent(this.transform, false);
+                item.GetComponent<DraggableUIItem>().parent = this.transform;
+            }
+            childDisplayedItem = item;
         }
-        childDisplayedItem = item;
+        else { 
+
+            childDisplayedItem = item;
+            Debug.Log("UPDATE DISPLAYED ITEM LOGIC HERE");
+        }
     }
 
     public void ClearSlot(bool destroyChild = false)

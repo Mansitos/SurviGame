@@ -13,8 +13,8 @@ public class QuickBarUI : BaseInventoryUI
         numSlots = quickBarSize;
         GameManager.Instance.GetPlayerQuickBar().OnChangedQuickBarSelection += HighlightSelectedSlot;
         base.Start();
-
         unselectedColor = uiSlots[0].GetComponent<Image>().color;
+        SetActive(true);
     }
 
     protected override void InitSlots()
@@ -24,23 +24,8 @@ public class QuickBarUI : BaseInventoryUI
 
     private void Update()
     {
-        UpdateActiveStatus();
-
-        //TODO: dummy for now, in future event called when changed
+        //TODO: dummy for now, in future event called when OnChanged
         HighlightSelectedSlot(GameManager.Instance.GetPlayerQuickBar().selectedIndex);
-    }
-
-    protected override void UpdateActiveStatus()
-    {
-        bool newStatus = !gm.IsInInventoryMode();
-        bool oldStatus = grid.activeSelf;
-
-        grid.SetActive(newStatus);
-
-        if (oldStatus != newStatus)
-        {
-            UpdateSlots();
-        }
     }
 
     public void HighlightSelectedSlot(int index)
@@ -53,4 +38,7 @@ public class QuickBarUI : BaseInventoryUI
         GameObject selectedSlot = uiSlots[index];
         selectedSlot.GetComponent<Image>().color = Color.red;
     }
+
+    // --- Update/Redraw UI Methods ---
+
 }

@@ -39,7 +39,7 @@ public class ProcessingStation : Building
     }
 
     // TODO: i still not understand this unity/c# ... behaviour
-    private void ResetStateNulls()
+    public void ResetStateNulls()
     {
         if (storedFuel != null && storedFuel.Quantity == 0)
         {
@@ -155,7 +155,6 @@ public class ProcessingStation : Building
                             Debug.Log("Starting processing conditions met! Starting!");
                             ItemCraftBlueprintUnderProcess = craft;
                             StartCoroutine(ProcessCoroutine(fuelAmountToConsume));
-                            OnStartProcessing?.Invoke();
                             break; // Break as soon as we find a valid craft to process
                         }
 
@@ -245,6 +244,8 @@ public class ProcessingStation : Building
     {
         storedInput.RemoveQuantity(inputAmountToConsume);
         storedFuel.RemoveQuantity(fuelAmountToConsume);
+        ResetStateNulls();
+        OnStartProcessing?.Invoke();
     }
 
     override public bool InteractWithBuilding()

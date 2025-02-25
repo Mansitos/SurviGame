@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
@@ -11,6 +12,9 @@ public class InputHandler : MonoBehaviour
 
     private PlayerControls controls; // Reference to the auto-generated input actions class
     private GameManager gm;
+
+    public static event Action OnInventoryKeyPressedEvent;
+    public static event Action OnEscKeyPressedEvent;
 
     private void Awake()
     {
@@ -25,7 +29,21 @@ public class InputHandler : MonoBehaviour
     private void Update()
     {
         UpdateActionMapActiveStatus();
+        InvokeEvents();
     }
+
+    private void OnEnable()
+    {
+        controls.UI.Enable();
+
+        // Subscribe to movement and look actions
+        controls.Player.Move.performed += OnMovePerformed;
+        controls.Player.Move.canceled += OnMoveCanceled;
+        controls.Player.Run.performed += OnRunPerformed;
+        controls.Player.Run.canceled += OnRunCanceled;
+        controls.Player.Look.performed += OnLookPerformed;
+    }
+
 
     private void UpdateActionMapActiveStatus()
     {
@@ -46,17 +64,18 @@ public class InputHandler : MonoBehaviour
             controls.QuickBar.Disable();
         }
     }
-
-    private void OnEnable()
+   
+    private void InvokeEvents()
     {
-        controls.UI.Enable();
+        if (WasInventoryModePressedThisFrame())
+        {
+            OnInventoryKeyPressedEvent?.Invoke();
+        }
 
-        // Subscribe to movement and look actions
-        controls.Player.Move.performed += OnMovePerformed;
-        controls.Player.Move.canceled += OnMoveCanceled;
-        controls.Player.Run.performed += OnRunPerformed;
-        controls.Player.Run.canceled += OnRunCanceled;
-        controls.Player.Look.performed += OnLookPerformed;
+        if (WasEscInventoryPressedThisFrame())
+        {
+            OnEscKeyPressedEvent?.Invoke();
+        }
     }
 
     // --- Player ---
@@ -90,6 +109,7 @@ public class InputHandler : MonoBehaviour
     {
         mouseScreenPosition = ctx.ReadValue<Vector2>();
     }
+
     public bool WasMainActionPressedThisFrame() => controls.Player.MainAction.WasPressedThisFrame();
     public bool WasSecondaryActionPressedThisFrame() => controls.Player.SecondaryAction.WasPressedThisFrame();
     public bool WasRotateActionPressedThisFrame() => controls.Player.RotateAction.WasPressedThisFrame();

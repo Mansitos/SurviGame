@@ -5,13 +5,12 @@ public class InventoryUI : BaseInventoryUI
 {
     public GameObject weightUI;
 
-    private InputHandler inputHandler;
     protected override bool ItemsAreDraggable => true;
 
     protected override void Start()
     {
         base.Start();
-        inputHandler = gm.GetPlayerGO().GetComponent<InputHandler>();
+        SetActive(false);
     }
 
     protected override void InitSlots()
@@ -20,24 +19,7 @@ public class InventoryUI : BaseInventoryUI
         PopulateSlots(numSlots, SlotType.Inventory);
     }
 
-    private void Update()
-    {
-        CheckInventoryModeInput();
-    }
-
-    private void CheckInventoryModeInput()
-    {
-        if (inputHandler.WasInventoryModePressedThisFrame())
-        {
-            gm.SetInventoryMode(!gm.IsInInventoryMode());
-            UpdateActiveStatus();
-
-            if (gm.IsInInventoryMode())
-            {
-                UpdateUI();
-            }
-        }
-    }
+    // --- Update/Redraw UI Methods ---
 
     public override void UpdateUI()
     {
@@ -49,13 +31,5 @@ public class InventoryUI : BaseInventoryUI
     {
         weightUI.GetComponent<TextMeshProUGUI>().text = "Weight: " + inventory.GetCurrentWeight() + "/" + inventory.maxWeight;
     }
-
-    public void SetActive(bool flag)
-    {
-        gm.SetInventoryMode(flag);
-        UpdateActiveStatus();
-        UpdateUI();
-    }
-
 
 }

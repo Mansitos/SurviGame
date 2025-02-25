@@ -89,3 +89,8 @@
 - weight counter in `InventoryUI`
 - Renamed `PlayerInputHandler` in `InputHandler`
 - SecondaryAction implemented. You can now interact with buildings and open `ProcessingStations`
+- ESC for quitting inventory tabs (rudimental)
+---
+25-2-2025
+- Strong UI open/close and keys input rework. Implementation is now much more cleaner.
+- Fixed missing parent set on `DraggableUIItem` via `InventoryUISlot.SetDisplayedItem()` method.

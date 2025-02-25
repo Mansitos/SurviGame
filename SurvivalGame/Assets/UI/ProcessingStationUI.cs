@@ -22,12 +22,12 @@ public class ProcessingStationUI : BaseInventoryUI
 
     protected new GameManager gm;
 
-    void Start()
+    protected override void Start()
     {
         gm = GameManager.Instance;
         nameText = nameTextGO.GetComponent<TextMeshProUGUI>();
         InitSlots();
-        this.gameObject.SetActive(false);
+        SetActive(false);
     }
 
     protected override void InitSlots()
@@ -60,51 +60,8 @@ public class ProcessingStationUI : BaseInventoryUI
         processingStation = newStation.GetComponent<ProcessingStation>();
 
         processingStation.OnStartProcessing += UpdateUI;
-        this.gameObject.SetActive(true);
-        gm.GetUIManager().GetInventoryUI().SetActive(true);
-        UpdateUI();
-    }
 
-    public override void UpdateUI()
-    {
-        UpdateSlots();
-        UpdateProcessingIcon();
-        nameText.text = GetLinkedProcessingStation().name;
-    }
-
-    private void UpdateProcessingIcon()
-    {
-        processingUIIcon.SetActive(processingStation.isProcessing);
-    }
-
-    protected override void UpdateSlots()
-    {
-        input.ClearSlot(destroyChild: true);
-        fuel.ClearSlot(destroyChild: true);
-        output.ClearSlot(destroyChild: true);
-
-        ItemInstance storedInput = processingStation.storedInput;
-        ItemInstance storedFuel = processingStation.storedFuel;
-        ItemInstance storedOutput = processingStation.storedOutput;
-
-        if (processingStation.HasStoredInput())
-        {
-            GameObject itemIconObjectInput = CreateItemIcon(storedInput);
-            itemIconObjectInput.transform.SetParent(input.transform, false);
-            input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
-        }
-        if (processingStation.HasStoredFuel())
-        {
-            GameObject itemIconObjectFuel = CreateItemIcon(storedFuel);
-            itemIconObjectFuel.transform.SetParent(fuel.transform, false);
-            fuel.SetDisplayedItem(itemIconObjectFuel, storedFuel, draggable: true);
-        }
-        if (processingStation.HasStoredOutput())
-        {
-            GameObject itemIconObjectOutput = CreateItemIcon(storedOutput);
-            itemIconObjectOutput.transform.SetParent(output.transform, false);
-            output.SetDisplayedItem(itemIconObjectOutput, storedOutput, draggable: true);
-        }
+        gm.GetUIManager().SetProcessingStationTabActive(true);
     }
 
     public void RemoveItemFromIndexSlot(int index)
@@ -126,6 +83,7 @@ public class ProcessingStationUI : BaseInventoryUI
                         processingStation.storedOutput = null;
                         break;
                 }
+                GetLinkedProcessingStation().ResetStateNulls();
             }
         }
         UpdateUI();
@@ -172,4 +130,60 @@ public class ProcessingStationUI : BaseInventoryUI
         processingStation = null;
         this.gameObject.SetActive(false);
     }
+
+    // --- Update/Redraw UI Methods ---
+
+    public override void UpdateUI()
+    {
+        UpdateSlots();
+        UpdateProcessingIcon();
+        nameText.text = GetLinkedProcessingStation().objectName;
+    }
+
+    protected override void UpdateSlots()
+    {
+        input.ClearSlot(destroyChild: true);
+        fuel.ClearSlot(destroyChild: true);
+        output.ClearSlot(destroyChild: true);
+
+        ItemInstance storedInput = processingStation.storedInput;
+        ItemInstance storedFuel = processingStation.storedFuel;
+        ItemInstance storedOutput = processingStation.storedOutput;
+
+        if (processingStation.HasStoredInput())
+        {
+            GameObject itemIconObjectInput = CreateItemIcon(storedInput);
+            input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
+        }
+        else
+        {
+            input.ClearSlot(destroyChild: true);
+        }
+
+        if (processingStation.HasStoredFuel())
+        {
+            GameObject itemIconObjectFuel = CreateItemIcon(storedFuel);
+            fuel.SetDisplayedItem(itemIconObjectFuel, storedFuel, draggable: true);
+        }
+        else
+        {
+            fuel.ClearSlot(destroyChild: true);
+        }
+
+        if (processingStation.HasStoredOutput())
+        {
+            GameObject itemIconObjectOutput = CreateItemIcon(storedOutput);
+            output.SetDisplayedItem(itemIconObjectOutput, storedOutput, draggable: true);
+        }
+        else
+        {
+            output.ClearSlot(destroyChild: true);
+        }
+    }
+
+    private void UpdateProcessingIcon()
+    {
+        processingUIIcon.SetActive(processingStation.isProcessing);
+    }
+
 }

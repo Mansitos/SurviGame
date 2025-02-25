@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     private InputHandler inputHandler;
 
     // Game modes
-    private bool isBuildMode = false;
-    private bool isInventoryMode = false;
-    private bool isNormalMode = true;
+    protected bool isBuildMode = false;
+    protected bool isInventoryMode = false;
+    protected bool isNormalMode = true;
 
     private void Awake()
     {
@@ -146,5 +146,4 @@ public class GameManager : MonoBehaviour
     {
         return playerAnimationsHandler;
     }
-
 }
