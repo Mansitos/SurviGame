@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
-    public Vector2 movementInputVector { get; private set; } // Movement vector from the Input System
-    public bool isRunning { get; private set; } // Indicates if player is holding the Run action (e.g., Shift)
-    public bool isWalking { get; private set; } // Indicates if player is walking
-    public Vector2 mouseScreenPosition { get; private set; } // Mouse position on screen
+    public Vector2 movementInputVector { get; private set; }
+    public bool isRunning { get; private set; }
+    public bool isWalking { get; private set; }
+    public Vector2 mouseScreenPosition { get; private set; }
 
     private PlayerControls controls; // Reference to the auto-generated input actions class
     private GameManager gm;

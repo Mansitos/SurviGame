@@ -1,4 +1,6 @@
-# **Changelog**
+# **📝 Changelog**
+
+## **Version 0.0.1**
 
 1-2-2025
 - Pushing project bones
@@ -94,3 +96,6 @@
 25-2-2025
 - Strong UI open/close and keys input rework. Implementation is now much more cleaner.
 - Fixed missing parent set on `DraggableUIItem` via `InventoryUISlot.SetDisplayedItem()` method.
+---
+26-2-2025
+- Rudimental `PlayerStatus` logic and realted debug UI. Health, hunger, thirst and energy implemented with related GET and MODIFY methods.

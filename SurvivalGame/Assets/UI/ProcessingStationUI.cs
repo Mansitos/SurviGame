@@ -20,8 +20,6 @@ public class ProcessingStationUI : BaseInventoryUI
 
     private List<InventoryUISlot> slots = new List<InventoryUISlot>();
 
-    protected new GameManager gm;
-
     protected override void Start()
     {
         gm = GameManager.Instance;

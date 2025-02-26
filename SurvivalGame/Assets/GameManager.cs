@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     private InventorySystem inventorySystem;
     private GameTimeManager gameTimeManager;
     private InputHandler inputHandler;
+    private PlayerStatus playerStatus;
 
     // Game modes
     protected bool isBuildMode = false;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
         inventorySystem = player.GetComponent<InventorySystem>();
         gameTimeManager = timeManager.GetComponent<GameTimeManager>();
         inputHandler = player.GetComponent<InputHandler>();
+        playerStatus = player.GetComponent<PlayerStatus>();
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -85,6 +87,11 @@ public class GameManager : MonoBehaviour
     {
         isInventoryMode = flag;
         UpdateIsInNormalMode();
+    }
+
+    public PlayerStatus GetPlayerStatus()
+    {
+        return playerStatus;
     }
 
     public InputHandler GetInputHandler()
