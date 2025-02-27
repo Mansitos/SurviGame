@@ -44,11 +44,6 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public UIManager GetUIManager()
-    {
-        return UIManager.Instance;
-    }
-
     public void UpdateIsInNormalMode()
     {
         if (isBuildMode || isInventoryMode)

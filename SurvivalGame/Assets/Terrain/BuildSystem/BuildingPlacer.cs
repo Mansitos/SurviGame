@@ -28,14 +28,6 @@ public class BuildingPlacer : MonoBehaviour
         mainCamera = gm.GetMainCameraGO().GetComponent<Camera>();
         inputHandler = gm.GetPlayerGO().GetComponent<InputHandler>();
         xzPositioningOffset = gm.GetTerrainGridSystemGO().GetComponent<Grid>().cellSize.x / 2;
-        buildingComponent = buildingPrefab.GetComponent<Building>();
-
-        // Read building dimensions from prefab
-        if (buildingComponent != null)
-        {
-            buildingWidth = buildingComponent.xdimension;
-            buildingHeight = buildingComponent.zdimension;
-        }
     }
 
     private void Update()
@@ -106,6 +98,14 @@ public class BuildingPlacer : MonoBehaviour
     public int getActualBuildingRotation()
     {
         return currentRotation;
+    }
+
+    public void SetBuilding(GameObject building)
+    {
+        buildingPrefab = building;
+        buildingComponent = buildingPrefab.GetComponent<Building>();
+        buildingWidth = buildingComponent.xdimension;
+        buildingHeight = buildingComponent.zdimension;
     }
 
     private void TryPlaceBuilding(Vector3Int gridPos)

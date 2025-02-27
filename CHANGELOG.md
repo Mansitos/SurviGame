@@ -99,3 +99,8 @@
 ---
 26-2-2025
 - Rudimental `PlayerStatus` logic and realted debug UI. Health, hunger, thirst and energy implemented with related GET and MODIFY methods.
+---
+27-2-2025
+- Rudimental `EndOfDayUI` UI + pause game on end of day.
+- Handled two types of end of day: from sleep and from end of day time (with related -50% max energy debuff on day n+1).
+- Slightly reworked `BuildingPlacer` logic.

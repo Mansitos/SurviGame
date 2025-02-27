@@ -19,6 +19,7 @@ public class PlayerStatus : MonoBehaviour
     private float food;
     private float thirst;
     private float energy;
+    private bool didNotSleepPenalty;
 
     private GameManager gm;
     private InputHandler movement;
@@ -96,4 +97,21 @@ public class PlayerStatus : MonoBehaviour
     public void AddThirst(float amount) { thirst = Mathf.Clamp(thirst + amount, 0, maxThirst); }
     public void ReduceEnergy(float amount) { energy = Mathf.Clamp(energy - amount, 0, maxEnergy); }
     public void AddEnergy(float amount) { energy = Mathf.Clamp(energy + amount, 0, maxEnergy); }
+    public void SetDidNotSleepPenalty(bool flag)
+    {
+        if (didNotSleepPenalty == true && flag == false)
+        {
+            didNotSleepPenalty = true;
+            maxEnergy = maxEnergy * 2; // reverting back
+        }
+        else if (didNotSleepPenalty == false && flag == true)
+        {
+            didNotSleepPenalty = true;
+            maxEnergy = maxEnergy / 2; // applying penalty
+        }
+    }
+    public void Sleep()
+    {
+        energy = maxEnergy;
+    }
 }

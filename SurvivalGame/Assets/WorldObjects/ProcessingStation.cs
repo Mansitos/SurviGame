@@ -250,7 +250,7 @@ public class ProcessingStation : Building
 
     override public bool InteractWithBuilding()
     {
-        gm.GetUIManager().GetProcessingStationUI().LinkStation(this.gameObject);
+        UIManager.Instance.GetProcessingStationUI().LinkStation(this.gameObject);
         return true;
     }
 

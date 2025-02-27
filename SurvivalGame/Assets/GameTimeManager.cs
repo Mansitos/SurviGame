@@ -13,12 +13,17 @@ public class GameTimeManager : MonoBehaviour
     private float timePerSlot;
     private float timer = 0;
 
+    private GameManager gm;
+    private EndOfDayUI ui;
+
     public event Action<int, int> OnTimeChanged;  // Event for UI updates
     public event Action<int> OnDayEnded;  // Event when day ends
 
     void Start()
     {
         ResetDay();
+        gm = GameManager.Instance;
+        ui = UIManager.Instance.GetEndOfDayUI();
     }
 
     void Update()
@@ -58,7 +63,7 @@ public class GameTimeManager : MonoBehaviour
 
         if (currentHour >= endHour)
         {
-            EndDay();
+            HandleEndDay(fromSleep:false);
         }
         else
         {
@@ -92,5 +97,36 @@ public class GameTimeManager : MonoBehaviour
     public string GetCurrentTimeFormatted()
     {
         return $"{currentHour:D2}:{currentMinute:D2}";
+    }
+
+    public void TriggerNextDay()
+    {
+        EndDay();
+        ui.SetActive(false);
+        Time.timeScale = 1.0f; // un-pause game
+    }
+
+    public void HandleEndDay(bool fromSleep)
+    {
+        HandleWorldUpdate();
+        ui.SetActive(true);
+        Time.timeScale = 0f; // pause game
+
+        if (fromSleep == false)
+        {
+            Debug.Log("Applying did not sleep penalty for next day");
+        }
+        else
+        {
+            Debug.Log("Removing did not sleep penalty for next day");
+        }
+
+        gm.GetPlayerStatus().SetDidNotSleepPenalty(!fromSleep);
+        gm.GetPlayerStatus().Sleep();
+    }
+
+    private void HandleWorldUpdate()
+    {
+        Debug.Log("World updated at end day");
     }
 }

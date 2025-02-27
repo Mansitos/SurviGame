@@ -59,7 +59,7 @@ public class ProcessingStationUI : BaseInventoryUI
 
         processingStation.OnStartProcessing += UpdateUI;
 
-        gm.GetUIManager().SetProcessingStationTabActive(true);
+        UIManager.Instance.SetProcessingStationTabActive(true);
     }
 
     public void RemoveItemFromIndexSlot(int index)

@@ -8,11 +8,13 @@ public class UIManager : MonoBehaviour
     public GameObject inventoryUIGO;
     public GameObject quickBarUIGO;
     public GameObject processingStationUIGO;
+    public GameObject endOfDayUIGO;
 
     // Script Components
     private InventoryUI inventoryUI;
     private QuickBarUI quickBarUI;
     private ProcessingStationUI processingStationUI;
+    private EndOfDayUI endOfDayUI;
     private GameManager gm;
 
     private void OnEnable()
@@ -26,6 +28,7 @@ public class UIManager : MonoBehaviour
         inventoryUI = inventoryUIGO.GetComponent<InventoryUI>();
         quickBarUI = quickBarUIGO.GetComponent<QuickBarUI>();
         processingStationUI = processingStationUIGO.GetComponent<ProcessingStationUI>();
+        endOfDayUI = endOfDayUIGO.GetComponent<EndOfDayUI>();
 
         gm = GameManager.Instance;
 
@@ -46,6 +49,11 @@ public class UIManager : MonoBehaviour
     public ProcessingStationUI GetProcessingStationUI()
     {
         return processingStationUI;
+    }
+
+    public EndOfDayUI GetEndOfDayUI()
+    {
+        return endOfDayUI;
     }
 
     public void CloseOpenInventoryTabs()

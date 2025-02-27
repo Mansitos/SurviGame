@@ -24,7 +24,7 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
-        uim = gm.GetUIManager();
+        uim = UIManager.Instance;
         ui = uim.GetInventoryUI();
         quickBarUI = uim.GetQuickBarUI();
         quickBar = gm.GetPlayerQuickBar();

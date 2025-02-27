@@ -24,7 +24,7 @@ public abstract class Building : WorldObject
         // Apply blueprint cost
         blueprint.Build(gm.GetInventorySystem());
         gm.SetBuildMode(true);
-        gm.GetBuildingPlacer().buildingPrefab = this.gameObject;
+        gm.GetBuildingPlacer().SetBuilding(this.gameObject);
     }
 
     public bool CanBuild(GameManager gm)

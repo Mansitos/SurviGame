@@ -54,14 +54,14 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         if (this.slotType == SlotType.Inventory)
         {
             GameManager.Instance.GetInventorySystem().SwapSlotContents(oldSlotIndex, index);
-            GameManager.Instance.GetUIManager().GetInventoryUI().UpdateUI();
+            UIManager.Instance.GetInventoryUI().UpdateUI();
         }
         else if (this.slotType == SlotType.ProcessingStation)
         {
             // Get inventory content at index
             InventorySlot incomingItemSlot = GameManager.Instance.GetInventorySystem().GetInventorySlotAtIndex(oldSlotIndex);
             ItemInstance incomingItem = incomingItemSlot.itemInstance;
-            ProcessingStationUI stationUI = GameManager.Instance.GetUIManager().GetProcessingStationUI();
+            ProcessingStationUI stationUI = UIManager.Instance.GetProcessingStationUI();
 
             if (stationUI.VerifyCanAddToSlot(incomingItem.ItemData, this.index)){
                 Debug.Log("asd");
@@ -89,7 +89,7 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
             if (GameManager.Instance.GetInventorySystem().CanAddItem(itemToAdd))
             {
                 GameManager.Instance.GetInventorySystem().TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
-                ProcessingStationUI stationUI = GameManager.Instance.GetUIManager().GetProcessingStationUI();
+                ProcessingStationUI stationUI = UIManager.Instance.GetProcessingStationUI();
                 stationUI.RemoveItemFromIndexSlot(oldParentSlot.GetIndex());
             }
             else
