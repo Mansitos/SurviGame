@@ -9,18 +9,21 @@ public class UIManager : MonoBehaviour
     public GameObject quickBarUIGO;
     public GameObject processingStationUIGO;
     public GameObject endOfDayUIGO;
+    public GameObject craftingUIGO;
 
     // Script Components
     private InventoryUI inventoryUI;
     private QuickBarUI quickBarUI;
     private ProcessingStationUI processingStationUI;
     private EndOfDayUI endOfDayUI;
+    private CraftingUI craftingUI;
     private GameManager gm;
 
     private void OnEnable()
     {
         InputHandler.OnInventoryKeyPressedEvent += OnInventoryKeyPressed;
         InputHandler.OnEscKeyPressedEvent += OnEscKeyPressed;
+        InputHandler.OnCraftingKeyPressedEvent += OnCraftingKeyPressed;
     }
 
     void Awake()
@@ -29,11 +32,17 @@ public class UIManager : MonoBehaviour
         quickBarUI = quickBarUIGO.GetComponent<QuickBarUI>();
         processingStationUI = processingStationUIGO.GetComponent<ProcessingStationUI>();
         endOfDayUI = endOfDayUIGO.GetComponent<EndOfDayUI>();
+        craftingUI = craftingUIGO.GetComponent <CraftingUI>();
 
         gm = GameManager.Instance;
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    public CraftingUI GetCraftingUI()
+    {
+        return craftingUI;
     }
 
     public QuickBarUI GetQuickBarUI()
@@ -61,6 +70,7 @@ public class UIManager : MonoBehaviour
         gm.SetInventoryMode(false);
         inventoryUI.SetActive(false);
         processingStationUI.SetActive(false);
+        craftingUI.SetActive(false);
     }
 
     private bool CanCloseInventory()
@@ -96,6 +106,15 @@ public class UIManager : MonoBehaviour
             inventoryUI.SetActive(newflag);
             quickBarUI.SetActive(!newflag);
         }
+    }
+
+    public void OnCraftingKeyPressed()
+    {
+        bool newflag = !craftingUI.IsActive();
+
+        gm.SetInventoryMode(newflag);
+        craftingUI.SetActive(newflag);
+        inventoryUI.SetActive(newflag);
     }
 
     public void OnEscKeyPressed()

@@ -472,13 +472,22 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crafting"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba42d29d-0b92-4f44-9669-83afc43b4ac8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""a9d33a52-e4e8-48de-94a8-5e87f846aa54"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -494,6 +503,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb8a146f-d769-49bf-8067-36779076682d"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crafting"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -530,6 +550,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
         m_UI_Close = m_UI.FindAction("Close", throwIfNotFound: true);
+        m_UI_Crafting = m_UI.FindAction("Crafting", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -859,12 +880,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Inventory;
     private readonly InputAction m_UI_Close;
+    private readonly InputAction m_UI_Crafting;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
         public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Inventory => m_Wrapper.m_UI_Inventory;
         public InputAction @Close => m_Wrapper.m_UI_Close;
+        public InputAction @Crafting => m_Wrapper.m_UI_Crafting;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -880,6 +903,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Close.started += instance.OnClose;
             @Close.performed += instance.OnClose;
             @Close.canceled += instance.OnClose;
+            @Crafting.started += instance.OnCrafting;
+            @Crafting.performed += instance.OnCrafting;
+            @Crafting.canceled += instance.OnCrafting;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -890,6 +916,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Close.started -= instance.OnClose;
             @Close.performed -= instance.OnClose;
             @Close.canceled -= instance.OnClose;
+            @Crafting.started -= instance.OnCrafting;
+            @Crafting.performed -= instance.OnCrafting;
+            @Crafting.canceled -= instance.OnCrafting;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -938,5 +967,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnInventory(InputAction.CallbackContext context);
         void OnClose(InputAction.CallbackContext context);
+        void OnCrafting(InputAction.CallbackContext context);
     }
 }

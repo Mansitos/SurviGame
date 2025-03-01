@@ -150,7 +150,7 @@ public class ProcessingStationUI : BaseInventoryUI
 
         if (processingStation.HasStoredInput())
         {
-            GameObject itemIconObjectInput = CreateItemIcon(storedInput);
+            GameObject itemIconObjectInput = UIUtils.CreateItemIcon(storedInput, inventoryUISlotCounterPrefab, grid);
             input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
         }
         else
@@ -160,7 +160,7 @@ public class ProcessingStationUI : BaseInventoryUI
 
         if (processingStation.HasStoredFuel())
         {
-            GameObject itemIconObjectFuel = CreateItemIcon(storedFuel);
+            GameObject itemIconObjectFuel = UIUtils.CreateItemIcon(storedFuel, inventoryUISlotCounterPrefab, grid);
             fuel.SetDisplayedItem(itemIconObjectFuel, storedFuel, draggable: true);
         }
         else
@@ -170,7 +170,7 @@ public class ProcessingStationUI : BaseInventoryUI
 
         if (processingStation.HasStoredOutput())
         {
-            GameObject itemIconObjectOutput = CreateItemIcon(storedOutput);
+            GameObject itemIconObjectOutput = UIUtils.CreateItemIcon(storedOutput, inventoryUISlotCounterPrefab, grid);
             output.SetDisplayedItem(itemIconObjectOutput, storedOutput, draggable: true);
         }
         else

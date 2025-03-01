@@ -75,7 +75,6 @@ public class GameTimeManager : MonoBehaviour
     {
         currentDay++;
         OnDayEnded?.Invoke(currentDay);
-        Debug.Log("DAY END!");
         ResetDay();
     }
 

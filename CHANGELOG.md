@@ -104,3 +104,6 @@
 - Rudimental `EndOfDayUI` UI + pause game on end of day.
 - Handled two types of end of day: from sleep and from end of day time (with related -50% max energy debuff on day n+1).
 - Slightly reworked `BuildingPlacer` logic.
+---
+1-3-2025
+- Rudimental `CraftingUI` and related `CraftingUISlot`.

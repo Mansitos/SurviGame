@@ -23,9 +23,9 @@ public class GameManager : MonoBehaviour
     private PlayerStatus playerStatus;
 
     // Game modes
-    protected bool isBuildMode = false;
-    protected bool isInventoryMode = false;
-    protected bool isNormalMode = true;
+    public bool isBuildMode = false;
+    public bool isInventoryMode = false;
+    public bool isNormalMode = true;
 
     private void Awake()
     {

@@ -14,6 +14,7 @@ public class InputHandler : MonoBehaviour
     private GameManager gm;
 
     public static event Action OnInventoryKeyPressedEvent;
+    public static event Action OnCraftingKeyPressedEvent;
     public static event Action OnEscKeyPressedEvent;
 
     private void Awake()
@@ -76,6 +77,11 @@ public class InputHandler : MonoBehaviour
         {
             OnEscKeyPressedEvent?.Invoke();
         }
+
+        if (WasCraftingKeyPressedThisFrame())
+        {
+            OnCraftingKeyPressedEvent?.Invoke();
+        }
     }
 
     // --- Player ---
@@ -117,6 +123,7 @@ public class InputHandler : MonoBehaviour
     // --- UI ---
     public bool WasInventoryModePressedThisFrame() => controls.UI.Inventory.WasPressedThisFrame();
     public bool WasEscInventoryPressedThisFrame() => controls.UI.Close.WasPressedThisFrame();
+    public bool WasCraftingKeyPressedThisFrame() => controls.UI.Crafting.WasPressedThisFrame();
 
     // --- QuickBar ---
     public bool WasQuickBarKeyPressedThisFrame(int key)

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public abstract class BaseInventoryUI : MonoBehaviour
 {
@@ -35,34 +33,6 @@ public abstract class BaseInventoryUI : MonoBehaviour
             slot.GetComponent<InventoryUISlot>().SetSlotType(slotType);
             uiSlots.Add(slot);
         }
-    }
-
-    protected GameObject CreateItemIcon(ItemInstance itemInstance)
-    {
-        Sprite itemSprite = itemInstance.ItemData.uiIcon;
-        int itemQuantity = itemInstance.Quantity;
-
-        // Create a new GameObject for the item icon
-        GameObject itemIconObject = new GameObject("ItemIcon");
-        
-        // Add Image component and assign sprite
-        Image itemImage = itemIconObject.AddComponent<Image>();
-        itemImage.sprite = itemSprite;
-
-        RectTransform rectTransform = itemIconObject.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(64, 64);
-        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-        rectTransform.anchoredPosition = Vector2.zero;
-
-        // Spawning the counter
-        GameObject slotCounter = Instantiate(inventoryUISlotCounterPrefab, grid.transform);
-        TextMeshProUGUI counter = slotCounter.GetComponent<TextMeshProUGUI>();
-        counter.raycastTarget = false;
-        slotCounter.transform.SetParent(itemIconObject.transform, false);
-        counter.text = itemQuantity.ToString();
-
-        return itemIconObject;
     }
 
     public virtual void SetActive(bool flag)
@@ -103,7 +73,7 @@ public abstract class BaseInventoryUI : MonoBehaviour
 
             if (!inventorySlot.IsEmpty())
             {
-                GameObject itemIconObject = CreateItemIcon(inventorySlot.itemInstance);
+                GameObject itemIconObject = UIUtils.CreateItemIcon(inventorySlot.itemInstance, inventoryUISlotCounterPrefab, grid);
                 itemIconObject.transform.SetParent(UISlot.transform, false);
                 UISlot.SetDisplayedItem(itemIconObject, inventorySlot.itemInstance, draggable: ItemsAreDraggable);
             }
