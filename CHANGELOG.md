@@ -106,4 +106,9 @@
 - Slightly reworked `BuildingPlacer` logic.
 ---
 1-3-2025
-- Rudimental `CraftingUI` and related `CraftingUISlot`.
+- Rudimental `CraftingUI` and related `CraftUISlot`.
+---
+2-3-2025
+- Added superclass for `CraftUISlot` and `BuildingBlueprintUISlot`: `HorizontalBlueprintUISlot`.
+- Added usperclass for `CraftingUI` and `BuildingUI`: `BaseScrollableCraftUI`.
+- Rudimental `BuilginUI`.

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CraftingUI : BaseScrollableCraftUI
+public class BuildingUI : BaseScrollableCraftUI
 {
 
     protected override void Start()
@@ -15,10 +15,10 @@ public class CraftingUI : BaseScrollableCraftUI
 
     protected override void PopulateSlots()
     {
-        foreach (ItemCraftBlueprint craftBlueprint in craftBlueprints)
+        foreach (BuildingBlueprint buildingBlueprint in craftBlueprints)
         {
             GameObject slot = Instantiate(slotUIPrefab, verticalGrid.transform);
-            slot.GetComponent<CraftSlotUI>().SetBluePrint(craftBlueprint);
+            slot.GetComponent<BuildingBlueprintSlotUI>().SetBluePrint(buildingBlueprint);
         }
     }
 }

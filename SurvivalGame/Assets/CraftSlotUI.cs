@@ -1,33 +1,22 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using static CraftBlueprint;
 
-public class CraftSlotUI : MonoBehaviour, IPointerClickHandler
+public class CraftSlotUI : BaseHorizontalBlueprintUISlot
 {
-    [SerializeField] ItemCraftBlueprint blueprint;
-    [SerializeField] GameObject inventoryUISlotGO;
-    [SerializeField] GameObject nameTextGO;
-    [SerializeField] GameObject requirementsTextGO;
     [SerializeField] GameObject inventoryUISlotCounterPrefab;
 
-    private TextMeshProUGUI nameText;
-    private TextMeshProUGUI requirementsText;
-    private InventorySystem inventory;
-    private Color baseColor;
-
-    void Awake()
+    protected override void Awake()
     {
-        inventory = GameManager.Instance.GetInventorySystem();
-        nameText = nameTextGO.GetComponent<TextMeshProUGUI>();
-        requirementsText = requirementsTextGO.GetComponent<TextMeshProUGUI>();
-        baseColor = inventoryUISlotGO.GetComponent<Image>().color;
+        base.Awake();
     }
 
-    public void UpdateSlotUI()
+    public override void UpdateSlotUI()
     {
-        if (blueprint.CanCraft(GameManager.Instance.GetInventorySystem()))
+        ItemCraftBlueprint itemBlueprint = blueprint as ItemCraftBlueprint;
+
+        if (itemBlueprint.CanCraft(GameManager.Instance.GetInventorySystem()))
         {
             inventoryUISlotGO.GetComponent<Image>().color = baseColor;
         }
@@ -37,10 +26,12 @@ public class CraftSlotUI : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void InitUI() {
+    protected override void InitUI() {
+
+        ItemCraftBlueprint itemBlueprint = blueprint as ItemCraftBlueprint;
 
         // Init text
-        nameText.text = blueprint.outputItem.itemName + " x" + blueprint.outputQuantity;
+        nameText.text = itemBlueprint.outputItem.itemName + " x" + itemBlueprint.outputQuantity;
         requirementsText.text = "";
         foreach (ItemRequirement req in blueprint.requirements)
         {
@@ -48,24 +39,19 @@ public class CraftSlotUI : MonoBehaviour, IPointerClickHandler
         }
 
         // Init icon
-        GameObject icon = UIUtils.CreateItemIcon(new ItemInstance(blueprint.outputItem, blueprint.outputQuantity), inventoryUISlotCounterPrefab, inventoryUISlotGO);
+        GameObject icon = UIUtils.CreateItemIcon(new ItemInstance(itemBlueprint.outputItem, itemBlueprint.outputQuantity), inventoryUISlotCounterPrefab, inventoryUISlotGO);
         icon.transform.SetParent(inventoryUISlotGO.transform, false);
         inventoryUISlotGO.GetComponent<InventoryUISlot>().SetDisplayedItem(icon, null, draggable: false);
 
         UpdateSlotUI();
     }
 
-    public void SetBluePrint(ItemCraftBlueprint blueprint)
+    public override void OnPointerClick(PointerEventData eventData)
     {
-        this.blueprint = blueprint;
-        InitUI();
-    }
+        ItemCraftBlueprint itemBlueprint = blueprint as ItemCraftBlueprint;
 
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log($"Inventory Slot Clicked: {blueprint.outputItem.name}");
-        bool result = blueprint.Craft(inventory);
+        Debug.Log($"Inventory Slot Clicked: {itemBlueprint.outputItem.name}");
+        bool result = itemBlueprint.Craft(inventory);
 
         if (result)
         {
