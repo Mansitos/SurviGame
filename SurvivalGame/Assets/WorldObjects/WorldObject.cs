@@ -1,9 +1,9 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class WorldObject : MonoBehaviour
+public class WorldObject<T> : MonoBehaviour where T : WorldObjectData
 {
-    public string objectName = "Default WorldObject Name";
+    [SerializeField] public T worldObjectData;
     protected GameManager gm;
     protected GridManager gridManager;
 

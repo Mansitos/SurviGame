@@ -112,3 +112,4 @@
 - Added superclass for `CraftUISlot` and `BuildingBlueprintUISlot`: `HorizontalBlueprintUISlot`.
 - Added usperclass for `CraftingUI` and `BuildingUI`: `BaseScrollableCraftUI`.
 - Rudimental `BuilginUI`.
+- Started `WorldObjects` and Building refactoring to use `ScriptableObject` approach to store data (similar to `ItemData` and `ItemInstance`).

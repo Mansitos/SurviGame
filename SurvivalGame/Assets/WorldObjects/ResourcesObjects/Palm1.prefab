@@ -99,14 +99,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a79e463bd56db41926fa1ece22ada5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Palm1
-  resourceObjectType: 1
-  collectionTime: 3
-  spawnRadius: 2
-  spawnableItems:
-  - itemData: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
-    minAmount: 3
-    maxAmount: 5
-  - itemData: {fileID: 11400000, guid: 465f5781442733049b091041d744a17a, type: 2}
-    minAmount: 0
-    maxAmount: 1
+  worldObjectData: {fileID: 11400000, guid: a1ae4b622c195dc4f83c4a6e407ce4ee, type: 2}

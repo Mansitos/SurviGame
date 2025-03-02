@@ -8,12 +8,8 @@ public enum BuildingType
 }
 
 [DisallowMultipleComponent]
-public abstract class Building : WorldObject
+public class Building : WorldObject<BuildingData>
 {
-    public int xdimension = 1;
-    public int zdimension = 1;
-    public BuildingBlueprint blueprint;
-
     protected override void Start()
     {
         base.Start();
@@ -22,14 +18,14 @@ public abstract class Building : WorldObject
     public void Build(GameManager gm)
     {
         // Apply blueprint cost
-        blueprint.Build(gm.GetInventorySystem());
+        worldObjectData.blueprint.Build(gm.GetInventorySystem());
         gm.SetBuildMode(true);
         gm.GetBuildingPlacer().SetBuilding(this.gameObject);
     }
 
     public bool CanBuild(GameManager gm)
     {
-        return blueprint.CanBuild(gm.GetInventorySystem());
+        return worldObjectData.blueprint.CanBuild(gm.GetInventorySystem());
     }
 
     public virtual bool InteractWithBuilding()

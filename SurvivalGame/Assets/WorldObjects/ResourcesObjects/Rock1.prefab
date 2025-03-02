@@ -99,11 +99,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a79e463bd56db41926fa1ece22ada5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Rock1
-  resourceObjectType: 0
-  collectionTime: 3
-  spawnRadius: 2
-  spawnableItems:
-  - itemData: {fileID: 11400000, guid: ad2568c19e14e9642970e628eab7261d, type: 2}
-    minAmount: 3
-    maxAmount: 5
+  worldObjectData: {fileID: 11400000, guid: a1ae4b622c195dc4f83c4a6e407ce4ee, type: 2}

@@ -1,29 +1,8 @@
 using UnityEngine;
-using System.Collections.Generic;
-
-public enum ResourceObjectType
-{
-    Rock,
-    Tree,
-    PickUp
-}
-
-[System.Serializable]
-public class SpawnableItem
-{
-    public ItemData itemData;
-    public int minAmount = 1;
-    public int maxAmount = 3;
-}
 
 [DisallowMultipleComponent]
-public class ResourceObject : WorldObject
+public class ResourceObject : WorldObject<ResourceObjectData>
 {
-    [SerializeField] public ResourceObjectType resourceObjectType;
-    [SerializeField] private float collectionTime = 5.0f;
-    [SerializeField] private float spawnRadius = 2.0f;
-    [SerializeField] private List<SpawnableItem> spawnableItems;
-
     protected override void Start()
     {
         base.Start();
@@ -46,14 +25,13 @@ public class ResourceObject : WorldObject
 
     public bool IsResourceObjectOfType(ResourceObjectType type)
     {
-        return resourceObjectType == type;
+        return worldObjectData.resourceObjectType == type;
     }
 
     public float GetCollectionDuration()
     {
-        return collectionTime;
+        return worldObjectData.collectionTime;
     }
-
 
     public void Collect()
     {
@@ -65,7 +43,7 @@ public class ResourceObject : WorldObject
 
     private void SpawnItems()
     {
-        foreach (var spawnableItem in spawnableItems)
+        foreach (var spawnableItem in worldObjectData.spawnableItems)
         {
             if (spawnableItem.itemData == null) continue; // Ensure item data exists
 
@@ -75,7 +53,7 @@ public class ResourceObject : WorldObject
             for (int i = 0; i < amount; i++)
             {
                 // Generate a random position within the spawn radius
-                Vector3 randomOffset = Random.insideUnitCircle * spawnRadius;
+                Vector3 randomOffset = Random.insideUnitCircle * worldObjectData.spawnRadius;
                 Vector3 spawnPosition = new Vector3(transform.position.x + randomOffset.x, 0.25f, transform.position.z + randomOffset.y);
 
                 // Create an ItemInstance to spawn
