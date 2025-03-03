@@ -17226,7 +17226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1bfc1c1671ebe4db63f9f61523b725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultEmptyItemData: {fileID: 11400000, guid: 79f25ff2a1645244e9c28a485580e71b, type: 2}
+  defaultEmptyItemData: {fileID: 0}
   defaultItemInstance:
     itemData: {fileID: 0}
     quantity: 0

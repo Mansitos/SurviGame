@@ -265,10 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2936161dc196b49b40bd4ee02efe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: CraftStation
-  xdimension: 2
-  zdimension: 3
-  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
+  worldObjectData: {fileID: 0}
   type: 1
 --- !u!1 &2815318681486890302
 GameObject:
@@ -639,8 +636,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2936161dc196b49b40bd4ee02efe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: CraftStation
-  xdimension: 2
-  zdimension: 3
-  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
+  worldObjectData: {fileID: 11400000, guid: f079f56c2b2a8864b8ecb0431930319d, type: 2}
   type: 1

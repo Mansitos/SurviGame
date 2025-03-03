@@ -56,7 +56,7 @@ public class ItemInstance
             GameObject targetObject = gameManager.GetTerrainGridManager().GetObjectOnTile(selectedTile.Value);
             if (targetObject != null)
             {
-                Building targetBuilding = targetObject.GetComponent<Building>();
+                Building<BuildingData> targetBuilding = targetObject.GetComponent<Building<BuildingData>>();
                 if (targetBuilding != null)
                 {
                     targetBuilding.InteractWithBuilding();

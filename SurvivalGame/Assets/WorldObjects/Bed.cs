@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bed : Building, IUsableBuilding
+public class Bed : Building<BuildingData>, IUsableBuilding
 {
     protected override void Start()
     {

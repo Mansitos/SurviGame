@@ -3,20 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ProcessingStation : Building
+public class ProcessingStation : Building<ProcessingStationData>
 {
-    [System.Serializable]
-    public struct ProcessingFuelRequirement
-    {
-        public ItemData item;
-        public int quantity;
-    }
-
-    // Variables
-    public List<ProcessingItemCraftBlueprint> possibleCrafts = new List<ProcessingItemCraftBlueprint>();
-    public List<ProcessingFuelRequirement> validProcessingFuelRequirements;
-    public float processingTime;
-
     // Internal status
     public ItemInstance storedFuel;
     public ItemInstance storedInput;
@@ -87,7 +75,7 @@ public class ProcessingStation : Building
         }
         else
         {
-            foreach (var requiredFuel in validProcessingFuelRequirements) {
+            foreach (var requiredFuel in worldObjectData.validProcessingFuelRequirements) {
                 if (requiredFuel.item == storedFuel.ItemData)
                 {
                     if (requiredFuel.quantity <= storedFuel.Quantity)
@@ -106,7 +94,7 @@ public class ProcessingStation : Building
 
     public bool IsValidFuel(ItemData targetData)
     {
-        foreach (var requiredFuel in validProcessingFuelRequirements)
+        foreach (var requiredFuel in worldObjectData.validProcessingFuelRequirements)
         {
             if (requiredFuel.item == targetData)
             {
@@ -119,7 +107,7 @@ public class ProcessingStation : Building
     // TODO: refactor and use where needed to clean code
     public bool IsValidInput(ItemData targetData)
     {
-        foreach (var craft in possibleCrafts)
+        foreach (var craft in worldObjectData.possibleCrafts)
         {
             if (craft.itemInput == targetData)
             {
@@ -141,7 +129,7 @@ public class ProcessingStation : Building
         if (!IsProcessing() && HasStoredFuel() && HasStoredInput())
         {
             // Find if there's a craft that can be processed
-            foreach (var craft in possibleCrafts)
+            foreach (var craft in worldObjectData.possibleCrafts)
             {
                 // If the stored input data matches the one required by a craft and the quantity is also ok, proceed.
                 if (craft.itemInput == storedInput.ItemData && storedInput.Quantity >= craft.itemInputQuantity)
@@ -263,7 +251,7 @@ public class ProcessingStation : Building
         RemoveProcessingRequirement(inputAmountToConsume, fuelAmountToConsume);
 
         // Process time simulation
-        yield return new WaitForSeconds(processingTime);
+        yield return new WaitForSeconds(worldObjectData.processingTime);
 
         // Generate output
         if (storedOutput == null)

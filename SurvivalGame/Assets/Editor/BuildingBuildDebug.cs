@@ -1,14 +1,14 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Building),true)]
+[CustomEditor(typeof(Building<BuildingData>),true)]
 public class BuildingBuildDebug : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        Building building = (Building)target;
+        Building<BuildingData> building = (Building<BuildingData>)target;
 
         if (GUILayout.Button("Build"))
         {

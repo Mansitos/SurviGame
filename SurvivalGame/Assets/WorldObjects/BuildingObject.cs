@@ -8,7 +8,7 @@ public enum BuildingType
 }
 
 [DisallowMultipleComponent]
-public class Building : WorldObject<BuildingData>
+public class Building<T> : WorldObject<T> where T : BuildingData
 {
     protected override void Start()
     {

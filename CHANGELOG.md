@@ -113,3 +113,6 @@
 - Added usperclass for `CraftingUI` and `BuildingUI`: `BaseScrollableCraftUI`.
 - Rudimental `BuilginUI`.
 - Started `WorldObjects` and Building refactoring to use `ScriptableObject` approach to store data (similar to `ItemData` and `ItemInstance`).
+---
+3-3-2025
+- `ScriptableObjects` approach for `ProcessingStation`.

@@ -8,7 +8,7 @@ public enum CraftStationType
     CampFire
 }
 
-public class CraftStationBuillding : Building
+public class CraftStationBuillding : Building<BuildingData>
 {
     public CraftStationType type;
     //private BuildingType buildingType = BuildingType.CraftStation;

@@ -15,7 +15,7 @@ public class BuildingPlacer : MonoBehaviour
     private GameManager gm;
     private GameObject previewObject;
     private InputHandler inputHandler;
-    private Building buildingComponent;
+    private Building<BuildingData> buildingComponent;
     private Camera mainCamera;
     private int currentRotation = 0; // Rotation angle (90° increments)
     private float xzPositioningOffset;
@@ -103,7 +103,7 @@ public class BuildingPlacer : MonoBehaviour
     public void SetBuilding(GameObject building)
     {
         buildingPrefab = building;
-        buildingComponent = buildingPrefab.GetComponent<Building>();
+        buildingComponent = buildingPrefab.GetComponent<Building<BuildingData>>();
         buildingWidth = buildingComponent.worldObjectData.xdimension;
         buildingHeight = buildingComponent.worldObjectData.zdimension;
     }
@@ -141,7 +141,7 @@ public class BuildingPlacer : MonoBehaviour
         GameObject obj = GridManager.Instance.GetObjectOnTile(gridPos);
         if (obj != null)
         {
-            Building buildingComponent = obj.GetComponent<Building>();
+            Building<BuildingData> buildingComponent = obj.GetComponent<Building<BuildingData>>();
             if (buildingComponent != null)
             {
                 GridManager.Instance.RemoveObjectFromTiles(gridPos);
