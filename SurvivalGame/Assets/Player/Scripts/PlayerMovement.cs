@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isCollecting) // Ensure collection wasn't interrupted
         {
-            target.GetComponent<ResourceObject>().Collect();
+            target.GetComponent<Resource>().Collect();
             StopCollectingResource();
             Log("[PlayerMovement] Collect resource finished!");
         }

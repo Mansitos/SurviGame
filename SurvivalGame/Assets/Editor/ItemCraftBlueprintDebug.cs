@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(ItemCraftBlueprint))]
+[CustomEditor(typeof(ItemBlueprint))]
 public class ItemCraftBlueprintDebug : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        ItemCraftBlueprint blueprint = (ItemCraftBlueprint)target;
+        ItemBlueprint blueprint = (ItemBlueprint)target;
 
         if (GUILayout.Button("Craft"))
         {

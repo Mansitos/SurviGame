@@ -9,7 +9,7 @@ public class ProcessingStation : Building<ProcessingStationData>
     public ItemInstance storedFuel;
     public ItemInstance storedInput;
     public ItemInstance storedOutput;
-    public ProcessingItemCraftBlueprint ItemCraftBlueprintUnderProcess = null;
+    public ProcessingBlueprint ItemCraftBlueprintUnderProcess = null;
     public bool isProcessing;
 
     // Events

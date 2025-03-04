@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using static CraftBlueprint;
+using static Blueprint;
 
 public class CraftSlotUI : BaseHorizontalBlueprintUISlot
 {
@@ -14,7 +14,7 @@ public class CraftSlotUI : BaseHorizontalBlueprintUISlot
 
     public override void UpdateSlotUI()
     {
-        ItemCraftBlueprint itemBlueprint = blueprint as ItemCraftBlueprint;
+        ItemBlueprint itemBlueprint = blueprint as ItemBlueprint;
 
         if (itemBlueprint.CanCraft(GameManager.Instance.GetInventorySystem()))
         {
@@ -28,7 +28,7 @@ public class CraftSlotUI : BaseHorizontalBlueprintUISlot
 
     protected override void InitUI() {
 
-        ItemCraftBlueprint itemBlueprint = blueprint as ItemCraftBlueprint;
+        ItemBlueprint itemBlueprint = blueprint as ItemBlueprint;
 
         // Init text
         nameText.text = itemBlueprint.outputItem.itemName + " x" + itemBlueprint.outputQuantity;
@@ -48,7 +48,7 @@ public class CraftSlotUI : BaseHorizontalBlueprintUISlot
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        ItemCraftBlueprint itemBlueprint = blueprint as ItemCraftBlueprint;
+        ItemBlueprint itemBlueprint = blueprint as ItemBlueprint;
 
         Debug.Log($"Inventory Slot Clicked: {itemBlueprint.outputItem.name}");
         bool result = itemBlueprint.Craft(inventory);

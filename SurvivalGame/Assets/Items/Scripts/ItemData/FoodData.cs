@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewFood", menuName = "Game/Food")]
-public class FoodData : ConsumableData, IUsableItem
+[CreateAssetMenu(fileName = "NewFood", menuName = "Game/Item/Food")]
+public class FoodData : UsableData, IUsableItem
 {
     [SerializeField] private int hungerValue;
     [SerializeField] private int thirstValue;

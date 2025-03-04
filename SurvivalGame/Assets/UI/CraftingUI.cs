@@ -15,7 +15,7 @@ public class CraftingUI : BaseScrollableCraftUI
 
     protected override void PopulateSlots()
     {
-        foreach (ItemCraftBlueprint craftBlueprint in craftBlueprints)
+        foreach (ItemBlueprint craftBlueprint in craftBlueprints)
         {
             GameObject slot = Instantiate(slotUIPrefab, verticalGrid.transform);
             slot.GetComponent<CraftSlotUI>().SetBluePrint(craftBlueprint);

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using static CraftBlueprint;
+using static Blueprint;
 
 public class BuildingBlueprintSlotUI : BaseHorizontalBlueprintUISlot
 {

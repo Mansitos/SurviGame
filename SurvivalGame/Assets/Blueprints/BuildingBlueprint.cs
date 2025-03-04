@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewBuildingBlueprint", menuName = "Game/BuildingBlueprint")]
-public class BuildingBlueprint : CraftBlueprint
+[CreateAssetMenu(fileName = "NewBuildingBlueprint", menuName = "Game/Blueprint/BuildingBlueprint")]
+public class BuildingBlueprint : Blueprint
 {
     public bool CanBuild(InventorySystem inventory)
     {

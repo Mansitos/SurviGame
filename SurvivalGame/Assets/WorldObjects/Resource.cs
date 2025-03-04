@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class ResourceObject : WorldObject<ResourceObjectData>
+public class Resource : WorldObject<ResourceObjectData>
 {
     protected override void Start()
     {

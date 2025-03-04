@@ -12,7 +12,7 @@ public struct ProcessingFuelRequirement
 public class ProcessingStationData : BuildingData
 {
     // Variables
-    public List<ProcessingItemCraftBlueprint> possibleCrafts = new List<ProcessingItemCraftBlueprint>();
+    public List<ProcessingBlueprint> possibleCrafts = new List<ProcessingBlueprint>();
     [SerializeField] public List<ProcessingFuelRequirement> validProcessingFuelRequirements;
     public float processingTime;
 }

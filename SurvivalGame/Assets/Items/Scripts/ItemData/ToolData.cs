@@ -8,7 +8,7 @@ public enum ToolType
     PickUp
 }
 
-[CreateAssetMenu(fileName = "NewTool", menuName = "Game/Tool")]
+[CreateAssetMenu(fileName = "NewTool", menuName = "Game/Item/Tool")]
 public class ToolData : ItemData, IUsableItem
 {
     public ToolType toolCategory;
@@ -22,7 +22,7 @@ public class ToolData : ItemData, IUsableItem
             GameObject targetObject = gm.GetTerrainGridManager().GetObjectOnTile(selectedTile.Value);
             if (targetObject != null)
             {
-                ResourceObject targetResource = targetObject.GetComponent<ResourceObject>();
+                Resource targetResource = targetObject.GetComponent<Resource>();
                 if (targetResource != null)
                 {
                     if (targetResource.IsResourceObjectOfType(resourceObjectType))

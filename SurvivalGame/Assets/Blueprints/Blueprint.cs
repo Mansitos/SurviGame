@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CraftBlueprint : ScriptableObject
+public abstract class Blueprint : ScriptableObject
 {
     [System.Serializable]
     public struct ItemRequirement

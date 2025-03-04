@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public abstract class BaseHorizontalBlueprintUISlot : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] protected CraftBlueprint blueprint;
+    [SerializeField] protected Blueprint blueprint;
 
     [SerializeField] protected GameObject inventoryUISlotGO;
     [SerializeField] protected GameObject nameTextGO;
@@ -28,7 +28,7 @@ public abstract class BaseHorizontalBlueprintUISlot : MonoBehaviour, IPointerCli
 
     protected abstract void InitUI();
 
-    public void SetBluePrint(CraftBlueprint blueprint)
+    public void SetBluePrint(Blueprint blueprint)
     {
         this.blueprint = blueprint;
         InitUI();

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewResource", menuName = "Game/Resource")]
+[CreateAssetMenu(fileName = "NewResource", menuName = "Game/Item/Resource")]
 public class ResourceData : ItemData
 {
     private void OnValidate()

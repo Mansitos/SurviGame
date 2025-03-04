@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-[CreateAssetMenu(fileName = "NewItemCraftBlueprint", menuName = "Game/ItemCraftBlueprint")]
-public class ItemCraftBlueprint : CraftBlueprint
+[CreateAssetMenu(fileName = "NewItemBlueprint", menuName = "Game/Blueprint/ItemBlueprint")]
+public class ItemBlueprint : Blueprint
 {
     public ItemData outputItem;
     public int outputQuantity;
@@ -85,10 +85,10 @@ public class ItemCraftBlueprint : CraftBlueprint
             Vector3 playerPos = gm.GetPlayerGO().transform.position;
             GridManager gridManager = gm.GetTerrainGridManager();
 
-            List<GameObject> craftStations = gridManager.GetAllObjectsOfTypeOnTilesByRadius(playerPos, craftStationRequiredDistance, typeof(CraftStationBuillding));
+            List<GameObject> craftStations = gridManager.GetAllObjectsOfTypeOnTilesByRadius(playerPos, craftStationRequiredDistance, typeof(CraftStation));
             foreach (GameObject station in craftStations)
             {
-                if (station.GetComponent<CraftStationBuillding>().IsCraftStationOfType(requiredCraftStationType))
+                if (station.GetComponent<CraftStation>().IsCraftStationOfType(requiredCraftStationType))
                 {
                     return true;
                 }

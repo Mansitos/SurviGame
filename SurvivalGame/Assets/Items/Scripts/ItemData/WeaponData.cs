@@ -7,7 +7,7 @@ public enum WeaponType
     Bow
 }
 
-[CreateAssetMenu(fileName = "NewWeapon", menuName = "Game/Weapon")]
+[CreateAssetMenu(fileName = "NewWeapon", menuName = "Game/Item/Weapon")]
 public class WeaponData : ToolData, IUsableItem
 {
     [SerializeField] private WeaponType weaponCategory;

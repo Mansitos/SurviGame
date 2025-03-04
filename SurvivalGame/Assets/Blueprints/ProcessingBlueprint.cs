@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewProcessingItemBlueprint", menuName = "Game/ProcessingItemBlueprint")]
-public class ProcessingItemCraftBlueprint : ScriptableObject
+[CreateAssetMenu(fileName = "NewProcessingBlueprint", menuName = "Game/Blueprint/ProcessingBlueprint")]
+public class ProcessingBlueprint : ScriptableObject
 {
     [SerializeField] public ItemData itemOutput;
     public int itemOutputQuantity;

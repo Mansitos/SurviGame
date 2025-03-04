@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public abstract class ConsumableData : ItemData, IUsableItem
+public abstract class UsableData : ItemData, IUsableItem
 {
     public bool PerformMainAction(GameManager gm)
     {
-        Debug.Log("Consumable main aciton");
+        Debug.Log("Use Data main aciton");
         return true;
     }
 }
