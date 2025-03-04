@@ -481,6 +481,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Building"",
+                    ""type"": ""Button"",
+                    ""id"": ""3724573f-fea3-40dd-b060-3e519e32544c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -514,6 +523,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Crafting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""592d1aa7-10e3-4897-97fc-d35f075b2963"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Building"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -551,6 +571,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
         m_UI_Close = m_UI.FindAction("Close", throwIfNotFound: true);
         m_UI_Crafting = m_UI.FindAction("Crafting", throwIfNotFound: true);
+        m_UI_Building = m_UI.FindAction("Building", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -881,6 +902,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Inventory;
     private readonly InputAction m_UI_Close;
     private readonly InputAction m_UI_Crafting;
+    private readonly InputAction m_UI_Building;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
@@ -888,6 +910,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Inventory => m_Wrapper.m_UI_Inventory;
         public InputAction @Close => m_Wrapper.m_UI_Close;
         public InputAction @Crafting => m_Wrapper.m_UI_Crafting;
+        public InputAction @Building => m_Wrapper.m_UI_Building;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -906,6 +929,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Crafting.started += instance.OnCrafting;
             @Crafting.performed += instance.OnCrafting;
             @Crafting.canceled += instance.OnCrafting;
+            @Building.started += instance.OnBuilding;
+            @Building.performed += instance.OnBuilding;
+            @Building.canceled += instance.OnBuilding;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -919,6 +945,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Crafting.started -= instance.OnCrafting;
             @Crafting.performed -= instance.OnCrafting;
             @Crafting.canceled -= instance.OnCrafting;
+            @Building.started -= instance.OnBuilding;
+            @Building.performed -= instance.OnBuilding;
+            @Building.canceled -= instance.OnBuilding;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -968,5 +997,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnInventory(InputAction.CallbackContext context);
         void OnClose(InputAction.CallbackContext context);
         void OnCrafting(InputAction.CallbackContext context);
+        void OnBuilding(InputAction.CallbackContext context);
     }
 }

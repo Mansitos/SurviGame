@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 972856440887597068}
   - component: {fileID: 1278540647033280495}
   - component: {fileID: 5107310117050425749}
-  - component: {fileID: 549031460241214535}
+  - component: {fileID: 3185338432138029302}
   m_Layer: 0
   m_Name: Rock1
   m_TagString: Untagged
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &549031460241214535
+--- !u!114 &3185338432138029302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7756705467806350146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a79e463bd56db41926fa1ece22ada5, type: 3}
+  m_Script: {fileID: 11500000, guid: e0f68389baf031049a9764601055782d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   worldObjectData: {fileID: 11400000, guid: a1ae4b622c195dc4f83c4a6e407ce4ee, type: 2}

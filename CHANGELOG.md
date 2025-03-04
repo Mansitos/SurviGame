@@ -116,3 +116,7 @@
 ---
 3-3-2025
 - `ScriptableObjects` approach for `ProcessingStation`.
+---
+4-3-2025
+- File organizing + `ScriptableObjects` names refactoring.
+- `ScriptableObjects` better editor menu for creation.

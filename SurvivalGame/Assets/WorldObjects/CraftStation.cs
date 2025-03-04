@@ -11,7 +11,6 @@ public enum CraftStationType
 public class CraftStation : Building<BuildingData>
 {
     public CraftStationType type;
-    //private BuildingType buildingType = BuildingType.CraftStation;
 
     public bool IsCraftStationOfType(CraftStationType type)
     {

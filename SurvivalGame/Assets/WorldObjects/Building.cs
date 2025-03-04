@@ -30,7 +30,7 @@ public class Building<T> : WorldObject<T> where T : BuildingData
 
     public virtual bool InteractWithBuilding()
     {
-        Debug.Log("interacted with building!");
+        Debug.Log("Interacted with building!");
         return true;
     }
 }

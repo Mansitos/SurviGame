@@ -12,7 +12,7 @@ public enum ToolType
 public class ToolData : ItemData, IUsableItem
 {
     public ToolType toolCategory;
-    public ResourceObjectType resourceObjectType;
+    public ResourceObjectType targetResourceType;
 
     public bool PerformMainAction(GameManager gm)
     {
@@ -25,11 +25,11 @@ public class ToolData : ItemData, IUsableItem
                 Resource targetResource = targetObject.GetComponent<Resource>();
                 if (targetResource != null)
                 {
-                    if (targetResource.IsResourceObjectOfType(resourceObjectType))
+                    if (targetResource.IsResourceObjectOfType(targetResourceType))
                     {
                         // Start collect process
                         PlayerMovement player = gm.GetPlayerGO().GetComponent<PlayerMovement>();
-                        player.StartCollectingResource(targetObject, targetResource.GetCollectionDuration(), resourceObjectType);
+                        player.StartCollectingResource(targetObject, targetResource.GetCollectionDuration(), targetResourceType);
                     }
                     else
                     {

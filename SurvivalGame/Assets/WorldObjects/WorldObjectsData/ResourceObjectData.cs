@@ -16,11 +16,11 @@ public class SpawnableItem
     public int maxAmount = 3;
 }
 
-[CreateAssetMenu(fileName = "ResourceObjectData", menuName = "Scriptable Objects/ResourceObjectData")]
+[CreateAssetMenu(fileName = "ResourceObject", menuName = "Game/WorldObjects/ResourceObject")]
 public class ResourceObjectData : WorldObjectData
 {
     [SerializeField] public ResourceObjectType resourceObjectType;
     [SerializeField] public float collectionTime = 5.0f;
-    [SerializeField] public float spawnRadius = 2.0f;
+    static public float spawnRadius = 2.0f;
     [SerializeField] public List<SpawnableItem> spawnableItems;
 }

@@ -53,7 +53,7 @@ public class Resource : WorldObject<ResourceObjectData>
             for (int i = 0; i < amount; i++)
             {
                 // Generate a random position within the spawn radius
-                Vector3 randomOffset = Random.insideUnitCircle * worldObjectData.spawnRadius;
+                Vector3 randomOffset = Random.insideUnitCircle * ResourceObjectData.spawnRadius;
                 Vector3 spawnPosition = new Vector3(transform.position.x + randomOffset.x, 0.25f, transform.position.z + randomOffset.y);
 
                 // Create an ItemInstance to spawn

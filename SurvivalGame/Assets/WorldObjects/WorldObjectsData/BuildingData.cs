@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BuildingData", menuName = "Scriptable Objects/BuildingData")]
+[CreateAssetMenu(fileName = "Building", menuName = "Game/WorldObjects/Building")]
 public class BuildingData : WorldObjectData
 {
     [SerializeField] public int xdimension = 1;

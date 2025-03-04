@@ -8,11 +8,11 @@ public struct ProcessingFuelRequirement
     public int quantity;
 }
 
-[CreateAssetMenu(fileName = "ProcessingStationData", menuName = "Scriptable Objects/ProcessingStationData")]
+[CreateAssetMenu(fileName = "ProcessingStation", menuName = "Game/WorldObjects/ProcessingStation")]
 public class ProcessingStationData : BuildingData
 {
     // Variables
-    public List<ProcessingBlueprint> possibleCrafts = new List<ProcessingBlueprint>();
+    [SerializeField] public List<ProcessingBlueprint> possibleBlueprints = new List<ProcessingBlueprint>();
     [SerializeField] public List<ProcessingFuelRequirement> validProcessingFuelRequirements;
-    public float processingTime;
+    [SerializeField] public float processingTime;
 }

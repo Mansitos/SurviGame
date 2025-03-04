@@ -18,4 +18,4 @@ MonoBehaviour:
   worldPrefab: {fileID: 0}
   uiIcon: {fileID: 0}
   toolCategory: 3
-  resourceObjectType: 2
+  targetResourceType: 2

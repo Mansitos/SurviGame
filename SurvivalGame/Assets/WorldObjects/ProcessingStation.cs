@@ -107,7 +107,7 @@ public class ProcessingStation : Building<ProcessingStationData>
     // TODO: refactor and use where needed to clean code
     public bool IsValidInput(ItemData targetData)
     {
-        foreach (var craft in worldObjectData.possibleCrafts)
+        foreach (var craft in worldObjectData.possibleBlueprints)
         {
             if (craft.itemInput == targetData)
             {
@@ -129,7 +129,7 @@ public class ProcessingStation : Building<ProcessingStationData>
         if (!IsProcessing() && HasStoredFuel() && HasStoredInput())
         {
             // Find if there's a craft that can be processed
-            foreach (var craft in worldObjectData.possibleCrafts)
+            foreach (var craft in worldObjectData.possibleBlueprints)
             {
                 // If the stored input data matches the one required by a craft and the quantity is also ok, proceed.
                 if (craft.itemInput == storedInput.ItemData && storedInput.Quantity >= craft.itemInputQuantity)
