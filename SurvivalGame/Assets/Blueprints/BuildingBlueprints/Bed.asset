@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cd5b931ef419714d9ae1d44b570650e, type: 3}
+  m_Script: {fileID: 11500000, guid: 26f3661682cadd34386a4c646fda4945, type: 3}
   m_Name: Bed
   m_EditorClassIdentifier: 
-  objectName: Bed
-  xdimension: 2
-  zdimension: 3
-  blueprint: {fileID: 11400000, guid: a6287a81fde217545a6be011166eeae8, type: 2}
-  uiIcon: {fileID: 21300000, guid: a3b16e8cf2aae7841be7a033d63b1673, type: 3}
+  requirements:
+  - item: {fileID: 11400000, guid: 9ee140761e8325b489472ea148f20301, type: 2}
+    quantity: 20
