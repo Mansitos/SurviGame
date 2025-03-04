@@ -1,11 +1,13 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class WorldObject<T> : MonoBehaviour where T : WorldObjectData
+public class WorldObject<T> : WorldObjectBase where T : WorldObjectData
 {
     [SerializeField] public T worldObjectData;
     protected GameManager gm;
     protected GridManager gridManager;
+
+    public override WorldObjectData GetWorldObjectData() => worldObjectData;
 
     public System.Type GetWorldObjectType()
     {

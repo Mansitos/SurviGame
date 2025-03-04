@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerAnimationsHandler : MonoBehaviour
 {
-
     private InputHandler inputHandler;
     private PlayerMovement playerMovement;
     private Animator animator;

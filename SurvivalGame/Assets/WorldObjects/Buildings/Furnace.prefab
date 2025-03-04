@@ -701,17 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c786f33cb22bb384189928204446d31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Furnace
-  xdimension: 2
-  zdimension: 2
-  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
-  possibleCrafts:
-  - {fileID: 11400000, guid: 1cd8ce13540a1f54aa69874168dfd9bf, type: 2}
-  - {fileID: 11400000, guid: 21de33612594c0246aa7199225277dc0, type: 2}
-  validProcessingFuelRequirements:
-  - item: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
-    quantity: 3
-  processingTime: 5
+  worldObjectData: {fileID: 11400000, guid: ce9a8375065703a4fba0a06bb13ef7c7, type: 2}
   storedFuel:
     itemData: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
     quantity: 5

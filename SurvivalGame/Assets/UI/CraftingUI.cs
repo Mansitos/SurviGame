@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CraftingUI : BaseScrollableCraftUI
 {
+    [SerializeField] protected List<Blueprint> craftBlueprints = new List<Blueprint>();
 
     protected override void Start()
     {

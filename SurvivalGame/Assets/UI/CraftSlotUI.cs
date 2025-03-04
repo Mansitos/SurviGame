@@ -5,8 +5,6 @@ using static Blueprint;
 
 public class CraftSlotUI : BaseHorizontalBlueprintUISlot
 {
-    [SerializeField] GameObject inventoryUISlotCounterPrefab;
-
     protected override void Awake()
     {
         base.Awake();

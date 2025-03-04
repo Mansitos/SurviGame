@@ -372,13 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c786f33cb22bb384189928204446d31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: CampFire
-  xdimension: 2
-  zdimension: 2
-  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
-  possibleCrafts: []
-  validProcessingFuelRequirements: []
-  processingTime: 0
+  worldObjectData: {fileID: 0}
   storedFuel:
     itemData: {fileID: 0}
     quantity: 0
@@ -543,13 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c786f33cb22bb384189928204446d31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: CampFire
-  xdimension: 2
-  zdimension: 2
-  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
-  possibleCrafts: []
-  validProcessingFuelRequirements: []
-  processingTime: 0
+  worldObjectData: {fileID: 11400000, guid: b2acaee02947743428fa34c3a247fee5, type: 2}
   storedFuel:
     itemData: {fileID: 0}
     quantity: 0

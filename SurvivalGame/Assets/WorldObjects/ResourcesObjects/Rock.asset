@@ -15,8 +15,7 @@ MonoBehaviour:
   objectName: Rock
   resourceObjectType: 0
   collectionTime: 5
-  spawnRadius: 2
   spawnableItems:
   - itemData: {fileID: 11400000, guid: ad2568c19e14e9642970e628eab7261d, type: 2}
-    minAmount: 1
-    maxAmount: 2
+    minAmount: 2
+    maxAmount: 4

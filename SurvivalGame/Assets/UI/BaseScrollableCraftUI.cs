@@ -5,7 +5,6 @@ public abstract class BaseScrollableCraftUI : MonoBehaviour
 {
     [SerializeField] protected GameObject verticalGrid;
     [SerializeField] protected GameObject slotUIPrefab;
-    [SerializeField] protected List<Blueprint> craftBlueprints = new List<Blueprint>();
 
     protected GameManager gm;
     protected InventorySystem inventory;

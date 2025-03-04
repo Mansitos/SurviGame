@@ -120,3 +120,5 @@
 4-3-2025
 - File organizing + `ScriptableObjects` names refactoring.
 - `ScriptableObjects` better editor menu for creation.
+- First working rudimental `BuildingUI` + dummy UI icon for buildings.
+- Refactoring of the `WorldObject` hierarchy, added IBuildable interface and `WorldObjectBase`.

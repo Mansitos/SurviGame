@@ -10,11 +10,13 @@ public abstract class BaseHorizontalBlueprintUISlot : MonoBehaviour, IPointerCli
     [SerializeField] protected GameObject inventoryUISlotGO;
     [SerializeField] protected GameObject nameTextGO;
     [SerializeField] protected GameObject requirementsTextGO;
+    [SerializeField] public GameObject inventoryUISlotCounterPrefab;
 
     protected TextMeshProUGUI nameText;
     protected TextMeshProUGUI requirementsText;
     protected InventorySystem inventory;
     protected Color baseColor;
+    protected GameObject linkedGO;
 
     protected virtual void Awake()
     {
@@ -28,10 +30,22 @@ public abstract class BaseHorizontalBlueprintUISlot : MonoBehaviour, IPointerCli
 
     protected abstract void InitUI();
 
-    public void SetBluePrint(Blueprint blueprint)
+    public void SetBluePrint(Blueprint blueprint, bool skipUpdateUI = false)
     {
         this.blueprint = blueprint;
-        InitUI();
+        if (!skipUpdateUI)
+        {
+            InitUI();
+        }
+    }
+
+    public void SetLinkedGameObject(GameObject go, bool skipUpdateUI = false)
+    {
+        this.linkedGO = go;
+        if (!skipUpdateUI)
+        {
+            InitUI();
+        }
     }
 
     public abstract void OnPointerClick(PointerEventData eventData);

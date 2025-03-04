@@ -7,8 +7,13 @@ public enum BuildingType
     ResourceCrafter
 }
 
+public interface IBuildable
+{
+    void Build(GameManager gm);
+}
+
 [DisallowMultipleComponent]
-public class Building<T> : WorldObject<T> where T : BuildingData
+public class Building<T> : WorldObject<T> , IBuildable where T : BuildingData
 {
     protected override void Start()
     {

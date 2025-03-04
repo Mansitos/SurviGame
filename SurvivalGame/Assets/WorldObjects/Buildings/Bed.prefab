@@ -262,7 +262,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b4ac97fbfa7d749b6e6b942d3661d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Bed
-  xdimension: 2
-  zdimension: 3
-  blueprint: {fileID: 11400000, guid: 4c098ccabb9039342a0bf1eebf501e10, type: 2}
+  worldObjectData: {fileID: 11400000, guid: 2c1fe871cb2c1dc42b83a902be655661, type: 2}

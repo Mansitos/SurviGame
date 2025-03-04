@@ -9,6 +9,11 @@ public static class UIUtils
         Sprite itemSprite = itemInstance.ItemData.uiIcon;
         int itemQuantity = itemInstance.Quantity;
 
+        return CreateIcon(itemSprite, itemQuantity, counterPrefab, parent);
+    }
+
+    public static GameObject CreateIcon(Sprite itemSprite, int quantity, GameObject counterPrefab, GameObject parent)
+    {
         // Create a new GameObject for the item icon
         GameObject itemIconObject = new GameObject("ItemIcon");
 
@@ -23,11 +28,14 @@ public static class UIUtils
         rectTransform.anchoredPosition = Vector2.zero;
 
         // Spawning the counter
-        GameObject slotCounter = Object.Instantiate(counterPrefab, parent.transform);
-        TextMeshProUGUI counter = slotCounter.GetComponent<TextMeshProUGUI>();
-        counter.raycastTarget = false;
-        slotCounter.transform.SetParent(itemIconObject.transform, false);
-        counter.text = itemQuantity.ToString();
+        if (quantity > 0)
+        {
+            GameObject slotCounter = Object.Instantiate(counterPrefab, parent.transform);
+            TextMeshProUGUI counter = slotCounter.GetComponent<TextMeshProUGUI>();
+            counter.raycastTarget = false;
+            slotCounter.transform.SetParent(itemIconObject.transform, false);
+            counter.text = quantity.ToString();
+        }
 
         return itemIconObject;
     }
