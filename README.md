@@ -5,6 +5,10 @@ Some random dev history!
 Project start: martedì 28 gennaio 2025, 20:27:05
 
 ---
+#### **Image from: 04/3/2025**
+_Improved UI components: added Building and Crafting screen._
+![](images/image_8.png)
+
 #### **Image from: 27/2/2025**
 _Some new stuff: basic health, food, thirst and energy mechanics; day mechanics (sleep etc.)_
 ![](images/image_7.png)
@@ -30,3 +34,5 @@ _Rudimental inventory system and dropped items after resource collection_
 _First screenshot!_
 _Grid system + buildings placement and occupied area_
 ![](images/image_1.png)
+
+![alt text](image.png)

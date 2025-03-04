@@ -122,3 +122,4 @@
 - `ScriptableObjects` better editor menu for creation.
 - First working rudimental `BuildingUI` + dummy UI icon for buildings.
 - Refactoring of the `WorldObject` hierarchy, added IBuildable interface and `WorldObjectBase`.
+- Fixed missing update red marked as not craftable/buildable in UI slots.
