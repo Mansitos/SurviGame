@@ -19,3 +19,4 @@ MonoBehaviour:
   uiIcon: {fileID: 21300000, guid: 7decdd2984434a64fa88193f768b2ec6, type: 3}
   hungerValue: 10
   thirstValue: 2
+  energyValue: 3

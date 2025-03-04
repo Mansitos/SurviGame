@@ -123,3 +123,5 @@
 - First working rudimental `BuildingUI` + dummy UI icon for buildings.
 - Refactoring of the `WorldObject` hierarchy, added IBuildable interface and `WorldObjectBase`.
 - Fixed missing update red marked as not craftable/buildable in UI slots.
+- Implemented `Eat()` main action for `Food` + added energy value for foods.
+- Added multiple Items dummy UI icons.

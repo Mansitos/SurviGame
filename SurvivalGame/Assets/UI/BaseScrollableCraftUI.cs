@@ -19,7 +19,10 @@ public abstract class BaseScrollableCraftUI : MonoBehaviour
 
     protected virtual void Update()
     {
-        UpdatedUI();
+        if (isActive)
+        {
+            UpdatedUI();
+        }
     }
 
     abstract protected void PopulateSlots();
