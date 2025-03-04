@@ -10,6 +10,7 @@ public enum BuildingType
 public interface IBuildable
 {
     void Build(GameManager gm);
+    bool CanBuild(GameManager gm);
 }
 
 [DisallowMultipleComponent]

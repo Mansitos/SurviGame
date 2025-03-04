@@ -69,6 +69,8 @@ public class BuildingPlacer : MonoBehaviour
 
     private void RotateBuilding()
     {
+        BuildingData data = buildingPrefab.GetComponent<WorldObjectBase>().GetWorldObjectData() as BuildingData;
+
         currentRotation += 90;
         if (currentRotation >= 360)
             currentRotation = 0;
@@ -76,12 +78,12 @@ public class BuildingPlacer : MonoBehaviour
         // Swap width & height when rotating
         if (currentRotation == 90 || currentRotation == 270)
         {
-            (buildingWidth, buildingHeight) = (buildingComponent.worldObjectData.zdimension, buildingComponent.worldObjectData.xdimension);
+            (buildingWidth, buildingHeight) = (data.zdimension, data.xdimension);
         }
 
         if (currentRotation == 0 || currentRotation == 180)
         {
-            (buildingWidth, buildingHeight) = (buildingComponent.worldObjectData.xdimension, buildingComponent.worldObjectData.zdimension);
+            (buildingWidth, buildingHeight) = (data.xdimension, data.zdimension);
         }
 
         if (previewObject != null)
@@ -103,9 +105,10 @@ public class BuildingPlacer : MonoBehaviour
     public void SetBuilding(GameObject building)
     {
         buildingPrefab = building;
-        buildingComponent = buildingPrefab.GetComponent<Building<BuildingData>>();
-        buildingWidth = buildingComponent.worldObjectData.xdimension;
-        buildingHeight = buildingComponent.worldObjectData.zdimension;
+        BuildingData data = buildingPrefab.GetComponent<WorldObjectBase>().GetWorldObjectData() as BuildingData;
+        buildingWidth = data.xdimension;
+        buildingHeight = data.zdimension;
+        currentRotation = 0;
     }
 
     private void TryPlaceBuilding(Vector3Int gridPos)

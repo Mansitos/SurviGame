@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject processingStationUIGO;
     public GameObject endOfDayUIGO;
     public GameObject craftingUIGO;
+    public GameObject buildingUIGO;
 
     // Script Components
     private InventoryUI inventoryUI;
@@ -17,6 +18,7 @@ public class UIManager : MonoBehaviour
     private ProcessingStationUI processingStationUI;
     private EndOfDayUI endOfDayUI;
     private CraftingUI craftingUI;
+    private BuildingUI buildingUI;
     private GameManager gm;
 
     private void OnEnable()
@@ -24,6 +26,7 @@ public class UIManager : MonoBehaviour
         InputHandler.OnInventoryKeyPressedEvent += OnInventoryKeyPressed;
         InputHandler.OnEscKeyPressedEvent += OnEscKeyPressed;
         InputHandler.OnCraftingKeyPressedEvent += OnCraftingKeyPressed;
+        InputHandler.OnBuildingKeyPressedEvent += OnBuildingKeyPressed;
     }
 
     void Awake()
@@ -32,7 +35,8 @@ public class UIManager : MonoBehaviour
         quickBarUI = quickBarUIGO.GetComponent<QuickBarUI>();
         processingStationUI = processingStationUIGO.GetComponent<ProcessingStationUI>();
         endOfDayUI = endOfDayUIGO.GetComponent<EndOfDayUI>();
-        craftingUI = craftingUIGO.GetComponent <CraftingUI>();
+        craftingUI = craftingUIGO.GetComponent<CraftingUI>();
+        buildingUI = buildingUIGO.GetComponent<BuildingUI>();
 
         gm = GameManager.Instance;
 
@@ -71,11 +75,12 @@ public class UIManager : MonoBehaviour
         inventoryUI.SetActive(false);
         processingStationUI.SetActive(false);
         craftingUI.SetActive(false);
+        buildingUI.SetActive(false);
     }
 
     private bool CanCloseInventory()
     {
-        return !processingStationUI.IsActive();
+        return !processingStationUI.IsActive() && !craftingUI.IsActive() && !buildingUI.IsActive();
     }
 
     public void SetProcessingStationTabActive(bool flag)
@@ -108,10 +113,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void OnBuildingKeyPressed()
+    {
+        bool newflag = !buildingUI.IsActive();
+        if (newflag == true && !gm.IsInNormalMode())
+        {
+            return;
+        }
+        gm.SetInventoryMode(newflag); // TODO: not properly inventory mode... refactor modes?
+        buildingUI.SetActive(newflag);
+    }
+
     public void OnCraftingKeyPressed()
     {
         bool newflag = !craftingUI.IsActive();
-
+        if (newflag == true && !gm.IsInNormalMode())
+        {
+            return;
+        }
         gm.SetInventoryMode(newflag);
         craftingUI.SetActive(newflag);
         inventoryUI.SetActive(newflag);

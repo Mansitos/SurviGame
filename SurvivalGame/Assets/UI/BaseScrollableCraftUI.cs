@@ -26,16 +26,15 @@ public abstract class BaseScrollableCraftUI : MonoBehaviour
 
     public void UpdatedUI()
     {
-        foreach (Transform child in transform)
+        foreach (Transform child in verticalGrid.transform)
         {
-            CraftSlotUI slot = child.GetComponent<CraftSlotUI>();
+            BaseHorizontalBlueprintUISlot slot = child.GetComponent<BaseHorizontalBlueprintUISlot>();
             if (slot != null)
             {
                 slot.UpdateSlotUI();
             }
 
         }
-
     }
 
     public bool IsActive()
@@ -49,11 +48,6 @@ public abstract class BaseScrollableCraftUI : MonoBehaviour
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(flag);
-        }
-
-        if (flag == true)
-        {
-            //UpdateUI();
         }
 
         isActive = flag;

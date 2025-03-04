@@ -83,6 +83,11 @@ public class InputHandler : MonoBehaviour
         {
             OnCraftingKeyPressedEvent?.Invoke();
         }
+
+        if (WasBuildingKeyPressedThisFrame())
+        {
+            OnBuildingKeyPressedEvent?.Invoke();
+        }
     }
 
     // --- Player ---

@@ -16,6 +16,6 @@ MonoBehaviour:
   itemType: 1
   weight: 20
   worldPrefab: {fileID: 1911040709781189449, guid: 4f770865455a7a94586c08167d09840d, type: 3}
-  uiIcon: {fileID: 21300000, guid: 43159b77be4ed6f43a2f1d363b751068, type: 3}
+  uiIcon: {fileID: 21300000, guid: 1afac0307d0c09143883d31b0c9f83fb, type: 3}
   toolCategory: 1
   targetResourceType: 1

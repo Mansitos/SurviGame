@@ -16,4 +16,4 @@ MonoBehaviour:
   itemType: 2
   weight: 3
   worldPrefab: {fileID: 6234728209276531961, guid: 64fda70134ddfe140a3d4dd8de266434, type: 3}
-  uiIcon: {fileID: 21300000, guid: ca6c3267a6961d248a9379dfd68d9ef3, type: 3}
+  uiIcon: {fileID: 21300000, guid: d77e7543d87ba5547b1bd45fa92dfc0a, type: 3}

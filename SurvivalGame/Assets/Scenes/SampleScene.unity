@@ -1763,7 +1763,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalGrid: {fileID: 1712132634}
   slotUIPrefab: {fileID: 245141873623428792, guid: a56d7ae648b8dee4188551f18895cffb, type: 3}
-  craftBlueprints: []
+  buildingsGO:
+  - {fileID: 5545910536314686835, guid: ef3647bb47e9cb441b2ab54629e3507c, type: 3}
+  - {fileID: 5745778264637247819, guid: 8155a2aa881c3154fbc2fd89deb8a179, type: 3}
+  - {fileID: 7918388931758355414, guid: 4093444de29d02940830ba714766c6b3, type: 3}
+  - {fileID: 6955045829645307407, guid: c9d45e11d1bec27428520de4c875f2e7, type: 3}
 --- !u!1001 &271929750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5367,6 +5371,7 @@ MonoBehaviour:
   processingStationUIGO: {fileID: 1391846122}
   endOfDayUIGO: {fileID: 1031892701}
   craftingUIGO: {fileID: 1737336421}
+  buildingUIGO: {fileID: 257805831}
 --- !u!1001 &524914415
 PrefabInstance:
   m_ObjectHideFlags: 0

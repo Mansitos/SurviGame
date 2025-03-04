@@ -16,4 +16,4 @@ MonoBehaviour:
   xdimension: 2
   zdimension: 3
   blueprint: {fileID: 11400000, guid: 6a60b3f1f7a463342805b3be0a705375, type: 2}
-  uiIcon: {fileID: 0}
+  uiIcon: {fileID: 21300000, guid: a3b16e8cf2aae7841be7a033d63b1673, type: 3}
