@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using System;
 using UnityEngine;
 
 public class InventorySystem : MonoBehaviour
@@ -8,13 +9,9 @@ public class InventorySystem : MonoBehaviour
     public List<InventorySlot> slots = new List<InventorySlot>();
     public float maxWeight = 100.0f;
 
-    private PlayerQuickBar quickBar;
     private GameManager gm;
-    private UIManager uim;
 
-    private InventoryUI ui;
-    public TextMeshProUGUI inventoryDebugUI;
-    private QuickBarUI quickBarUI;
+    public static event Action OnInventoryUpdated;
 
     private void Awake()
     {
@@ -24,15 +21,10 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
-        uim = UIManager.Instance;
-        ui = uim.GetInventoryUI();
-        quickBarUI = uim.GetQuickBarUI();
-        quickBar = gm.GetPlayerQuickBar();
     }
 
     public void Update()
     {
-        UpdateDebugUI();
     }
 
     public List<InventorySlot> GetInventorySlots()
@@ -64,42 +56,6 @@ public class InventorySystem : MonoBehaviour
             fromSlot.emptySlot = toSlotEmpty;
             toSlot.emptySlot = fromSlotEmpty;
         }
-    }
-
-    public void UpdateDebugUI()
-    {
-        if (inventoryDebugUI == null)
-        {
-            Debug.LogError("[InventorySystem] No TextMeshPro component linked.");
-            return;
-        }
-
-        int selectedIndex = quickBar.GetSelectedSlotIndex() - 1;
-
-        string inventoryDisplay = $"Weight: {GetCurrentWeight()}/{maxWeight}\n";
-        inventoryDisplay += $"Slots: {GetFreeSlots()}/{maxSlots}\n";
-
-        for (int i = 0; i < slots.Count; i++)
-        {
-            string slotDisplay;
-            if (slots[i].IsEmpty())
-            {
-                slotDisplay = $"{i + 1}: empty"; // Display 'empty' for empty slots
-            }
-            else
-            {
-                slotDisplay = $"{i + 1}: {slots[i].itemInstance.ItemData.itemName} (x{slots[i].GetQuantity()})";
-            }
-
-            // Highlight the selected index
-            if (i == selectedIndex)
-            {
-                slotDisplay = $"   <color=red>{slotDisplay}</color>"; // Change color to red
-            }
-            inventoryDisplay += $"{slotDisplay}\n";
-        }
-
-        inventoryDebugUI.text = inventoryDisplay; // Assuming inventoryDebugUI is a TextMeshPro component
     }
 
     public int GetFreeSlots()
@@ -287,8 +243,7 @@ public class InventorySystem : MonoBehaviour
 
     private void UpdateUI()
     {
-        ui.UpdateUI();
-        quickBarUI.UpdateUI();
+        OnInventoryUpdated?.Invoke();
     }
 
     public InventorySlot GetInventorySlotAtIndex(int index)

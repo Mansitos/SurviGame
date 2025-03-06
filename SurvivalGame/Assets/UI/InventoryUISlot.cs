@@ -64,7 +64,6 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
             ProcessingStationUI stationUI = UIManager.Instance.GetProcessingStationUI();
 
             if (stationUI.VerifyCanAddToSlot(incomingItem.ItemData, this.index)){
-                Debug.Log("asd");
                 stationUI.AddToSlot(incomingItem, this.index);
                 GameManager.Instance.GetInventorySystem().TryRemoveItem(incomingItem);
             }

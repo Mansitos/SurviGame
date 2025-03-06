@@ -125,3 +125,8 @@
 - Fixed missing update red marked as not craftable/buildable in UI slots.
 - Implemented `Eat()` main action for `Food` + added energy value for foods.
 - Added multiple Items dummy UI icons.
+---
+6-3-2025
+- Detached UI logic from `InventorySystem`. `InventoryUI` and `QuickBarUI` now listen for `OnInventoryUpdated` event.
+- Fixed some `ProcessingStation` and `BuildingPlacer` bugs.
+- Rudimental `Chest` logic and `ChestUI`.

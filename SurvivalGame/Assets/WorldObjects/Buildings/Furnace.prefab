@@ -703,14 +703,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldObjectData: {fileID: 11400000, guid: ce9a8375065703a4fba0a06bb13ef7c7, type: 2}
   storedFuel:
-    itemData: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
-    quantity: 5
+    itemData: {fileID: 0}
+    quantity: 0
   storedInput:
-    itemData: {fileID: 11400000, guid: ad2568c19e14e9642970e628eab7261d, type: 2}
-    quantity: 1
+    itemData: {fileID: 0}
+    quantity: 0
   storedOutput:
-    itemData: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
-    quantity: 1
+    itemData: {fileID: 0}
+    quantity: 0
   ItemCraftBlueprintUnderProcess: {fileID: 0}
   isProcessing: 0
 --- !u!1 &7215668875992369966

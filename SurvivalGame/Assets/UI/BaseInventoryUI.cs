@@ -6,6 +6,7 @@ public abstract class BaseInventoryUI : MonoBehaviour
     [SerializeField] protected GameObject grid;
     [SerializeField] protected GameObject inventoryUISlotPrefab;
     [SerializeField] protected GameObject inventoryUISlotCounterPrefab;
+    [SerializeField] protected GameObject targetInventoryGO;
     protected virtual bool ItemsAreDraggable => true; // default
     [SerializeField] protected List<GameObject> uiSlots = new List<GameObject>();
 
@@ -17,12 +18,21 @@ public abstract class BaseInventoryUI : MonoBehaviour
     protected virtual void Start()
     {
         gm = GameManager.Instance;
-        inventory = gm.GetInventorySystem();
-        InitSlots();
-        UpdateUI();
+        if (targetInventoryGO != null)
+        {
+            inventory = targetInventoryGO.GetComponent<InventorySystem>();
+            InitSlots();
+            UpdateUI();
+        }
     }
 
-    protected abstract void InitSlots(); // Each UI type initializes differently
+    public void SetTargetInventoryGO(GameObject targetInventoryGO)
+    {
+        this.targetInventoryGO = targetInventoryGO;
+        inventory = targetInventoryGO.GetComponent<InventorySystem>();
+    }
+
+    public abstract void InitSlots(); // Each UI type initializes differently
 
     protected void PopulateSlots(int numToPopulate, SlotType slotType)
     {
@@ -35,14 +45,14 @@ public abstract class BaseInventoryUI : MonoBehaviour
         }
     }
 
-    public virtual void SetActive(bool flag)
+    public virtual void SetActive(bool flag, bool skipUpdate = false)
     {
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(flag);
         }
 
-        if (flag == true)
+        if (flag == true && !skipUpdate)
         {
             UpdateUI();
         }
@@ -56,7 +66,9 @@ public abstract class BaseInventoryUI : MonoBehaviour
 
     public virtual void UpdateUI()
     {
-        UpdateSlots();
+        if (targetInventoryGO != null) { 
+            UpdateSlots();
+        }
     }
 
     protected virtual void UpdateSlots()

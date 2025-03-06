@@ -17,6 +17,9 @@ MonoBehaviour:
   zdimension: 2
   blueprint: {fileID: 11400000, guid: 2d59443e697391a4e8dd3b0d1250ae9b, type: 2}
   uiIcon: {fileID: 21300000, guid: 43159b77be4ed6f43a2f1d363b751068, type: 3}
-  possibleBlueprints: []
-  validProcessingFuelRequirements: []
+  possibleBlueprints:
+  - {fileID: 11400000, guid: efb63700009beeb44af04789735bf0f7, type: 2}
+  validProcessingFuelRequirements:
+  - item: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
+    quantity: 3
   processingTime: 5

@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject endOfDayUIGO;
     public GameObject craftingUIGO;
     public GameObject buildingUIGO;
+    public GameObject chestUIGO;
 
     // Script Components
     private InventoryUI inventoryUI;
@@ -19,6 +20,7 @@ public class UIManager : MonoBehaviour
     private EndOfDayUI endOfDayUI;
     private CraftingUI craftingUI;
     private BuildingUI buildingUI;
+    private ChestUI chestUI;
     private GameManager gm;
 
     private void OnEnable()
@@ -27,6 +29,7 @@ public class UIManager : MonoBehaviour
         InputHandler.OnEscKeyPressedEvent += OnEscKeyPressed;
         InputHandler.OnCraftingKeyPressedEvent += OnCraftingKeyPressed;
         InputHandler.OnBuildingKeyPressedEvent += OnBuildingKeyPressed;
+        Chest.OnChestOpen += OneChestOpened;
     }
 
     void Awake()
@@ -37,11 +40,17 @@ public class UIManager : MonoBehaviour
         endOfDayUI = endOfDayUIGO.GetComponent<EndOfDayUI>();
         craftingUI = craftingUIGO.GetComponent<CraftingUI>();
         buildingUI = buildingUIGO.GetComponent<BuildingUI>();
+        chestUI = chestUIGO.GetComponent<ChestUI>();
 
         gm = GameManager.Instance;
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    public ChestUI GetChestUI()
+    {
+        return chestUI;
     }
 
     public CraftingUI GetCraftingUI()
@@ -76,11 +85,12 @@ public class UIManager : MonoBehaviour
         processingStationUI.SetActive(false);
         craftingUI.SetActive(false);
         buildingUI.SetActive(false);
+        chestUI.SetActive(false);
     }
 
     private bool CanCloseInventory()
     {
-        return !processingStationUI.IsActive() && !craftingUI.IsActive() && !buildingUI.IsActive();
+        return !processingStationUI.IsActive() && !craftingUI.IsActive() && !buildingUI.IsActive() && !chestUI.IsActive();
     }
 
     public void SetProcessingStationTabActive(bool flag)
@@ -136,6 +146,13 @@ public class UIManager : MonoBehaviour
         inventoryUI.SetActive(newflag);
     }
 
+    public void OneChestOpened(GameObject chest)
+    {
+        chestUI.LinkChest(chest);
+        gm.SetInventoryMode(true);
+        chestUI.SetActive(true);
+    }
+
     public void OnEscKeyPressed()
     {
         CloseOpenInventoryTabs();
@@ -145,4 +162,5 @@ public class UIManager : MonoBehaviour
             quickBarUI.SetActive(true);
         }
     }
+
 }

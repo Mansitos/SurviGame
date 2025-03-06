@@ -4,8 +4,14 @@ using UnityEngine;
 public class InventoryUI : BaseInventoryUI
 {
     public GameObject weightUI;
+    public SlotType slotType;
 
     protected override bool ItemsAreDraggable => true;
+
+    protected void OnEnable()
+    {
+        InventorySystem.OnInventoryUpdated += UpdateUI;
+    }
 
     protected override void Start()
     {
@@ -13,18 +19,22 @@ public class InventoryUI : BaseInventoryUI
         SetActive(false);
     }
 
-    protected override void InitSlots()
+    public override void InitSlots()
     {
         numSlots = inventory.maxSlots;
-        PopulateSlots(numSlots, SlotType.Inventory);
+        PopulateSlots(numSlots, slotType);
     }
 
     // --- Update/Redraw UI Methods ---
 
     public override void UpdateUI()
     {
-        UpdateSlots();
-        UpdateWeightText();
+        if (targetInventoryGO != null)
+        {
+            UpdateSlots();
+            UpdateWeightText();
+        }
+
     }
 
     private void UpdateWeightText()

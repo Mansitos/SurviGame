@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ProcessingStationUI : BaseInventoryUI
 {
@@ -28,7 +27,7 @@ public class ProcessingStationUI : BaseInventoryUI
         SetActive(false);
     }
 
-    protected override void InitSlots()
+    public override void InitSlots()
     {
         input = inputSlot.GetComponent<InventoryUISlot>();
         output = outputSlot.GetComponent<InventoryUISlot>();
@@ -150,6 +149,7 @@ public class ProcessingStationUI : BaseInventoryUI
 
         if (processingStation.HasStoredInput())
         {
+            Debug.LogWarning(input);
             GameObject itemIconObjectInput = UIUtils.CreateItemIcon(storedInput, inventoryUISlotCounterPrefab, grid);
             input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
         }

@@ -8,6 +8,11 @@ public class QuickBarUI : BaseInventoryUI
 
     private Color unselectedColor;
 
+    protected void OnEnable()
+    {
+        InventorySystem.OnInventoryUpdated += UpdateUI;
+    }
+
     protected override void Start()
     {
         numSlots = quickBarSize;
@@ -17,7 +22,7 @@ public class QuickBarUI : BaseInventoryUI
         SetActive(true);
     }
 
-    protected override void InitSlots()
+    public override void InitSlots()
     {
         PopulateSlots(numSlots, SlotType.QuickBar);
     }
