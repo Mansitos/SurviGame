@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
     private PlayerQuickBar playerQuickBar;
     private PlayerTileSelection playerTileSelection;
     private PlayerAnimationsHandler playerAnimationsHandler;
-    private InventorySystem inventorySystem;
+    private InventorySystem playerInventory;
     private GameTimeManager gameTimeManager;
     private InputHandler inputHandler;
     private PlayerStatus playerStatus;
@@ -35,13 +36,17 @@ public class GameManager : MonoBehaviour
         playerQuickBar = player.GetComponent<PlayerQuickBar>();
         playerTileSelection = player.GetComponent<PlayerTileSelection>();
         playerAnimationsHandler = player.GetComponent<PlayerAnimationsHandler>();
-        inventorySystem = player.GetComponent<InventorySystem>();
+        playerInventory = player.GetComponent<InventorySystem>();
         gameTimeManager = timeManager.GetComponent<GameTimeManager>();
         inputHandler = player.GetComponent<InputHandler>();
         playerStatus = player.GetComponent<PlayerStatus>();
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    public void Update()
+    {
     }
 
     public void UpdateIsInNormalMode()
@@ -139,9 +144,9 @@ public class GameManager : MonoBehaviour
         return terrainGridSystem;
     }
 
-    public InventorySystem GetInventorySystem()
+    public InventorySystem GetPlayerInventory()
     {
-        return inventorySystem;
+        return playerInventory;
     }
 
     public PlayerAnimationsHandler GetPlayerAnimationHandler()

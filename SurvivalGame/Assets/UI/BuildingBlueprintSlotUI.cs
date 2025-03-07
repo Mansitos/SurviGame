@@ -13,8 +13,7 @@ public class BuildingBlueprintSlotUI : BaseHorizontalBlueprintUISlot
     public override void UpdateSlotUI()
     {
         BuildingBlueprint buildingBlueprint = blueprint as BuildingBlueprint;
-        Debug.Log("UPDATE");
-        if (buildingBlueprint.CanBuild(GameManager.Instance.GetInventorySystem()))
+        if (buildingBlueprint.CanBuild(GameManager.Instance.GetPlayerInventory()))
         {
             inventoryUISlotGO.GetComponent<Image>().color = baseColor;
         }
@@ -26,7 +25,6 @@ public class BuildingBlueprintSlotUI : BaseHorizontalBlueprintUISlot
 
     protected override void InitUI()
     {
-        BuildingBlueprint buildingBlueprint = blueprint as BuildingBlueprint;
         BuildingData data = linkedGO.GetComponent<WorldObjectBase>().GetWorldObjectData() as BuildingData;
 
         // Init text
@@ -47,8 +45,6 @@ public class BuildingBlueprintSlotUI : BaseHorizontalBlueprintUISlot
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        BuildingBlueprint buildingBlueprint = blueprint as BuildingBlueprint;
-        BuildingData data = linkedGO.GetComponent<WorldObjectBase>().GetWorldObjectData() as BuildingData;
         IBuildable building = linkedGO.GetComponent<IBuildable>();
 
         Debug.Log($"Building blueprint:");

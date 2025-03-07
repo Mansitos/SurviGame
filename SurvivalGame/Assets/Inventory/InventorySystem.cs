@@ -56,6 +56,8 @@ public class InventorySystem : MonoBehaviour
             fromSlot.emptySlot = toSlotEmpty;
             toSlot.emptySlot = fromSlotEmpty;
         }
+
+        UpdateUI();
     }
 
     public int GetFreeSlots()
@@ -241,7 +243,7 @@ public class InventorySystem : MonoBehaviour
         return false;
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         OnInventoryUpdated?.Invoke();
     }
@@ -249,5 +251,23 @@ public class InventorySystem : MonoBehaviour
     public InventorySlot GetInventorySlotAtIndex(int index)
     {
         return slots[index];
+    }
+
+    public List<InventorySlot> GetSlotsWithItemType(ItemType type)
+    {
+        List<InventorySlot> slotsWithFood = new List<InventorySlot>();
+
+        foreach(InventorySlot slot in slots)
+        {
+            if (!slot.IsEmpty())
+            {
+                if (slot.itemInstance.ItemData.IsItemOfType(type))
+                {
+                    slotsWithFood.Add(slot);
+                }
+            }
+        }
+
+        return slotsWithFood;
     }
 }

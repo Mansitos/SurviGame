@@ -276,7 +276,5 @@ public class GridManager : MonoBehaviour
         List<GameObject> objectsInRadiusOfRequiredType = FilterGameObjectsByType(objectsInRadius, type);
 
         return objectsInRadiusOfRequiredType;
-
     }
-
 }

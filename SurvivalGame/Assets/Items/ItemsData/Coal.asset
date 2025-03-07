@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c0a3b74b830e824a8bd66fa811e294b, type: 3}
-  m_Name: Rock
+  m_Name: Coal
   m_EditorClassIdentifier: 
-  itemName: Rock
+  itemName: Coal
   itemType: 2
-  weight: 5
-  itemDescription: a rock.
-  worldPrefab: {fileID: 108756, guid: 6dcc32f69524dfc49b00378e8a2db141, type: 3}
-  uiIcon: {fileID: 21300000, guid: 0005fb41af78e134ab8c06a1b7cb6e28, type: 3}
+  weight: 4
+  itemDescription: Coal to burn stuff
+  worldPrefab: {fileID: 0}
+  uiIcon: {fileID: 21300000, guid: 9ba7aaff213d44448b120d7c135358cb, type: 3}

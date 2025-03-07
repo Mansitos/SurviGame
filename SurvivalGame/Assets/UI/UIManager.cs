@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject craftingUIGO;
     public GameObject buildingUIGO;
     public GameObject chestUIGO;
+    public GameObject itemsTooltipUIGO;
 
     // Script Components
     private InventoryUI inventoryUI;
@@ -21,7 +22,9 @@ public class UIManager : MonoBehaviour
     private CraftingUI craftingUI;
     private BuildingUI buildingUI;
     private ChestUI chestUI;
+    private ItemsTooltipUI itemsTooltipUI;
     private GameManager gm;
+
 
     private void OnEnable()
     {
@@ -41,11 +44,17 @@ public class UIManager : MonoBehaviour
         craftingUI = craftingUIGO.GetComponent<CraftingUI>();
         buildingUI = buildingUIGO.GetComponent<BuildingUI>();
         chestUI = chestUIGO.GetComponent<ChestUI>();
+        itemsTooltipUI = itemsTooltipUIGO.GetComponent<ItemsTooltipUI>();
 
         gm = GameManager.Instance;
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    public ItemsTooltipUI GetItemsTooltipUI()
+    {
+        return itemsTooltipUI;
     }
 
     public ChestUI GetChestUI()
@@ -86,6 +95,9 @@ public class UIManager : MonoBehaviour
         craftingUI.SetActive(false);
         buildingUI.SetActive(false);
         chestUI.SetActive(false);
+        itemsTooltipUI.HideTooltip();
+
+        quickBarUI.SetActive(true);
     }
 
     private bool CanCloseInventory()
@@ -98,6 +110,8 @@ public class UIManager : MonoBehaviour
         gm.SetInventoryMode(true);
         processingStationUI.SetActive(flag);
         inventoryUI.SetActive(flag);
+
+        quickBarUI.SetActive(false);
     }
 
     public void OnInventoryKeyPressed()
@@ -132,6 +146,8 @@ public class UIManager : MonoBehaviour
         }
         gm.SetInventoryMode(newflag); // TODO: not properly inventory mode... refactor modes?
         buildingUI.SetActive(newflag);
+
+        quickBarUI.SetActive(!newflag);
     }
 
     public void OnCraftingKeyPressed()
@@ -144,6 +160,8 @@ public class UIManager : MonoBehaviour
         gm.SetInventoryMode(newflag);
         craftingUI.SetActive(newflag);
         inventoryUI.SetActive(newflag);
+
+        quickBarUI.SetActive(!newflag);
     }
 
     public void OneChestOpened(GameObject chest)
@@ -151,6 +169,7 @@ public class UIManager : MonoBehaviour
         chestUI.LinkChest(chest);
         gm.SetInventoryMode(true);
         chestUI.SetActive(true);
+        quickBarUI.SetActive(false);
     }
 
     public void OnEscKeyPressed()

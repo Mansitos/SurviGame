@@ -27,9 +27,16 @@ public class ToolData : ItemData, IUsableItem
                 {
                     if (targetResource.IsResourceObjectOfType(targetResourceType))
                     {
-                        // Start collect process
-                        PlayerMovement player = gm.GetPlayerGO().GetComponent<PlayerMovement>();
-                        player.StartCollectingResource(targetObject, targetResource.GetCollectionDuration(), targetResourceType);
+                        if (targetResource.PlayerHasEnoughEnergyToCollect())
+                        {
+                            // Start collect process
+                            PlayerMovement player = gm.GetPlayerGO().GetComponent<PlayerMovement>();
+                            player.StartCollectingResource(targetObject, targetResource.GetCollectionDuration(), targetResourceType);
+                        }
+                        else
+                        {
+                            Debug.Log("Player does not have enough energy to collect");
+                        }
                     }
                     else
                     {

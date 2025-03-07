@@ -33,11 +33,17 @@ public class Resource : WorldObject<ResourceObjectData>
         return worldObjectData.collectionTime;
     }
 
+    public bool PlayerHasEnoughEnergyToCollect()
+    {
+        return gm.GetPlayerStatus().GetEnergy() > worldObjectData.GetCollectionCost();
+    }
+
     public void Collect()
     {
         SpawnItems();
         Vector3Int gridPos = gridManager.WorldToGrid(this.transform.position);
         gridManager.RemoveObjectFromTiles(gridPos, true);
+        gm.GetPlayerStatus().ReduceEnergy(worldObjectData.GetCollectionCost());
         Destroy(this.gameObject);
     }
 

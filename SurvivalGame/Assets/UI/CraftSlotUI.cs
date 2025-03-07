@@ -14,7 +14,7 @@ public class CraftSlotUI : BaseHorizontalBlueprintUISlot
     {
         ItemBlueprint itemBlueprint = blueprint as ItemBlueprint;
 
-        if (itemBlueprint.CanCraft(GameManager.Instance.GetInventorySystem()))
+        if (itemBlueprint.CanCraft(GameManager.Instance.GetPlayerInventory()))
         {
             inventoryUISlotGO.GetComponent<Image>().color = baseColor;
         }
@@ -35,7 +35,6 @@ public class CraftSlotUI : BaseHorizontalBlueprintUISlot
         {
             requirementsText.text += "x" + req.quantity + " " + req.item.name + "\n";
         }
-
         // Init icon
         GameObject icon = UIUtils.CreateItemIcon(new ItemInstance(itemBlueprint.outputItem, itemBlueprint.outputQuantity), inventoryUISlotCounterPrefab, inventoryUISlotGO);
         icon.transform.SetParent(inventoryUISlotGO.transform, false);

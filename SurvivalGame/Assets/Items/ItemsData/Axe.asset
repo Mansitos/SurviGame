@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Axe
   itemType: 1
   weight: 20
+  itemDescription: An axe to chop trees
   worldPrefab: {fileID: 1911040709781189449, guid: 4f770865455a7a94586c08167d09840d, type: 3}
   uiIcon: {fileID: 21300000, guid: 1afac0307d0c09143883d31b0c9f83fb, type: 3}
   toolCategory: 1

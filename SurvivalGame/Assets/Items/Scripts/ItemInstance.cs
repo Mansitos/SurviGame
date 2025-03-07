@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -17,7 +18,8 @@ public class ItemInstance
 
     public ItemInstance Clone()
     {
-        return new ItemInstance(this.itemData, this.quantity);
+        ItemInstance newItem = new ItemInstance(this.itemData, this.quantity);
+        return newItem;
     }
 
     public void AddQuantity(int amount)
@@ -56,8 +58,6 @@ public class ItemInstance
             GameObject targetObject = gameManager.GetTerrainGridManager().GetObjectOnTile(selectedTile.Value);
             if (targetObject != null)
             {
-
-                //Building<BuildingData> targetBuilding = targetObject.GetComponent<Building<BuildingData>>();
                 IBuildable targetBuilding = targetObject.GetComponent<IBuildable>();
                 if (targetBuilding != null)
                 {

@@ -15,5 +15,6 @@ MonoBehaviour:
   itemName: Wooden Log
   itemType: 2
   weight: 3
+  itemDescription: a wooden log
   worldPrefab: {fileID: 6234728209276531961, guid: 64fda70134ddfe140a3d4dd8de266434, type: 3}
   uiIcon: {fileID: 21300000, guid: d77e7543d87ba5547b1bd45fa92dfc0a, type: 3}

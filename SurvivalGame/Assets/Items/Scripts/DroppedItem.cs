@@ -75,7 +75,7 @@ public class DroppedItem : MonoBehaviour
                 // start and fail to add a the end of animation for what happened meanwhile.
                 // The "TryAdd" should not fail since the check has been just be done in CheckStartCollectConditions.
 
-                bool esit = gm.GetInventorySystem().TryAddItem(itemInstance);
+                bool esit = gm.GetPlayerInventory().TryAddItem(itemInstance);
                 if (!esit) { 
                     Debug.LogWarning("[DroppedItem] This should not happen.");
                 }
@@ -103,7 +103,7 @@ public class DroppedItem : MonoBehaviour
     {
         if (distanceToPlayer < startCollectDistance)
         {
-            if (gm.GetInventorySystem().CanAddItem(itemInstance))
+            if (gm.GetPlayerInventory().CanAddItem(itemInstance))
             {
                 return true;
             }

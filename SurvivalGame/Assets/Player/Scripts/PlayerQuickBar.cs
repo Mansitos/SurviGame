@@ -18,7 +18,7 @@ public class PlayerQuickBar : MonoBehaviour
     private void Start()
     {
         gm = GameManager.Instance;
-        inventorySystem = gm.GetInventorySystem();
+        inventorySystem = gm.GetPlayerInventory();
         defaultItemInstance = new ItemInstance(defaultEmptyItemData, 1);
         SelectSlot(selectedIndex); // using selectedIndex for now, future: keys
         UpdateStep();

@@ -1,21 +1,23 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Windows;
 
 public enum SlotType
 {
     Generic,
     Inventory,
     QuickBar,
-    ProcessingStation
+    ProcessingStation,
+    Chest
 }
 
 public class InventoryUISlot : MonoBehaviour, IDropHandler
 {
     public GameObject childDisplayedItem;
-    private int index;
     public bool hasDisplayedItem;
     public SlotType slotType = SlotType.Generic;
+
+    private int index;
+    private InventorySystem parentInventory;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -41,35 +43,74 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         {
             ActionFromInventory(droppedDraggableItem, oldParentSlot, dropped);
         }
-        else
+        else if (oldParentSlot.slotType == SlotType.ProcessingStation)
         {
             ActionFromProcessingStation(droppedDraggableItem, oldParentSlot, dropped);
+        }
+        else if (oldParentSlot.slotType == SlotType.Chest){
+            ActionFromChest(droppedDraggableItem, oldParentSlot, dropped);
+        }
+    }
+
+    private void ActionFromChest(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
+    {
+        int oldSlotIndex = oldParentSlot.index;
+
+        if (this.slotType == SlotType.Inventory)
+        {
+            ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
+            Debug.LogWarning("PARENT:" + parentInventory);
+
+            if (parentInventory.CanAddItem(itemToAdd))
+            {
+                parentInventory.TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
+                oldParentSlot.parentInventory.TryRemoveItem(itemToAdd);
+            }
+            else
+            {
+                Debug.Log("Cannot move item from chest to inventory (no space etc.).");
+            }
+        }
+        if (this.slotType == SlotType.Chest)
+        {
+            parentInventory.SwapSlotContents(oldSlotIndex, index);
         }
     }
 
     private void ActionFromInventory(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
     {
         int oldSlotIndex = oldParentSlot.index;
+        InventorySlot incomingItemSlot = GameManager.Instance.GetPlayerInventory().GetInventorySlotAtIndex(oldSlotIndex);
+        ItemInstance incomingItem = incomingItemSlot.itemInstance;
 
         if (this.slotType == SlotType.Inventory)
         {
-            GameManager.Instance.GetInventorySystem().SwapSlotContents(oldSlotIndex, index);
-            UIManager.Instance.GetInventoryUI().UpdateUI();
+            GameManager.Instance.GetPlayerInventory().SwapSlotContents(oldSlotIndex, index);
         }
         else if (this.slotType == SlotType.ProcessingStation)
         {
-            // Get inventory content at index
-            InventorySlot incomingItemSlot = GameManager.Instance.GetInventorySystem().GetInventorySlotAtIndex(oldSlotIndex);
-            ItemInstance incomingItem = incomingItemSlot.itemInstance;
             ProcessingStationUI stationUI = UIManager.Instance.GetProcessingStationUI();
 
             if (stationUI.VerifyCanAddToSlot(incomingItem.ItemData, this.index)){
                 stationUI.AddToSlot(incomingItem, this.index);
-                GameManager.Instance.GetInventorySystem().TryRemoveItem(incomingItem);
+                GameManager.Instance.GetPlayerInventory().TryRemoveItem(incomingItem);
             }
             else
             {
                 Debug.Log("Cannot add this item in this slot");
+            }
+        }
+        else if (this.slotType == SlotType.Chest)
+        {
+            ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
+            if (parentInventory.CanAddItem(itemToAdd))
+            {
+                parentInventory.TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
+                GameManager.Instance.GetPlayerInventory().TryRemoveItem(incomingItem);
+            }
+            else
+            {
+                Debug.Log("Cannot add item to chest, canAddItem = false");
             }
         }
         else
@@ -85,9 +126,9 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
             ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
 
             // TODO change with CanAddItemOnSlot
-            if (GameManager.Instance.GetInventorySystem().CanAddItem(itemToAdd))
+            if (GameManager.Instance.GetPlayerInventory().CanAddItem(itemToAdd))
             {
-                GameManager.Instance.GetInventorySystem().TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
+                GameManager.Instance.GetPlayerInventory().TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
                 ProcessingStationUI stationUI = UIManager.Instance.GetProcessingStationUI();
                 stationUI.RemoveItemFromIndexSlot(oldParentSlot.GetIndex());
             }
@@ -104,6 +145,11 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         {
             Debug.Log("not handled! should never happend!");
         }
+    }
+
+    public void SetParentInventory(InventorySystem inventory)
+    {
+        parentInventory = inventory;
     }
 
     public void SetIndex(int index)

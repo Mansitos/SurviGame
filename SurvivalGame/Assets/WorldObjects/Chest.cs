@@ -17,6 +17,11 @@ public class Chest : Building<BuildingData>, IUsableBuilding
         return Use();
     }
 
+    public InventorySystem GetInventory()
+    {
+        return inventory;
+    }
+
     public bool Use()
     {
         Debug.Log("Opened chest");

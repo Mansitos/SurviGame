@@ -12,19 +12,19 @@ public class GiveItemDebug : Editor
 
         if (GUILayout.Button("Give x1"))
         {
-            InventorySystem inventory = GameManager.Instance.GetInventorySystem();
+            InventorySystem inventory = GameManager.Instance.GetPlayerInventory();
             inventory.TryAddItem(new ItemInstance(itemData));
         }
 
         if (GUILayout.Button("Remove x1"))
         {
-            InventorySystem inventory = GameManager.Instance.GetInventorySystem();
+            InventorySystem inventory = GameManager.Instance.GetPlayerInventory();
             inventory.TryRemoveItem(new ItemInstance(itemData));
         }
 
         if (GUILayout.Button("Give x10"))
         {
-            InventorySystem inventory = GameManager.Instance.GetInventorySystem();
+            InventorySystem inventory = GameManager.Instance.GetPlayerInventory();
             for (int i = 0; i<10; i++)
             {
                 inventory.TryAddItem(new ItemInstance(itemData));

@@ -30,6 +30,12 @@ public class InventorySlot
 
     }
 
+    public void ClearSlot()
+    {
+        itemInstance = null;
+        emptySlot = true;
+    }
+
     public void AddItem(ItemInstance item)
     {
         if (!IsEmpty())

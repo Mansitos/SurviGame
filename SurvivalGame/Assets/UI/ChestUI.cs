@@ -36,6 +36,11 @@ public class ChestUI : MonoBehaviour
         }
     }
 
+    public GameObject GetLinkedChest()
+    {
+        return chest.GetTargetInventoryGO();
+    }
+
     public virtual bool IsActive() { return isActive; }
 
     public void LinkChest(GameObject chestGO)

@@ -15,5 +15,6 @@ MonoBehaviour:
   itemName: Fiber
   itemType: 2
   weight: 2
+  itemDescription: Fiber plants
   worldPrefab: {fileID: 8437072315953719089, guid: aec65cb070aeac547809a88eb8b00d7d, type: 3}
   uiIcon: {fileID: 21300000, guid: 343699b821f5c6c4bbd4b93d9b28352b, type: 3}

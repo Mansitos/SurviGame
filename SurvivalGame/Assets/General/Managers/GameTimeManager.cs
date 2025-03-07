@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 public class GameTimeManager : MonoBehaviour
 {
@@ -126,6 +128,30 @@ public class GameTimeManager : MonoBehaviour
 
     private void HandleWorldUpdate()
     {
+        FoodRottingLogic();
         Debug.Log("World updated at end day");
+    }
+
+    private void FoodRottingLogic()
+    {
+        InventorySystem[] inventories = FindObjectsByType<InventorySystem>(FindObjectsSortMode.None);
+
+        foreach (InventorySystem inventory in inventories)
+        {
+            List<InventorySlot> slotsWithFood = inventory.GetSlotsWithItemType(ItemType.Food);
+
+            foreach (InventorySlot slot in slotsWithFood)
+            {
+                FoodData data = slot.itemInstance.ItemData as FoodData;
+                data.Rotten(slot.itemInstance);
+
+                if (slot.itemInstance.Quantity <= 0)
+                {
+                    slot.ClearSlot();
+                }
+            }
+
+            inventory.UpdateUI();
+        }
     }
 }

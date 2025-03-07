@@ -25,14 +25,14 @@ public class Building<T> : WorldObject<T> , IBuildable where T : BuildingData
     public void Build(GameManager gm)
     {
         // Apply blueprint cost
-        worldObjectData.blueprint.Build(gm.GetInventorySystem());
+        worldObjectData.blueprint.Build(gm.GetPlayerInventory());
         gm.SetBuildMode(true);
         gm.GetBuildingPlacer().SetBuilding(this.gameObject);
     }
 
     public bool CanBuild(GameManager gm)
     {
-        return worldObjectData.blueprint.CanBuild(gm.GetInventorySystem());
+        return worldObjectData.blueprint.CanBuild(gm.GetPlayerInventory());
     }
 
     public virtual bool InteractWithBuilding()

@@ -20,7 +20,7 @@ public abstract class BaseHorizontalBlueprintUISlot : MonoBehaviour, IPointerCli
 
     protected virtual void Awake()
     {
-        inventory = GameManager.Instance.GetInventorySystem();
+        inventory = GameManager.Instance.GetPlayerInventory();
         nameText = nameTextGO.GetComponent<TextMeshProUGUI>();
         requirementsText = requirementsTextGO.GetComponent<TextMeshProUGUI>();
         baseColor = inventoryUISlotGO.GetComponent<Image>().color;

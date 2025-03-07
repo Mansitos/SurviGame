@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Pickaxe
   itemType: 1
   weight: 20
+  itemDescription: A pickaxe to break rocks
   worldPrefab: {fileID: 3495752785585506022, guid: 1a2282cb0194daa4aa2c93dda91ba918, type: 3}
   uiIcon: {fileID: 21300000, guid: 9606f117dc8b11f469cac18589b28b7f, type: 3}
   toolCategory: 0

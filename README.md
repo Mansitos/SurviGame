@@ -5,6 +5,10 @@ Some random dev history!
 Project start: martedì 28 gennaio 2025, 20:27:05
 
 ---
+#### **Image from: 07/3/2025**
+_Rudimental Chest logic and related UI._
+![](images/image_9.png)
+
 #### **Image from: 04/3/2025**
 _Improved UI components: added Building and Crafting screen._
 ![](images/image_8.png)
@@ -34,5 +38,3 @@ _Rudimental inventory system and dropped items after resource collection_
 _First screenshot!_
 _Grid system + buildings placement and occupied area_
 ![](images/image_1.png)
-
-![alt text](image.png)

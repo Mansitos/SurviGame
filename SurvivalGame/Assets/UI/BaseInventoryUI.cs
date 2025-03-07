@@ -32,15 +32,42 @@ public abstract class BaseInventoryUI : MonoBehaviour
         inventory = targetInventoryGO.GetComponent<InventorySystem>();
     }
 
+    public GameObject GetTargetInventoryGO()
+    {
+        return targetInventoryGO;
+    }
+
     public abstract void InitSlots(); // Each UI type initializes differently
+
+    public void WipeSlots()
+    {
+        if (uiSlots.Count > 0)
+        {
+            Debug.Log("Wiping slots");
+
+            foreach (GameObject slot in uiSlots)
+            {
+                if (slot != null)
+                {
+                    GameObject.Destroy(slot);
+                }
+            }
+
+            uiSlots = new List<GameObject>();
+        }
+
+    }
 
     protected void PopulateSlots(int numToPopulate, SlotType slotType)
     {
+        WipeSlots();
         for (int i = 0; i < numToPopulate; i++)
         {
             GameObject slot = Instantiate(inventoryUISlotPrefab, grid.transform);
-            slot.GetComponent<InventoryUISlot>().SetIndex(i);
-            slot.GetComponent<InventoryUISlot>().SetSlotType(slotType);
+            InventoryUISlot inventoryUISlot = slot.GetComponent<InventoryUISlot>();
+            inventoryUISlot.SetIndex(i);
+            inventoryUISlot.SetParentInventory(inventory);
+            inventoryUISlot.SetSlotType(slotType);
             uiSlots.Add(slot);
         }
     }

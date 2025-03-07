@@ -130,3 +130,13 @@
 - Detached UI logic from `InventorySystem`. `InventoryUI` and `QuickBarUI` now listen for `OnInventoryUpdated` event.
 - Fixed some `ProcessingStation` and `BuildingPlacer` bugs.
 - Rudimental `Chest` logic and `ChestUI`.
+---
+7-3-2025
+- Fixed missing updateUI on inventory swap logic.
+- Moving items from `Chest` to `PlayerInventory` and viceversa.
+- `InventoryUISlot` now have a linked `InventorySystem` reference for quicker access.
+- Finished rudimental Chest to/from Player Inventory item movements.
+- Rudimental `Food` rotting logic at end of day.
+- Collecting resources now have an energy cost.
+- Added `PerformMainAction()` condition for `Tool`: `PlayerHasEnoughEnergyToCollect()`.
+- Rudimental Tooltip for UI Items + added `itemData.itemDescription`.
