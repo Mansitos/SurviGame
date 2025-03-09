@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     // Private status
     private bool isRotatingStill = false;
     private bool isCollecting = false;
-    private string collectionType = ""; //TODO: it sucks?
+    private string collectionType = "";
 
     private void Start()
     {

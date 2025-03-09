@@ -40,6 +40,9 @@ public class CraftSlotUI : BaseHorizontalBlueprintUISlot
         icon.transform.SetParent(inventoryUISlotGO.transform, false);
         inventoryUISlotGO.GetComponent<InventoryUISlot>().SetDisplayedItem(icon, null, draggable: false);
 
+        inventoryUISlotGO.GetComponent<Image>().raycastTarget = false;
+        icon.GetComponent<Image>().raycastTarget = false;
+
         UpdateSlotUI();
     }
 
@@ -49,14 +52,5 @@ public class CraftSlotUI : BaseHorizontalBlueprintUISlot
 
         Debug.Log($"Inventory Slot Clicked: {itemBlueprint.outputItem.name}");
         bool result = itemBlueprint.Craft(inventory);
-
-        if (result)
-        {
-            Debug.Log("crafted!");
-        }
-        else
-        {
-            Debug.Log("Can't craft!");
-        }
     }
 }

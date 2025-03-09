@@ -88,9 +88,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5366319742797170089, guid: 38f4866f25807cd429c0e07706f4b306, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7531162352651827469, guid: 38f4866f25807cd429c0e07706f4b306, type: 3}
       propertyPath: m_Name
-      value: BlueprintHorizontalSlotUI Variant
+      value: CraftSlotUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

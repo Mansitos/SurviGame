@@ -3,14 +3,16 @@ using UnityEngine.EventSystems;
 
 public enum SlotType
 {
-    Generic,
     Inventory,
     QuickBar,
+    Generic,
+    Mouse,
     ProcessingStation,
+    InventoryUISlot,
     Chest
 }
 
-public class InventoryUISlot : MonoBehaviour, IDropHandler
+public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     public GameObject childDisplayedItem;
     public bool hasDisplayedItem;
@@ -21,6 +23,9 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
+
         // Dropped draggable item
         GameObject dropped = eventData.pointerDrag;
         DraggableUIItem droppedDraggableItem = dropped.GetComponent<DraggableUIItem>();
@@ -50,6 +55,15 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
         else if (oldParentSlot.slotType == SlotType.Chest){
             ActionFromChest(droppedDraggableItem, oldParentSlot, dropped);
         }
+        else if (oldParentSlot.slotType == SlotType.Mouse)
+        {
+            ActionFromMouse(droppedDraggableItem, oldParentSlot, dropped);
+        }
+    }
+
+    private void ActionFromMouse(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
+    {
+        Debug.LogWarning("IMPLEMENT THIS");
     }
 
     private void ActionFromChest(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
@@ -196,5 +210,32 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler
     public GameObject GetDisplayedItem()
     {
         return childDisplayedItem;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        GameObject mouseSlotGO = UIManager.Instance.GetMouseInventorySlot().slot;
+        InventoryUISlot mouseSlot = mouseSlotGO.GetComponent<InventoryUISlot>();
+
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (mouseSlot.childDisplayedItem != null)
+            {
+                if (mouseSlot.childDisplayedItem.GetComponent<DraggableUIItem>().linkedItemInstance != null)
+                {
+                    // Dropped draggable item
+                    DraggableUIItem droppedDraggableItem = mouseSlot.childDisplayedItem.GetComponent<DraggableUIItem>();
+                    GameObject dropped = eventData.pointerDrag;
+                    Transform oldParent = droppedDraggableItem.parent;
+                    InventoryUISlot oldParentSlot = oldParent.GetComponent<InventoryUISlot>();
+
+                    PerformActionBasedOnTypes(droppedDraggableItem, oldParentSlot, dropped);
+                }
+            }
+            else
+            {
+                Debug.Log("nothing to release");
+            }
+        }
     }
 }

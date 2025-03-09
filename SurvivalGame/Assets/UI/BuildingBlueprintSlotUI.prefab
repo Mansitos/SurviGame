@@ -88,9 +88,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5366319742797170089, guid: 38f4866f25807cd429c0e07706f4b306, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7531162352651827469, guid: 38f4866f25807cd429c0e07706f4b306, type: 3}
       propertyPath: m_Name
-      value: BlueprintHorizontalSlotUI Variant 1
+      value: BuildingBlueprintSlotUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -121,6 +125,7 @@ MonoBehaviour:
   inventoryUISlotGO: {fileID: 3141444309253646901}
   nameTextGO: {fileID: 7923748069623087906}
   requirementsTextGO: {fileID: 4476089092172649205}
+  inventoryUISlotCounterPrefab: {fileID: 0}
 --- !u!1 &3141444309253646901 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4646128815989521792, guid: 38f4866f25807cd429c0e07706f4b306, type: 3}

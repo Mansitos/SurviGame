@@ -40,6 +40,9 @@ public class BuildingBlueprintSlotUI : BaseHorizontalBlueprintUISlot
         icon.transform.SetParent(inventoryUISlotGO.transform, false);
         inventoryUISlotGO.GetComponent<InventoryUISlot>().SetDisplayedItem(icon, null, draggable: false);
 
+        inventoryUISlotGO.GetComponent<Image>().raycastTarget = false;
+        icon.GetComponent<Image>().raycastTarget = false;
+
         UpdateSlotUI();
     }
 

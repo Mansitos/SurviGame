@@ -140,3 +140,7 @@
 - Collecting resources now have an energy cost.
 - Added `PerformMainAction()` condition for `Tool`: `PlayerHasEnoughEnergyToCollect()`.
 - Rudimental Tooltip for UI Items + added `itemData.itemDescription`.
+- Right Mouse Button can no longer be used for UI item dragging.
+---
+9-3-2025
+- Right click mouse split logic continued.
