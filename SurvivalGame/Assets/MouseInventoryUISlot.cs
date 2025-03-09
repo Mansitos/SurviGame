@@ -5,7 +5,7 @@ public class MouseInventoryUISlot : MonoBehaviour
 {
     public Vector2 offset = new Vector2(30f, -30f);
     public GameObject slot;
-    public InventoryUISlot referenceSlot;
+    public InventoryUISlot referenceUISlot;
 
     private CanvasGroup canvas;
 
@@ -18,7 +18,7 @@ public class MouseInventoryUISlot : MonoBehaviour
     {
         if (Mouse.current != null)
         {
-            if (slot.GetComponent<InventoryUISlot>().hasDisplayedItem)
+            if (slot.GetComponent<InventoryUISlot>().IsDisplayingAnItemIcon())
             {
                 canvas.alpha = 1;
                 Vector2 mousePosition = Mouse.current.position.ReadValue();
@@ -31,8 +31,18 @@ public class MouseInventoryUISlot : MonoBehaviour
         }
     }
 
-    public void SetReferenceUISlot(InventoryUISlot inventoryUISlot)
+    public void Clear(bool interruptedClear = false)
     {
-        referenceSlot = inventoryUISlot;
+        if (interruptedClear)
+        {
+            Debug.LogWarning("IMPLEMENT: add back to referenceUiSlot and then clear");
+        }
+        slot.GetComponent<InventoryUISlot>().ClearSlot(destroyChild: true);
+        referenceUISlot = null;
+    }
+
+    public void SetOriginReferenceSlot(InventoryUISlot inventoryUISlot)
+    {
+        referenceUISlot = inventoryUISlot;
     }
 }

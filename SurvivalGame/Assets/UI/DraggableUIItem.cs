@@ -18,6 +18,11 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void Update()
     {
+        UpdateTooltipPosition();
+    }
+
+    public void UpdateTooltipPosition()
+    {
         if (isMouseOver && tooltip.IsVisible())
         {
             tooltip.UpdateTooltipPosition(Mouse.current.position.ReadValue());
@@ -55,7 +60,6 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         this.transform.SetParent(parent);
         this.GetComponent<Image>().raycastTarget = true;
-        UIManager.Instance.GetInventoryUI().UpdateUI();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -80,37 +84,50 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (linkedItemInstance != null)
+            if (linkedItemInstance != null) // If this UI Slot has an instance attached
             {
-                if (!mouseSlot.hasDisplayedItem)
+                if (!mouseSlot.IsDisplayingAnItemIcon())
                 {
+                    // Mouse "inventory" is empty, create new icon and populate its slot.
                     GameObject icon = UIUtils.CreateIcon(linkedItemInstance.ItemData.uiIcon, -1, null, mouseSlotGO);
                     icon.transform.SetParent(mouseSlotGO.transform, false);
                     mouseSlotGO.GetComponent<InventoryUISlot>().SetDisplayedItem(icon, new ItemInstance(linkedItemInstance.ItemData, 1));
-                    UIManager.Instance.GetMouseInventorySlot().SetReferenceUISlot(this.parent.GetComponent<InventoryUISlot>()); ;
+                    
+                    // Set the origin slot from where the items have been taken
+                    UIManager.Instance.GetMouseInventorySlot().SetOriginReferenceSlot(this.parent.GetComponent<InventoryUISlot>()); ;
+                    
+                    // Remove quantity from original item instance
                     linkedItemInstance.RemoveQuantity(1);
+
+                    //TODO: check if now empty? if 0 -> clear slot maybe
                 }
                 else
                 {
-                    if (UIManager.Instance.GetMouseInventorySlot().referenceSlot == this.parent.GetComponent<InventoryUISlot>())
+                    // TODO: IMPROVE: same item! looser condition.
+                    // When mouse slot is already with some item, additional +1 can arrive only from the same origin slot
+                    if (UIManager.Instance.GetMouseInventorySlot().referenceUISlot == this.parent.GetComponent<InventoryUISlot>())
                     {
                         linkedItemInstance.RemoveQuantity(1);
+                        //TODO: check if now empty? if 0 -> clear slot maybe
+
                         mouseSlot.childDisplayedItem.GetComponent<DraggableUIItem>().linkedItemInstance.AddQuantity(1);
                     }
-                    else
-                    {
-                        Debug.Log("Cannot add +1 from different slot!");
-                    }
-                    
                 }
+            }
+            else
+            {
+                Debug.LogWarning("No instances attached but has an icon.. should never happen!");
             }
         }
 
+        // Redirect the handling to the underlying InventoryUISlot
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             this.parent.GetComponent<InventoryUISlot>().OnPointerClick(eventData);
         }
 
-        UIManager.Instance.GetInventoryUI().UpdateUI();
+
+        // TODO: Get a cleaner way to invoke update ui event...
+        GameManager.Instance.GetPlayerInventory().UpdateUI();
     }
 }

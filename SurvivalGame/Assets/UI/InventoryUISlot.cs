@@ -15,10 +15,10 @@ public enum SlotType
 public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     public GameObject childDisplayedItem;
-    public bool hasDisplayedItem;
     public SlotType slotType = SlotType.Generic;
 
     private int index;
+    private bool hasDisplayedItem;
     private InventorySystem parentInventory;
 
     public void OnDrop(PointerEventData eventData)
@@ -63,7 +63,19 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     private void ActionFromMouse(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
     {
-        Debug.LogWarning("IMPLEMENT THIS");
+        if (this.slotType == SlotType.Inventory || this.slotType == SlotType.Chest)
+        {
+            ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
+            if (parentInventory.CanAddItem(itemToAdd))
+            {
+                parentInventory.TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
+                UIManager.Instance.GetMouseInventorySlot().Clear();
+            }
+        }
+        else if (this.slotType == SlotType.ProcessingStation)
+        {
+
+        }
     }
 
     private void ActionFromChest(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
@@ -237,5 +249,10 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
                 Debug.Log("nothing to release");
             }
         }
+    }
+
+    public bool IsDisplayingAnItemIcon()
+    {
+        return hasDisplayedItem;
     }
 }
