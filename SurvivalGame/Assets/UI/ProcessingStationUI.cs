@@ -56,6 +56,10 @@ public class ProcessingStationUI : BaseInventoryUI
         attachedStation = newStation;
         processingStation = newStation.GetComponent<ProcessingStation>();
 
+        input.SetLinkedInventorySlot(processingStation.storedInput);
+        output.SetLinkedInventorySlot(processingStation.storedOutput);
+        fuel.SetLinkedInventorySlot(processingStation.storedFuel);
+
         processingStation.OnStartProcessing += UpdateUI;
 
         UIManager.Instance.SetProcessingStationTabActive(true);
@@ -71,16 +75,15 @@ public class ProcessingStationUI : BaseInventoryUI
                 switch (index)
                 {
                     case 0:
-                        processingStation.storedInput = null;
+                        processingStation.storedInput.ClearSlot();
                         break;
                     case 1:
-                        processingStation.storedFuel = null;
+                        processingStation.storedFuel.ClearSlot();
                         break;
                     case 2:
-                        processingStation.storedOutput = null;
+                        processingStation.storedOutput.ClearSlot();
                         break;
                 }
-                GetLinkedProcessingStation().ResetStateNulls();
             }
         }
         UpdateUI();
@@ -110,7 +113,6 @@ public class ProcessingStationUI : BaseInventoryUI
                 this.GetLinkedProcessingStation().AddProcessingInputRequirement(item);
                 break;
             case 1:
-                Debug.Log("add fuel");
                 this.GetLinkedProcessingStation().AddFuel(item);
                 break;
             case 2:
@@ -143,15 +145,17 @@ public class ProcessingStationUI : BaseInventoryUI
         fuel.ClearSlot(destroyChild: true);
         output.ClearSlot(destroyChild: true);
 
-        ItemInstance storedInput = processingStation.storedInput;
-        ItemInstance storedFuel = processingStation.storedFuel;
-        ItemInstance storedOutput = processingStation.storedOutput;
+        InventorySlot storedInput = processingStation.storedInput;
+        InventorySlot storedFuel = processingStation.storedFuel;
+        InventorySlot storedOutput = processingStation.storedOutput;
 
         if (processingStation.HasStoredInput())
         {
-            Debug.LogWarning(input);
-            GameObject itemIconObjectInput = UIUtils.CreateItemIcon(storedInput, inventoryUISlotCounterPrefab, grid);
+            GameObject itemIconObjectInput = UIUtils.CreateItemIcon(storedInput.itemInstance, inventoryUISlotCounterPrefab, grid);
             input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
+
+            // TODO refactor
+            //input.SetDisplayedItemIcon(storedInput, inventoryUISlotCounterPrefab, ItemsAreDraggable);
         }
         else
         {
@@ -160,8 +164,11 @@ public class ProcessingStationUI : BaseInventoryUI
 
         if (processingStation.HasStoredFuel())
         {
-            GameObject itemIconObjectFuel = UIUtils.CreateItemIcon(storedFuel, inventoryUISlotCounterPrefab, grid);
+            GameObject itemIconObjectFuel = UIUtils.CreateItemIcon(storedFuel.itemInstance, inventoryUISlotCounterPrefab, grid);
             fuel.SetDisplayedItem(itemIconObjectFuel, storedFuel, draggable: true);
+            
+            // TODO refactor
+            //fuel.SetDisplayedItemIcon(storedFuel, inventoryUISlotCounterPrefab, ItemsAreDraggable);
         }
         else
         {
@@ -170,8 +177,12 @@ public class ProcessingStationUI : BaseInventoryUI
 
         if (processingStation.HasStoredOutput())
         {
-            GameObject itemIconObjectOutput = UIUtils.CreateItemIcon(storedOutput, inventoryUISlotCounterPrefab, grid);
+            GameObject itemIconObjectOutput = UIUtils.CreateItemIcon(storedOutput.itemInstance, inventoryUISlotCounterPrefab, grid);
             output.SetDisplayedItem(itemIconObjectOutput, storedOutput, draggable: true);
+            
+            // TODO refactor
+            //output.SetDisplayedItemIcon(storedOutput, inventoryUISlotCounterPrefab, ItemsAreDraggable);
+
         }
         else
         {

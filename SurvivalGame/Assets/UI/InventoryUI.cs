@@ -8,11 +8,6 @@ public class InventoryUI : BaseInventoryUI
 
     protected override bool ItemsAreDraggable => true;
 
-    protected void OnEnable()
-    {
-        InventorySystem.OnInventoryUpdated += UpdateUI;
-    }
-
     protected override void Start()
     {
         base.Start();

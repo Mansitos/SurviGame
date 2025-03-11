@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public Transform parent;
-    public ItemInstance linkedItemInstance;
+    public InventorySlot linkedInventorySlot;
 
     private ItemsTooltipUI tooltip;
     private bool isMouseOver;
@@ -34,6 +34,11 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
+        if (!UIManager.Instance.GetMouseInventorySlot().GetInventorySlot().IsEmpty())
+        {
+            return;
+        }
+
         parent = this.transform.parent;
         this.transform.SetParent(this.transform.root);
         this.transform.SetAsLastSibling();
@@ -47,6 +52,11 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
+        if (!UIManager.Instance.GetMouseInventorySlot().GetInventorySlot().IsEmpty())
+        {
+            return;
+        }
+
         if (Mouse.current != null)
         {
             this.transform.position = Mouse.current.position.ReadValue();
@@ -58,16 +68,21 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
+        if (!UIManager.Instance.GetMouseInventorySlot().GetInventorySlot().IsEmpty())
+        {
+            return;
+        }
+
         this.transform.SetParent(parent);
         this.GetComponent<Image>().raycastTarget = true;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (linkedItemInstance != null)
+        if (linkedInventorySlot.itemInstance != null)
         {
             isMouseOver = true;
-            tooltip.ShowTooltip(linkedItemInstance, Mouse.current.position.ReadValue());
+            tooltip.ShowTooltip(linkedInventorySlot.itemInstance, Mouse.current.position.ReadValue());
         }
     }
 
@@ -79,38 +94,39 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameObject mouseSlotGO = UIManager.Instance.GetMouseInventorySlot().slot;
-        InventoryUISlot mouseSlot = mouseSlotGO.GetComponent<InventoryUISlot>();
+        MouseInventoryUISlot mouseInventory = UIManager.Instance.GetMouseInventorySlot();
+        InventorySlot mouseInventorySlot = mouseInventory.GetInventorySlot();
+        InventoryUISlot mouseInventoryUISlot = mouseInventory.GetInventoryUISlot();
+
+        ItemInstance itemToAdd = new ItemInstance(linkedInventorySlot.itemInstance.ItemData, 1);
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (linkedItemInstance != null) // If this UI Slot has an instance attached
+            if (linkedInventorySlot.itemInstance != null) // If this UI Slot has an instance attached
             {
-                if (!mouseSlot.IsDisplayingAnItemIcon())
+                if (mouseInventorySlot.IsEmpty())
                 {
-                    // Mouse "inventory" is empty, create new icon and populate its slot.
-                    GameObject icon = UIUtils.CreateIcon(linkedItemInstance.ItemData.uiIcon, -1, null, mouseSlotGO);
-                    icon.transform.SetParent(mouseSlotGO.transform, false);
-                    mouseSlotGO.GetComponent<InventoryUISlot>().SetDisplayedItem(icon, new ItemInstance(linkedItemInstance.ItemData, 1));
-                    
                     // Set the origin slot from where the items have been taken
-                    UIManager.Instance.GetMouseInventorySlot().SetOriginReferenceSlot(this.parent.GetComponent<InventoryUISlot>()); ;
-                    
-                    // Remove quantity from original item instance
-                    linkedItemInstance.RemoveQuantity(1);
+                    mouseInventory.SetOriginReferenceSlot(this.parent.GetComponent<InventoryUISlot>().GetLinkedInventorySlot());
 
-                    //TODO: check if now empty? if 0 -> clear slot maybe
+                    // Remove quantity from original item instance
+                    linkedInventorySlot.RemoveItem(1);
+                    mouseInventorySlot.AddItem(itemToAdd);
+
+                    // Update inventory slot ui
+                    mouseInventoryUISlot.SetDisplayedItemIcon(mouseInventorySlot);
                 }
                 else
                 {
-                    // TODO: IMPROVE: same item! looser condition.
                     // When mouse slot is already with some item, additional +1 can arrive only from the same origin slot
-                    if (UIManager.Instance.GetMouseInventorySlot().referenceUISlot == this.parent.GetComponent<InventoryUISlot>())
+                    if (mouseInventory.originInventorySlot.itemInstance.ItemData == this.parent.GetComponent<InventoryUISlot>().GetLinkedInventorySlot().itemInstance.ItemData)
                     {
-                        linkedItemInstance.RemoveQuantity(1);
-                        //TODO: check if now empty? if 0 -> clear slot maybe
-
-                        mouseSlot.childDisplayedItem.GetComponent<DraggableUIItem>().linkedItemInstance.AddQuantity(1);
+                        linkedInventorySlot.RemoveItem(1);
+                        mouseInventorySlot.AddItem(itemToAdd);
+                    }
+                    else
+                    {
+                        Debug.Log("DIFFERENT ORIGIN SLOT");
                     }
                 }
             }
@@ -126,8 +142,14 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             this.parent.GetComponent<InventoryUISlot>().OnPointerClick(eventData);
         }
 
+        // Check if clear slot is needed
+        if (linkedInventorySlot.itemInstance.Quantity <= 0)
+        {
+            Debug.Log("aaaa");
+            this.parent.GetComponent<InventoryUISlot>().ClearSlot(destroyChild: true);
+        }
 
-        // TODO: Get a cleaner way to invoke update ui event...
         GameManager.Instance.GetPlayerInventory().UpdateUI();
+        UIManager.Instance.GetChestUI().UpdateUI();
     }
 }

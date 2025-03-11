@@ -20,11 +20,17 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     private int index;
     private bool hasDisplayedItem;
     private InventorySystem parentInventory;
+    public InventorySlot linkedInventorySlot;
 
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
+
+        if (!UIManager.Instance.GetMouseInventorySlot().GetInventorySlot().IsEmpty())
+        {
+            return;
+        }
 
         // Dropped draggable item
         GameObject dropped = eventData.pointerDrag;
@@ -61,20 +67,43 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
     }
 
+    private bool AddToProcessingStation(ItemInstance item)
+    {
+        ProcessingStationUI stationUI = UIManager.Instance.GetProcessingStationUI();
+
+        if (stationUI.VerifyCanAddToSlot(item.ItemData, this.index))
+        {
+            stationUI.AddToSlot(item, this.index);
+            GameManager.Instance.GetPlayerInventory().TryRemoveItem(item);
+            return true;
+        }
+        else
+        {
+            Debug.Log("Cannot add this item in this slot");
+            return false;
+        }
+    }
+
     private void ActionFromMouse(DraggableUIItem droppedDraggableItem, InventoryUISlot oldParentSlot, GameObject dropped)
     {
+        ItemInstance incomingItem = droppedDraggableItem.linkedInventorySlot.itemInstance;
+        bool esit = false;
+
         if (this.slotType == SlotType.Inventory || this.slotType == SlotType.Chest)
         {
-            ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
-            if (parentInventory.CanAddItem(itemToAdd))
+            if (parentInventory.CanAddItem(incomingItem))
             {
-                parentInventory.TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
-                UIManager.Instance.GetMouseInventorySlot().Clear();
+                esit = parentInventory.TryAddItem(incomingItem, hasTargetSlot: true, targetSlotIndex: this.index);
             }
         }
         else if (this.slotType == SlotType.ProcessingStation)
         {
+            esit = AddToProcessingStation(incomingItem);
+        }
 
+        if (esit == true)
+        {
+            UIManager.Instance.GetMouseInventorySlot().Clear();
         }
     }
 
@@ -84,7 +113,7 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
         if (this.slotType == SlotType.Inventory)
         {
-            ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
+            ItemInstance itemToAdd = droppedDraggableItem.linkedInventorySlot.itemInstance;
             Debug.LogWarning("PARENT:" + parentInventory);
 
             if (parentInventory.CanAddItem(itemToAdd))
@@ -115,20 +144,11 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
         else if (this.slotType == SlotType.ProcessingStation)
         {
-            ProcessingStationUI stationUI = UIManager.Instance.GetProcessingStationUI();
-
-            if (stationUI.VerifyCanAddToSlot(incomingItem.ItemData, this.index)){
-                stationUI.AddToSlot(incomingItem, this.index);
-                GameManager.Instance.GetPlayerInventory().TryRemoveItem(incomingItem);
-            }
-            else
-            {
-                Debug.Log("Cannot add this item in this slot");
-            }
+            AddToProcessingStation(incomingItem);
         }
         else if (this.slotType == SlotType.Chest)
         {
-            ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
+            ItemInstance itemToAdd = droppedDraggableItem.linkedInventorySlot.itemInstance;
             if (parentInventory.CanAddItem(itemToAdd))
             {
                 parentInventory.TryAddItem(itemToAdd, hasTargetSlot: true, targetSlotIndex: this.index);
@@ -149,7 +169,7 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     {
         if (this.slotType == SlotType.Inventory)
         {
-            ItemInstance itemToAdd = droppedDraggableItem.linkedItemInstance;
+            ItemInstance itemToAdd = droppedDraggableItem.linkedInventorySlot.itemInstance;
 
             // TODO change with CanAddItemOnSlot
             if (GameManager.Instance.GetPlayerInventory().CanAddItem(itemToAdd))
@@ -188,14 +208,21 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         this.slotType = slotType;
     }
 
-    public void SetDisplayedItem(GameObject item, ItemInstance linkedItemInstance, bool draggable = true)
+    public void SetDisplayedItemIcon(InventorySlot slot)
+    {
+        GameObject icon = UIUtils.CreateIcon(slot.itemInstance.ItemData.uiIcon, -1, null, this.gameObject);
+        SetDisplayedItem(icon, slot); // Todo: totalmente da rivedere
+    }
+
+    // TODO: MAKE IT PRIVATE and use SetDisplayedItemIcon() which is cleaner
+    public void SetDisplayedItem(GameObject item, InventorySlot linkedInventorySlot, bool draggable = true)
     {
         if (hasDisplayedItem == false) { 
             hasDisplayedItem = true;
             if (draggable)
             {
                 item.AddComponent<DraggableUIItem>();
-                item.GetComponent<DraggableUIItem>().linkedItemInstance = linkedItemInstance;
+                item.GetComponent<DraggableUIItem>().linkedInventorySlot = linkedInventorySlot;
 
                 item.transform.SetParent(this.transform, false);
                 item.GetComponent<DraggableUIItem>().parent = this.transform;
@@ -203,7 +230,6 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             childDisplayedItem = item;
         }
         else { 
-
             childDisplayedItem = item;
             Debug.Log("UPDATE DISPLAYED ITEM LOGIC HERE");
         }
@@ -226,14 +252,14 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameObject mouseSlotGO = UIManager.Instance.GetMouseInventorySlot().slot;
+        GameObject mouseSlotGO = UIManager.Instance.GetMouseInventorySlot().GetInventorySlotGO();
         InventoryUISlot mouseSlot = mouseSlotGO.GetComponent<InventoryUISlot>();
 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (mouseSlot.childDisplayedItem != null)
             {
-                if (mouseSlot.childDisplayedItem.GetComponent<DraggableUIItem>().linkedItemInstance != null)
+                if (!mouseSlot.childDisplayedItem.GetComponent<DraggableUIItem>().linkedInventorySlot.IsEmpty())
                 {
                     // Dropped draggable item
                     DraggableUIItem droppedDraggableItem = mouseSlot.childDisplayedItem.GetComponent<DraggableUIItem>();
@@ -254,5 +280,15 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     public bool IsDisplayingAnItemIcon()
     {
         return hasDisplayedItem;
+    }
+
+    public void SetLinkedInventorySlot(InventorySlot slot)
+    {
+        linkedInventorySlot = slot;
+    }
+
+    public InventorySlot GetLinkedInventorySlot()
+    {
+        return linkedInventorySlot;
     }
 }

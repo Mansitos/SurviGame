@@ -66,6 +66,7 @@ public abstract class BaseInventoryUI : MonoBehaviour
             GameObject slot = Instantiate(inventoryUISlotPrefab, grid.transform);
             InventoryUISlot inventoryUISlot = slot.GetComponent<InventoryUISlot>();
             inventoryUISlot.SetIndex(i);
+            inventoryUISlot.SetLinkedInventorySlot(inventory.slots[i]);
             inventoryUISlot.SetParentInventory(inventory);
             inventoryUISlot.SetSlotType(slotType);
             uiSlots.Add(slot);
@@ -114,7 +115,10 @@ public abstract class BaseInventoryUI : MonoBehaviour
             {
                 GameObject itemIconObject = UIUtils.CreateItemIcon(inventorySlot.itemInstance, inventoryUISlotCounterPrefab, grid);
                 itemIconObject.transform.SetParent(UISlot.transform, false);
-                UISlot.SetDisplayedItem(itemIconObject, inventorySlot.itemInstance, draggable: ItemsAreDraggable);
+                UISlot.SetDisplayedItem(itemIconObject, inventorySlot, draggable: ItemsAreDraggable);
+                
+                //UISlot.SetDisplayedItemIcon(inventorySlot, inventoryUISlotCounterPrefab, ItemsAreDraggable);
+
             }
         }
     }

@@ -144,3 +144,12 @@
 ---
 9-3-2025
 - Right click mouse split logic continued.
+---
+10-3-2025
+- Some rework on `DraggableUIItem` and related (code broken for now).
+---
+11-3-2025
+- Partial refactoring to `ProcessingStation`, `ProcessingStationUI` and `DraggableUIItem` related UI logics.
+- `ProcessingStation` now uses 3 `InventorySlot` for internal inventory.
+- `RightClickMouse` inventory rudimental logic now mostly working.
+- Drag UI Items is now disabled if right mouse slot have items.

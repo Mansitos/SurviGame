@@ -10,6 +10,11 @@ public class ChestUI : MonoBehaviour
 
     private bool isActive;
 
+    protected void OnEnable()
+    {
+        InventorySystem.OnInventoryUpdated += UpdateUI;
+    }
+
     public void Start()
     {
         chest = chestUI.GetComponent<InventoryUI>();
@@ -19,9 +24,12 @@ public class ChestUI : MonoBehaviour
 
     public void UpdateUI()
     {
-        chest.InitSlots();
-        chest.UpdateUI();
-        inventory.UpdateUI();
+        if (isActive)
+        {
+            chest.InitSlots();
+            chest.UpdateUI();
+            inventory.UpdateUI();
+        }
     }
 
     public virtual void SetActive(bool flag)

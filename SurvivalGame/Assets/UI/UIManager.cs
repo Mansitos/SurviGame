@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     private GameManager gm;
     private MouseInventoryUISlot mouseInventoryUISlot;
 
+    public GameObject inventoryUISlotCounterPrefab;
+
 
     private void OnEnable()
     {
@@ -104,6 +106,7 @@ public class UIManager : MonoBehaviour
         buildingUI.SetActive(false);
         chestUI.SetActive(false);
         itemsTooltipUI.HideTooltip();
+        mouseInventoryUISlot.Clear(interruptedClear: true);
 
         quickBarUI.SetActive(true);
     }

@@ -13,6 +13,12 @@ public class InventorySlot
         this.emptySlot = itemInstance is null;
     }
 
+    public InventorySlot(ItemInstance itemInstance, bool empty)
+    {
+        this.itemInstance = itemInstance;
+        this.emptySlot = empty;
+    }
+
     public bool IsEmpty()
     {
         return emptySlot;

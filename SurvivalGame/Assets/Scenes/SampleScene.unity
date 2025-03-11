@@ -5652,6 +5652,7 @@ MonoBehaviour:
   chestUIGO: {fileID: 809917010}
   itemsTooltipUIGO: {fileID: 695376419}
   mouseInventoryUISlotGO: {fileID: 1611971275}
+  inventoryUISlotCounterPrefab: {fileID: 4935196003129248267, guid: 62d54e54a6606274098f955e14a59a5c, type: 3}
 --- !u!1001 &524914415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12850,8 +12851,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 30, y: -30}
-  slot: {fileID: 1117262067}
-  referenceSlot: {fileID: 0}
+  inventorySlotGO: {fileID: 1117262067}
+  originInventorySlot:
+    itemInstance:
+      itemData: {fileID: 0}
+      quantity: 0
+    emptySlot: 0
 --- !u!1001 &1613686199
 PrefabInstance:
   m_ObjectHideFlags: 0

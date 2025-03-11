@@ -6,9 +6,9 @@ using System;
 public class ProcessingStation : Building<ProcessingStationData>
 {
     // Internal status
-    public ItemInstance storedFuel;
-    public ItemInstance storedInput;
-    public ItemInstance storedOutput;
+    public InventorySlot storedFuel;
+    public InventorySlot storedInput;
+    public InventorySlot storedOutput;
     public ProcessingBlueprint ItemCraftBlueprintUnderProcess = null;
     public bool isProcessing;
 
@@ -18,29 +18,14 @@ public class ProcessingStation : Building<ProcessingStationData>
     protected override void Start()
     {
         base.Start();
+        storedFuel = new InventorySlot(null);
+        storedInput = new InventorySlot(null);
+        storedOutput = new InventorySlot(null);
     }
 
     void Update()
     {
-        ResetStateNulls();
         CheckStartProcessingConditions(); //TODO: in future, for optimization, only when thigs added
-    }
-
-    // TODO: i still not understand this unity/c# ... behaviour
-    public void ResetStateNulls()
-    {
-        if (storedFuel != null && storedFuel.Quantity == 0)
-        {
-            storedFuel = null;
-        }
-        if (storedInput != null && storedInput.Quantity == 0)
-        {
-            storedInput = null;
-        }
-        if (storedOutput != null && storedOutput.Quantity == 0)
-        {
-            storedOutput = null;
-        }
     }
 
     public bool IsProcessing()
@@ -50,20 +35,17 @@ public class ProcessingStation : Building<ProcessingStationData>
 
     public bool HasStoredFuel()
     {
-        ResetStateNulls();
-        return (storedFuel != null);
+        return !storedFuel.IsEmpty();
     }
 
     public bool HasStoredInput()
     {
-        ResetStateNulls();
-        return (storedInput != null);
+        return !storedInput.IsEmpty();
     }
 
     public bool HasStoredOutput()
     {
-        ResetStateNulls();
-        return (storedOutput != null);
+        return !storedOutput.IsEmpty();
     }
 
     // TODO: refactor to use IsValidFuel()
@@ -76,9 +58,9 @@ public class ProcessingStation : Building<ProcessingStationData>
         else
         {
             foreach (var requiredFuel in worldObjectData.validProcessingFuelRequirements) {
-                if (requiredFuel.item == storedFuel.ItemData)
+                if (requiredFuel.item == storedFuel.itemInstance.ItemData)
                 {
-                    if (requiredFuel.quantity <= storedFuel.Quantity)
+                    if (requiredFuel.quantity <= storedFuel.itemInstance.Quantity)
                     {
                         return (true, requiredFuel.quantity);
                     }
@@ -132,10 +114,10 @@ public class ProcessingStation : Building<ProcessingStationData>
             foreach (var craft in worldObjectData.possibleBlueprints)
             {
                 // If the stored input data matches the one required by a craft and the quantity is also ok, proceed.
-                if (craft.itemInput == storedInput.ItemData && storedInput.Quantity >= craft.itemInputQuantity)
+                if (craft.itemInput == storedInput.itemInstance.ItemData && storedInput.itemInstance.Quantity >= craft.itemInputQuantity)
                 {
                     // If the output slot is free or filled with the matching item Output, proceed
-                    if (!HasStoredOutput() || craft.itemOutput == storedOutput.ItemData)
+                    if (!HasStoredOutput() || craft.itemOutput == storedOutput.itemInstance.ItemData)
                     {
                         var(hasValidFuel, fuelAmountToConsume) = HasAvailableValidFuel();
                         if (hasValidFuel)
@@ -165,17 +147,18 @@ public class ProcessingStation : Building<ProcessingStationData>
     {
         if (IsValidInput(item.ItemData))
         {
-            if (storedInput == null)
+            if (!HasStoredInput())
             {
-                storedInput = item.Clone();
+                storedInput = new InventorySlot(null);
+                storedInput.AddItem(item);
                 Debug.Log("Valid input, input was none");
                 return true;
             }
             else
             {
-                if (storedInput.ItemData == item.ItemData)
+                if (storedInput.itemInstance.ItemData == item.ItemData)
                 {
-                    storedInput.AddQuantity(item.Quantity);
+                    storedInput.itemInstance.AddQuantity(item.Quantity);
                     Debug.Log("Valid input, input was present, adding");
                     return true;
                 }
@@ -199,17 +182,18 @@ public class ProcessingStation : Building<ProcessingStationData>
     {
         if (IsValidFuel(item.ItemData))
         {
-            if (storedFuel == null)
+            if (!HasStoredFuel())
             {
-                storedFuel = item.Clone();
+                storedFuel = new InventorySlot(null);
+                storedFuel.AddItem(item);
                 Debug.Log("Valid fuel, input was none");
                 return true;
             }
             else
             {
-                if (storedFuel.ItemData == item.ItemData)
+                if (storedFuel.itemInstance.ItemData == item.ItemData)
                 {
-                    storedFuel.AddQuantity(item.Quantity);
+                    storedFuel.itemInstance.AddQuantity(item.Quantity);
                     Debug.Log("Valid fuel, input was present, adding");
                     return true;
                 }
@@ -230,9 +214,9 @@ public class ProcessingStation : Building<ProcessingStationData>
 
     private void RemoveProcessingRequirement(int inputAmountToConsume, int fuelAmountToConsume)
     {
-        storedInput.RemoveQuantity(inputAmountToConsume);
-        storedFuel.RemoveQuantity(fuelAmountToConsume);
-        ResetStateNulls();
+        storedInput.RemoveItem(inputAmountToConsume);
+        storedFuel.RemoveItem(fuelAmountToConsume);
+
         OnStartProcessing?.Invoke();
     }
 
@@ -254,14 +238,15 @@ public class ProcessingStation : Building<ProcessingStationData>
         yield return new WaitForSeconds(worldObjectData.processingTime);
 
         // Generate output
-        if (storedOutput == null)
+        if (storedOutput.IsEmpty())
         {
-            storedOutput = new ItemInstance(ItemCraftBlueprintUnderProcess.itemOutput, ItemCraftBlueprintUnderProcess.itemOutputQuantity);
+            storedOutput = new InventorySlot(null);
+            storedOutput.AddItem(new ItemInstance(ItemCraftBlueprintUnderProcess.itemOutput, ItemCraftBlueprintUnderProcess.itemOutputQuantity));
             Debug.Log("Processing completed. Output added from null.");
         }
         else
         {
-            storedOutput.AddQuantity(ItemCraftBlueprintUnderProcess.itemOutputQuantity);
+            storedOutput.itemInstance.AddQuantity(ItemCraftBlueprintUnderProcess.itemOutputQuantity);
             Debug.Log("Processing completed. Output added to already present one.");
         }
 
