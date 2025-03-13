@@ -5624,6 +5624,7 @@ RectTransform:
   - {fileID: 1031892702}
   - {fileID: 695376420}
   - {fileID: 1611971276}
+  - {fileID: 1527874673}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5652,6 +5653,7 @@ MonoBehaviour:
   chestUIGO: {fileID: 809917010}
   itemsTooltipUIGO: {fileID: 695376419}
   mouseInventoryUISlotGO: {fileID: 1611971275}
+  itemPopupUIGO: {fileID: 1611971275}
   inventoryUISlotCounterPrefab: {fileID: 4935196003129248267, guid: 62d54e54a6606274098f955e14a59a5c, type: 3}
 --- !u!1001 &524914415
 PrefabInstance:
@@ -12082,6 +12084,83 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 972856440887597068, guid: 938bec81bf7acc147bc6698b2ad46b2a, type: 3}
   m_PrefabInstance: {fileID: 762437588}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1527874672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1527874673}
+  - component: {fileID: 1527874675}
+  - component: {fileID: 1527874674}
+  m_Layer: 5
+  m_Name: PopUpSystemUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1527874673
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527874672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 519990827}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -3.3599854, y: 0}
+  m_SizeDelta: {x: 53.95, y: 282.9}
+  m_Pivot: {x: 1, y: 0}
+--- !u!114 &1527874674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527874672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75bc5df8b2e58843b9b110c8a5f1ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPopupPrefab: {fileID: 7531162352651827469, guid: 615d7023740771e4c847830e6c4fded7, type: 3}
+  popupContainer: {fileID: 1527874673}
+--- !u!114 &1527874675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527874672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 8
+  m_Spacing: 3
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!4 &1528715437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 972856440887597068, guid: 938bec81bf7acc147bc6698b2ad46b2a, type: 3}

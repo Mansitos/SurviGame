@@ -153,3 +153,8 @@
 - `ProcessingStation` now uses 3 `InventorySlot` for internal inventory.
 - `RightClickMouse` inventory rudimental logic now mostly working.
 - Drag UI Items is now disabled if right mouse slot have items.
+---
+13-3-2025
+- Fixed missing `PlayerInventoryUI` update on inventory change event trigger.
+- Fixed and refined right click single item pick-up from multiple stacks of same item.
+- Rudimental Item collection `ItemPopupManager` and `ItemPopup`.

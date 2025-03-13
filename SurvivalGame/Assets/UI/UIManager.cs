@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject chestUIGO;
     public GameObject itemsTooltipUIGO;
     public GameObject mouseInventoryUISlotGO;
+    public GameObject itemPopupUIGO;
 
     // Script Components
     private InventoryUI inventoryUI;
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
     private ItemsTooltipUI itemsTooltipUI;
     private GameManager gm;
     private MouseInventoryUISlot mouseInventoryUISlot;
+    private ItemPopupManager itemPopupUI;
 
     public GameObject inventoryUISlotCounterPrefab;
 
@@ -50,11 +52,17 @@ public class UIManager : MonoBehaviour
         chestUI = chestUIGO.GetComponent<ChestUI>();
         itemsTooltipUI = itemsTooltipUIGO.GetComponent<ItemsTooltipUI>();
         mouseInventoryUISlot = mouseInventoryUISlotGO.GetComponent<MouseInventoryUISlot>();
+        itemPopupUI = itemPopupUIGO.GetComponent<ItemPopupManager>();
 
         gm = GameManager.Instance;
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    public ItemPopupManager GetItemPopupManager()
+    {
+        return itemPopupUI;
     }
 
     public MouseInventoryUISlot GetMouseInventorySlot()

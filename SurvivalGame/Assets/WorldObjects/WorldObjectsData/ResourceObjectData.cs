@@ -22,7 +22,7 @@ public class ResourceObjectData : WorldObjectData
     [SerializeField] public ResourceObjectType resourceObjectType;
     [SerializeField] public float collectionTime = 5.0f;
     static public float spawnRadius = 2.0f;
-    static public float collectionCostPerSecond = 8.0f;
+    static public float collectionCostPerSecond = 1.0f;
     [SerializeField] public List<SpawnableItem> spawnableItems;
 
     public float GetCollectionCost()

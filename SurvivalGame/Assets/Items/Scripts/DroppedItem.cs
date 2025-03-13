@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class DroppedItem : MonoBehaviour
@@ -14,6 +15,8 @@ public class DroppedItem : MonoBehaviour
     private static float ySpawnCoordinate = 0.25f;
     private float rotationSpeed = 45f;
 
+    public static event Action<ItemInstance> OnItemCollected;
+
     // Factory method to create a dropped item
     public static DroppedItem Spawn(ItemInstance itemInstance, Vector3 spawnPosition)
     {
@@ -24,7 +27,7 @@ public class DroppedItem : MonoBehaviour
         }
 
         // Generate a random angle for Y-axis rotation
-        float randomYRotation = Random.Range(0f, 360f);
+        float randomYRotation = UnityEngine.Random.Range(0f, 360f);
         Quaternion randomRotation = Quaternion.Euler(0, randomYRotation, 0);
         spawnPosition.y = ySpawnCoordinate;
 
@@ -61,6 +64,7 @@ public class DroppedItem : MonoBehaviour
         return itemInstance;
     }
 
+    // TODO: rivedere...
     public void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
@@ -71,6 +75,7 @@ public class DroppedItem : MonoBehaviour
             if (canCollect)
             {
                 isBeingCollected = canCollect;
+                // TODO: rivedere...
                 // Item is added at animation start, not at the end, to avoid multiple animation to
                 // start and fail to add a the end of animation for what happened meanwhile.
                 // The "TryAdd" should not fail since the check has been just be done in CheckStartCollectConditions.
@@ -93,11 +98,11 @@ public class DroppedItem : MonoBehaviour
             }
             else
             {
-                    Destroy(this.gameObject);
+                OnItemCollected?.Invoke(itemInstance);
+                Destroy(this.gameObject);
             }
         }
     }
-
 
     private bool CheckStartCollectConditions(float distanceToPlayer)
     {

@@ -5,6 +5,10 @@ Some random dev history!
 Project start: martedì 28 gennaio 2025, 20:27:05
 
 ---
+#### **Image from: 13/3/2025**
+_Rudimental Item collection pop-up system + working right click item splitting on inventory._
+![](images/image_10.png)
+
 #### **Image from: 07/3/2025**
 _Rudimental Chest logic and related UI._
 ![](images/image_9.png)

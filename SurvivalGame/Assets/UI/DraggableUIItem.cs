@@ -119,14 +119,12 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 else
                 {
                     // When mouse slot is already with some item, additional +1 can arrive only from the same origin slot
-                    if (mouseInventory.originInventorySlot.itemInstance.ItemData == this.parent.GetComponent<InventoryUISlot>().GetLinkedInventorySlot().itemInstance.ItemData)
+                    ItemData currentMouseItemDataSelection = mouseInventory.GetInventorySlot().itemInstance.ItemData;
+                    ItemData thisSlotItemData = this.parent.GetComponent<InventoryUISlot>().GetLinkedInventorySlot().itemInstance.ItemData;
+                    if (currentMouseItemDataSelection == thisSlotItemData)
                     {
                         linkedInventorySlot.RemoveItem(1);
                         mouseInventorySlot.AddItem(itemToAdd);
-                    }
-                    else
-                    {
-                        Debug.Log("DIFFERENT ORIGIN SLOT");
                     }
                 }
             }
@@ -143,9 +141,8 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         // Check if clear slot is needed
-        if (linkedInventorySlot.itemInstance.Quantity <= 0)
+        if (linkedInventorySlot.IsEmpty())
         {
-            Debug.Log("aaaa");
             this.parent.GetComponent<InventoryUISlot>().ClearSlot(destroyChild: true);
         }
 

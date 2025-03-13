@@ -15,6 +15,11 @@ public abstract class BaseInventoryUI : MonoBehaviour
     protected int numSlots;
     protected bool isActive;
 
+    protected void OnEnable()
+    {
+        InventorySystem.OnInventoryUpdated += UpdateUI;
+    }
+
     protected virtual void Start()
     {
         gm = GameManager.Instance;

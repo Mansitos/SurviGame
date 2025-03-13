@@ -134,9 +134,12 @@ public class ProcessingStationUI : BaseInventoryUI
 
     public override void UpdateUI()
     {
-        UpdateSlots();
-        UpdateProcessingIcon();
-        nameText.text = GetLinkedProcessingStation().worldObjectData.objectName;
+        if (isActive)
+        {
+            UpdateSlots();
+            UpdateProcessingIcon();
+            nameText.text = GetLinkedProcessingStation().worldObjectData.objectName;
+        }
     }
 
     protected override void UpdateSlots()
