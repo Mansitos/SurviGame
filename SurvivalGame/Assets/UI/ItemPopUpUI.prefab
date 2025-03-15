@@ -388,7 +388,7 @@ MonoBehaviour:
   itemIcon: {fileID: 6976941213718289949}
   itemNameText: {fileID: 703291978988858480}
   fadeInDuration: 0.6
-  displayDuration: 50
+  displayDuration: 3
   fadeOutDuration: 0.6
 --- !u!225 &-374787149368228340
 CanvasGroup:

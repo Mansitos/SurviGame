@@ -5,6 +5,11 @@ Some random dev history!
 Project start: martedì 28 gennaio 2025, 20:27:05
 
 ---
+
+#### **Image from: 15/3/2025**
+![](image.png)
+_Rudimental Fading/See-through shader tecnique with dithering to fade objects that are between camera and player_
+
 #### **Image from: 13/3/2025**
 _Rudimental Item collection pop-up system + working right click item splitting on inventory._
 ![](images/image_10.png)

@@ -158,3 +158,6 @@
 - Fixed missing `PlayerInventoryUI` update on inventory change event trigger.
 - Fixed and refined right click single item pick-up from multiple stacks of same item.
 - Rudimental Item collection `ItemPopupManager` and `ItemPopup`.
+---
+15-3-2025
+- Added rudimental shader to fade objects that are between camera and player (Fading/See-through shader tecnique with dithering).
