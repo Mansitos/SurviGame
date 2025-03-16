@@ -5,9 +5,13 @@ Some random dev history!
 Project start: martedì 28 gennaio 2025, 20:27:05
 
 ---
+#### **Image from: 16/3/2025**
+_Refined See-through shader based on multiple rays and front/back of player. Still a prototype, very rudimental implementation. [View the video.](images/see_through.mp4)
+
+![](images/image_12.png)
 
 #### **Image from: 15/3/2025**
-![](image.png)
+![](images/image_11.png)
 _Rudimental Fading/See-through shader tecnique with dithering to fade objects that are between camera and player_
 
 #### **Image from: 13/3/2025**
