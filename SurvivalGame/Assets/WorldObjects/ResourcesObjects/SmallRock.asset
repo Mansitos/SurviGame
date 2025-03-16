@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 655aad9163840e44b8daa2b8cc0893f1, type: 3}
-  m_Name: Rock
+  m_Name: SmallRock
   m_EditorClassIdentifier: 
-  objectName: Rock
-  resourceObjectType: 0
-  collectionTime: 6
+  objectName: Small Rock
+  resourceObjectType: 2
+  collectionTime: 3
   spawnableItems:
   - itemData: {fileID: 11400000, guid: ad2568c19e14e9642970e628eab7261d, type: 2}
-    minAmount: 2
-    maxAmount: 5
+    minAmount: 1
+    maxAmount: 1

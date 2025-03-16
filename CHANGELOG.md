@@ -162,3 +162,4 @@
 15-3-2025
 - Added rudimental shader to fade objects that are between camera and player (Fading/See-through shader tecnique with dithering).
 - Rudimental logic for `Resource` objects to produce items at end of day (e.g. grow bananas on trees).
+- Some new resources and item UI icons.

@@ -84,6 +84,22 @@ public class Resource : WorldObject<ResourceObjectData>
                 DroppedItem.Spawn(spawnedItemInstance, spawnPosition);
             }
         }
+
+        // Spawn the produced item
+        if (doesProduceItem)
+        {
+            if (storedProduction.Quantity > 0)
+            {
+                for (int i = 0; i < storedProduction.Quantity; i++)
+                {
+                    Vector3 randomOffset = Random.insideUnitCircle * ResourceObjectData.spawnRadius;
+                    Vector3 spawnPosition = new Vector3(transform.position.x + randomOffset.x, 0.25f, transform.position.z + randomOffset.y);
+                    ItemInstance spawnedItemInstance = new ItemInstance(storedProduction.ItemData, 1);
+
+                    DroppedItem.Spawn(spawnedItemInstance, spawnPosition);
+                }
+            }
+        }
     }
 
     private bool RollChance(float chance)
@@ -114,7 +130,10 @@ public class Resource : WorldObject<ResourceObjectData>
 
     private void UpdateProductionObjectVisibility()
     {
-        bool flag = storedProduction.Quantity > 0;
-        producedItemGO.SetActive(flag);
+        if (doesProduceItem)
+        {
+            bool flag = storedProduction.Quantity > 0;
+            producedItemGO.SetActive(flag);
+        }
     }
 }
