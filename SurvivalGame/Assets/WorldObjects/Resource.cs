@@ -3,10 +3,25 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Resource : WorldObject<ResourceObjectData>
 {
+    [SerializeField] private bool doesProduceItem = false;
+    [SerializeField] private ItemData productionItem;
+    [SerializeField] private int maxProductionQuantity = 2;
+    [SerializeField] private float endOfDayProductionChance = 0.33f;
+    [SerializeField] private float endOfDayRemoveChanceIfMaxedOut = 0.05f;
+    [SerializeField] private ItemInstance storedProduction;
+    [SerializeField] private GameObject producedItemGO;
+    private float initProductionChance = 0.33f;
+
     protected override void Start()
     {
         base.Start();
         OccupyTile();
+        if (doesProduceItem)
+        {
+            storedProduction = new ItemInstance(productionItem, RollChance(initProductionChance) ? 1 : 0);
+            UpdateProductionObjectVisibility();
+            GameManager.Instance.GetGameTimeManager().OnDayEnded += ExecuteProductionStep;
+        }
     }
 
     public void OccupyTile()
@@ -71,4 +86,35 @@ public class Resource : WorldObject<ResourceObjectData>
         }
     }
 
+    private bool RollChance(float chance)
+    {
+        return Random.value < chance;
+    }
+    
+    // Called at end of day (TODO: link via event?)
+    private void ExecuteProductionStep(int dayIndex)
+    {
+        if (storedProduction.Quantity < maxProductionQuantity)
+        {
+            if (RollChance(endOfDayProductionChance))
+            {
+                storedProduction.AddQuantity(1);
+            }
+        }
+        else
+        {
+            if (RollChance(endOfDayRemoveChanceIfMaxedOut))
+            {
+                storedProduction.RemoveQuantity(1);
+            }
+        }
+
+        UpdateProductionObjectVisibility();
+    }
+
+    private void UpdateProductionObjectVisibility()
+    {
+        bool flag = storedProduction.Quantity > 0;
+        producedItemGO.SetActive(flag);
+    }
 }
