@@ -314,12 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f68389baf031049a9764601055782d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldObjectData: {fileID: 11400000, guid: 84b42a01edb7bab4ea29e860c496afd9, type: 2}
-  doesProduceItem: 1
-  productionItem: {fileID: 11400000, guid: 465f5781442733049b091041d744a17a, type: 2}
-  maxProductionQuantity: 2
-  endOfDayProductionChance: 0.33
-  endOfDayRemoveChanceIfMaxedOut: 0.33
+  worldObjectData: {fileID: 11400000, guid: 47090099bce4e2542ac10bb8b13e39d6, type: 2}
   storedProduction:
     itemData: {fileID: 0}
     quantity: 0

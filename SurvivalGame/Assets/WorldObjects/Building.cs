@@ -11,11 +11,10 @@ public interface IBuildable
 {
     void Build(GameManager gm);
     bool CanBuild(GameManager gm);
-    bool InteractWithBuilding();
 }
 
 [DisallowMultipleComponent]
-public class Building<T> : WorldObject<T> , IBuildable where T : BuildingData
+public class Building<T> : WorldObject<T> , IBuildable, IInteractableWO where T : BuildingData
 {
     protected override void Start()
     {
@@ -35,7 +34,7 @@ public class Building<T> : WorldObject<T> , IBuildable where T : BuildingData
         return worldObjectData.blueprint.CanBuild(gm.GetPlayerInventory());
     }
 
-    public virtual bool InteractWithBuilding()
+    public virtual bool InteractWithWorldObject()
     {
         Debug.Log("Interacted with building!");
         return true;

@@ -220,7 +220,7 @@ public class ProcessingStation : Building<ProcessingStationData>
         OnStartProcessing?.Invoke();
     }
 
-    override public bool InteractWithBuilding()
+    override public bool InteractWithWorldObject()
     {
         UIManager.Instance.GetProcessingStationUI().LinkStation(this.gameObject);
         return true;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &721947553018382117
+--- !u!1 &9056009008883292849
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 268580655401874224}
-  - component: {fileID: 8220969853628471118}
-  - component: {fileID: 2906273077958466942}
-  - component: {fileID: -1065443558516202865}
-  - component: {fileID: 8532924509147561831}
+  - component: {fileID: 7048916097310013050}
+  - component: {fileID: 7622374679802785464}
+  - component: {fileID: 2992684568259576943}
+  - component: {fileID: 7993294486371854327}
   m_Layer: 0
-  m_Name: WoodPalm
+  m_Name: Coconut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &268580655401874224
+--- !u!4 &7048916097310013050
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721947553018382117}
+  m_GameObject: {fileID: 9056009008883292849}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.24, y: -0.099999905, z: -0.65}
-  m_LocalScale: {x: 1, y: 2.321743, z: 1}
+  m_LocalPosition: {x: 0.536, y: -0.01, z: -0.622}
+  m_LocalScale: {x: 0.59341, y: 0.47155327, z: 0.59341}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8220969853628471118
+--- !u!33 &7622374679802785464
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721947553018382117}
-  m_Mesh: {fileID: -6858211547686060912, guid: 8a060b9d8eb7d10409653100da7d729a, type: 3}
---- !u!23 &2906273077958466942
+  m_GameObject: {fileID: 9056009008883292849}
+  m_Mesh: {fileID: -3500872997411817233, guid: 87f1d3e1f881742479c0f30526ecf0e4, type: 3}
+--- !u!23 &2992684568259576943
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721947553018382117}
+  m_GameObject: {fileID: 9056009008883292849}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,11 +62,10 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4770390735465466038, guid: 8a060b9d8eb7d10409653100da7d729a, type: 3}
-  - {fileID: 5172083338209556624, guid: 8a060b9d8eb7d10409653100da7d729a, type: 3}
+  - {fileID: 2100000, guid: adb2f20aa957c364e9a392a9214ef5d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,30 +87,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-1065443558516202865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721947553018382117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f68389baf031049a9764601055782d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldObjectData: {fileID: 11400000, guid: 84b42a01edb7bab4ea29e860c496afd9, type: 2}
-  storedProduction:
-    itemData: {fileID: 0}
-    quantity: 0
-  producedItemGO: {fileID: 0}
---- !u!65 &8532924509147561831
+--- !u!65 &7993294486371854327
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721947553018382117}
+  m_GameObject: {fileID: 9056009008883292849}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -125,5 +106,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.33, y: 1.917418, z: 0.31}
-  m_Center: {x: 0.0060272217, y: 0.9608748, z: -0.00046879053}
+  m_Size: {x: 0.29415518, y: 0.3630672, z: 0.3092926}
+  m_Center: {x: 0.000002734363, y: -0.010130875, z: 0.0000018104911}

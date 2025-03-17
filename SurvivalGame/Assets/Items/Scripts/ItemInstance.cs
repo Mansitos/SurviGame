@@ -58,14 +58,14 @@ public class ItemInstance
             GameObject targetObject = gameManager.GetTerrainGridManager().GetObjectOnTile(selectedTile.Value);
             if (targetObject != null)
             {
-                IBuildable targetBuilding = targetObject.GetComponent<IBuildable>();
-                if (targetBuilding != null)
+                IInteractableWO targetWO = targetObject.GetComponent<IInteractableWO>();
+                if (targetWO != null)
                 {
-                    targetBuilding.InteractWithBuilding();
+                    targetWO.InteractWithWorldObject();
                 }
                 else
                 {
-                    Debug.Log("Object is not a building object");
+                    Debug.Log("Object is not a InteractableWO");
                 }
             }
             else

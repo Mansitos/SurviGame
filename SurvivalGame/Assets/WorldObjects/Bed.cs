@@ -7,7 +7,7 @@ public class Bed : Building<BuildingData>, IUsableBuilding
         base.Start();
     }
 
-    override public bool InteractWithBuilding()
+    override public bool InteractWithWorldObject()
     {
         return Use();
     }

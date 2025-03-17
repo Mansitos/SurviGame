@@ -1,5 +1,11 @@
 using UnityEngine;
 
+
+public interface IInteractableWO
+{
+    bool InteractWithWorldObject();
+}
+
 [DisallowMultipleComponent]
 public class WorldObject<T> : WorldObjectBase where T : WorldObjectData
 {

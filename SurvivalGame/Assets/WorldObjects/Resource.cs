@@ -1,24 +1,20 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class Resource : WorldObject<ResourceObjectData>
+public class Resource : WorldObject<ResourceObjectData>, IInteractableWO
 {
-    [SerializeField] private bool doesProduceItem = false;
-    [SerializeField] private ItemData productionItem;
-    [SerializeField] private int maxProductionQuantity = 2;
-    [SerializeField] private float endOfDayProductionChance = 0.33f;
-    [SerializeField] private float endOfDayRemoveChanceIfMaxedOut = 0.05f;
-    [SerializeField] private ItemInstance storedProduction;
-    [SerializeField] private GameObject producedItemGO;
-    private float initProductionChance = 0.33f;
+    private ResourceObjectData data;
+    [SerializeField] public ItemInstance storedProduction;
+    [SerializeField] public GameObject producedItemGO;
 
     protected override void Start()
     {
         base.Start();
         OccupyTile();
-        if (doesProduceItem)
+        data = worldObjectData;
+        if (data.doesProduceItem)
         {
-            storedProduction = new ItemInstance(productionItem, RollChance(initProductionChance) ? 1 : 0);
+            storedProduction = new ItemInstance(data.productionItem, RollChance(data.initProductionChance) ? 1 : 0);
             UpdateProductionObjectVisibility();
             GameManager.Instance.GetGameTimeManager().OnDayEnded += ExecuteProductionStep;
         }
@@ -73,34 +69,43 @@ public class Resource : WorldObject<ResourceObjectData>
 
             for (int i = 0; i < amount; i++)
             {
-                // Generate a random position within the spawn radius
-                Vector3 randomOffset = Random.insideUnitCircle * ResourceObjectData.spawnRadius;
-                Vector3 spawnPosition = new Vector3(transform.position.x + randomOffset.x, 0.25f, transform.position.z + randomOffset.y);
-
-                // Create an ItemInstance to spawn
-                ItemInstance spawnedItemInstance = new ItemInstance(spawnableItem.itemData, 1); // Hardcoded quantity 1 is an strong assumption in inventory system, keep like this.
-
-                // Spawn the item in the world using DroppedItem
-                DroppedItem.Spawn(spawnedItemInstance, spawnPosition);
+                // Call the extracted method for spawning the item
+                SpawnItem(spawnableItem.itemData);
             }
         }
 
-        // Spawn the produced item
-        if (doesProduceItem)
-        {
-            if (storedProduction.Quantity > 0)
-            {
-                for (int i = 0; i < storedProduction.Quantity; i++)
-                {
-                    Vector3 randomOffset = Random.insideUnitCircle * ResourceObjectData.spawnRadius;
-                    Vector3 spawnPosition = new Vector3(transform.position.x + randomOffset.x, 0.25f, transform.position.z + randomOffset.y);
-                    ItemInstance spawnedItemInstance = new ItemInstance(storedProduction.ItemData, 1);
-
-                    DroppedItem.Spawn(spawnedItemInstance, spawnPosition);
-                }
-            }
-        }
+        SpawnProducedItems();
     }
+
+    private void SpawnProducedItems()
+    {
+        // Spawn the produced item
+        if (data.doesProduceItem && storedProduction.Quantity > 0)
+        {
+            for (int i = 0; i < storedProduction.Quantity; i++)
+            {
+                // Call the same method using the produced item's data
+                SpawnItem(storedProduction.ItemData);
+            }
+        }
+
+        storedProduction.RemoveQuantity(storedProduction.Quantity);
+        UpdateProductionObjectVisibility();
+    }
+
+    private void SpawnItem(ItemData itemData)
+    {
+        // Generate a random position within the spawn radius
+        Vector3 randomOffset = Random.insideUnitCircle * ResourceObjectData.spawnRadius;
+        Vector3 spawnPosition = new Vector3(transform.position.x + randomOffset.x, 0.25f, transform.position.z + randomOffset.y);
+
+        // Create an ItemInstance with a hardcoded quantity of 1
+        ItemInstance spawnedItemInstance = new ItemInstance(itemData, 1);
+
+        // Spawn the item in the world using DroppedItem
+        DroppedItem.Spawn(spawnedItemInstance, spawnPosition);
+    }
+
 
     private bool RollChance(float chance)
     {
@@ -110,16 +115,16 @@ public class Resource : WorldObject<ResourceObjectData>
     // Called at end of day (TODO: link via event?)
     private void ExecuteProductionStep(int dayIndex)
     {
-        if (storedProduction.Quantity < maxProductionQuantity)
+        if (storedProduction.Quantity < data.maxProductionQuantity)
         {
-            if (RollChance(endOfDayProductionChance))
+            if (RollChance(data.endOfDayProductionChance))
             {
                 storedProduction.AddQuantity(1);
             }
         }
         else
         {
-            if (RollChance(endOfDayRemoveChanceIfMaxedOut))
+            if (RollChance(data.endOfDayRemoveChanceIfMaxedOut))
             {
                 storedProduction.RemoveQuantity(1);
             }
@@ -130,10 +135,30 @@ public class Resource : WorldObject<ResourceObjectData>
 
     private void UpdateProductionObjectVisibility()
     {
-        if (doesProduceItem)
+        if (data.doesProduceItem)
         {
             bool flag = storedProduction.Quantity > 0;
             producedItemGO.SetActive(flag);
         }
+    }
+
+    public virtual bool InteractWithWorldObject()
+    {
+        if (data.doesProduceItem)
+        {
+            if (storedProduction != null && storedProduction.Quantity > 0)
+            {
+                SpawnProducedItems();
+            }
+            else
+            {
+                Debug.Log("nothing to harvest.");
+            }
+        }
+        else
+        {
+            Debug.Log("This is not a producer resource.");
+        }
+        return true;
     }
 }
