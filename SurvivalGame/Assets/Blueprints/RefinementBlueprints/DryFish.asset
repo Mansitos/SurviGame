@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9858a811f8e116746a35ab48425ee34c, type: 3}
+  m_Name: DryFish
+  m_EditorClassIdentifier: 
+  requiredDaysToRefine: 3
+  itemOutput: {fileID: 11400000, guid: 064306c23cb23cd4caa1cb61885c7ea6, type: 2}
+  itemInput: {fileID: 11400000, guid: ee524d7b004d3cc4ebe9cdf6a243922e, type: 2}

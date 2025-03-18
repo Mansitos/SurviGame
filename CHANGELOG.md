@@ -167,3 +167,7 @@
 16-3-2025
 - Added logic to harvest produced items from `Resource` world objects.
 - Refactored `Resource` class producing and spawning items logics.
+---
+18-3-2025
+- `Unlink()` Station fix missing clearing state and internal variables for the UI.
+- First rudimental implementation for `RefiningStation` with related Data Component and UI. First one is Fish Dryier.

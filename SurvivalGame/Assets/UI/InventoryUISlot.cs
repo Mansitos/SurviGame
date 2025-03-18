@@ -8,6 +8,7 @@ public enum SlotType
     Generic,
     Mouse,
     ProcessingStation,
+    RefinementStation,
     InventoryUISlot,
     Chest
 }
@@ -67,15 +68,59 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
     }
 
-    private bool AddToProcessingStation(ItemInstance item)
+    private bool AddToStation(ItemInstance item, SlotType slotType)
     {
-        ProcessingStationUI stationUI = UIManager.Instance.GetProcessingStationUI();
+        IStationUI stationUI = null;
+
+        if (slotType == SlotType.ProcessingStation)
+        {
+            stationUI = UIManager.Instance.GetProcessingStationUI();
+        }
+        else if (slotType == SlotType.RefinementStation)
+        {
+            stationUI = UIManager.Instance.GetRefinementStationUI();
+        }
+        else
+        {
+            return false;
+        }
+
+        if (slotType == SlotType.RefinementStation) // TODO: DOESN?T WORK?
+        {
+            if (!this.linkedInventorySlot.IsEmpty()){
+                return false; // only 1 item at once.
+            }
+        }
+        
 
         if (stationUI.VerifyCanAddToSlot(item.ItemData, this.index))
         {
-            stationUI.AddToSlot(item, this.index);
-            GameManager.Instance.GetPlayerInventory().TryRemoveItem(item);
-            return true;
+            if (slotType == SlotType.ProcessingStation)
+            {
+                stationUI.AddToSlot(item, this.index);
+                GameManager.Instance.GetPlayerInventory().TryRemoveItem(item);
+                return true;
+            }
+            else if (slotType == SlotType.RefinementStation)
+            {
+                int originalQuantity = item.Quantity;
+                Debug.Log(originalQuantity);
+                if (originalQuantity == 1) // just one, add and ok!
+                {
+                    stationUI.AddToSlot(item, this.index);
+                    GameManager.Instance.GetPlayerInventory().TryRemoveItem(item);
+                    return true;
+                }
+                else // more than one, but just 1 can be added
+                {
+                    ItemInstance newInstance = new ItemInstance(item.ItemData, 1);
+                    stationUI.AddToSlot(newInstance, this.index);
+                    GameManager.Instance.GetPlayerInventory().TryRemoveItem(newInstance);
+                    return false;
+                }
+            }
+
+            return false;
         }
         else
         {
@@ -96,9 +141,9 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
                 esit = parentInventory.TryAddItem(incomingItem, hasTargetSlot: true, targetSlotIndex: this.index);
             }
         }
-        else if (this.slotType == SlotType.ProcessingStation)
+        else if (this.slotType == SlotType.ProcessingStation || this.slotType == SlotType.RefinementStation)
         {
-            esit = AddToProcessingStation(incomingItem);
+            esit = AddToStation(incomingItem, this.slotType);
         }
 
         if (esit == true)
@@ -142,9 +187,9 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         {
             GameManager.Instance.GetPlayerInventory().SwapSlotContents(oldSlotIndex, index);
         }
-        else if (this.slotType == SlotType.ProcessingStation)
+        else if (this.slotType == SlotType.ProcessingStation || this.slotType == SlotType.RefinementStation)
         {
-            AddToProcessingStation(incomingItem);
+            AddToStation(incomingItem, this.slotType);
         }
         else if (this.slotType == SlotType.Chest)
         {

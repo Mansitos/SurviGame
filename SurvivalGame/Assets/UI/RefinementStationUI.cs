@@ -2,26 +2,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-// TODO refactor, move, extend
-public interface IStationUI {
-
-    bool VerifyCanAddToSlot(ItemData itemData, int slotIndex);
-    void AddToSlot(ItemInstance item, int slotIndex);
-}
-
-public class ProcessingStationUI : BaseInventoryUI, IStationUI
+public class RefinementStationUI : BaseInventoryUI, IStationUI
 {
     [SerializeField] public GameObject inputSlot;
     [SerializeField] public GameObject outputSlot;
-    [SerializeField] public GameObject fuelSlot;
     [SerializeField] public GameObject attachedStation;
     [SerializeField] public GameObject nameTextGO;
-    [SerializeField] public GameObject processingUIIcon;
+    [SerializeField] public GameObject refinementUIIcon;
 
-    private ProcessingStation processingStation;
+    private RefinementStation refinementStation;
     private InventoryUISlot input;
     private InventoryUISlot output;
-    private InventoryUISlot fuel;
     private TextMeshProUGUI nameText;
 
     private List<InventoryUISlot> slots = new List<InventoryUISlot>();
@@ -38,38 +29,33 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
     {
         input = inputSlot.GetComponent<InventoryUISlot>();
         output = outputSlot.GetComponent<InventoryUISlot>();
-        fuel = fuelSlot.GetComponent<InventoryUISlot>();
 
-        input.SetSlotType(SlotType.ProcessingStation);
-        output.SetSlotType(SlotType.ProcessingStation);
-        fuel.SetSlotType(SlotType.ProcessingStation);
+        input.SetSlotType(SlotType.RefinementStation);
+        output.SetSlotType(SlotType.RefinementStation);
 
         input.SetIndex(0);
-        fuel.SetIndex(1);
         output.SetIndex(2);
 
         slots.Add(input);
-        slots.Add(fuel);
         slots.Add(output);
     }
 
-    public ProcessingStation GetLinkedProcessingStation()
+    public RefinementStation GetLinkedProcessingStation()
     {
-        return processingStation;
+        return refinementStation;
     }
 
     public void LinkStation(GameObject newStation)
     {
         attachedStation = newStation;
-        processingStation = newStation.GetComponent<ProcessingStation>();
+        refinementStation = newStation.GetComponent<RefinementStation>();
 
-        input.SetLinkedInventorySlot(processingStation.storedInput);
-        output.SetLinkedInventorySlot(processingStation.storedOutput);
-        fuel.SetLinkedInventorySlot(processingStation.storedFuel);
+        input.SetLinkedInventorySlot(refinementStation.storedInput);
+        output.SetLinkedInventorySlot(refinementStation.storedOutput);
 
-        processingStation.OnStartProcessing += UpdateUI;
+        refinementStation.OnStartRefining += UpdateUI;
 
-        UIManager.Instance.SetProcessingStationTabActive(true);
+        UIManager.Instance.SetRefinementStationTabActive(true);
     }
 
     public void RemoveItemFromIndexSlot(int index)
@@ -82,13 +68,10 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
                 switch (index)
                 {
                     case 0:
-                        processingStation.storedInput.ClearSlot();
-                        break;
-                    case 1:
-                        processingStation.storedFuel.ClearSlot();
+                        refinementStation.storedInput.ClearSlot();
                         break;
                     case 2:
-                        processingStation.storedOutput.ClearSlot();
+                        refinementStation.storedOutput.ClearSlot();
                         break;
                 }
             }
@@ -96,19 +79,15 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
         UpdateUI();
     }
 
-    public bool VerifyCanAddToSlot(ItemData itemData,  int index)
+    public bool VerifyCanAddToSlot(ItemData itemData, int index)
     {
         switch (index)
         {
             case 0:
                 return this.GetLinkedProcessingStation().IsValidInput(itemData);
-            case 1:
-                return this.GetLinkedProcessingStation().IsValidFuel(itemData);
             case 2:
-                Debug.Log("Cannot add items to the output slot!");
-                return false;
+                return this.GetLinkedProcessingStation().IsValidInput(itemData);
         }
-
         return false;
     }
 
@@ -119,25 +98,19 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
             case 0:
                 this.GetLinkedProcessingStation().AddProcessingInputRequirement(item);
                 break;
-            case 1:
-                this.GetLinkedProcessingStation().AddFuel(item);
-                break;
-            case 2:
-                Debug.Log("This should never be called since cannot add items to the output slot!");
-                break;
         }
         UpdateUI();
     }
 
     public void UnLinkStation()
     {
-        if (this.GetLinkedProcessingStation() != null) {
-            processingStation.OnStartProcessing -= UpdateUI;
+        if (this.GetLinkedProcessingStation() != null)
+        {
+            refinementStation.OnStartRefining -= UpdateUI;
             input.ClearSlot(destroyChild: true);
             output.ClearSlot(destroyChild: true);
-            fuel.ClearSlot(destroyChild: true);
             attachedStation = null;
-            processingStation = null;
+            refinementStation = null;
             UpdateUI();
         }
     }
@@ -157,14 +130,12 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
     protected override void UpdateSlots()
     {
         input.ClearSlot(destroyChild: true);
-        fuel.ClearSlot(destroyChild: true);
         output.ClearSlot(destroyChild: true);
 
-        InventorySlot storedInput = processingStation.storedInput;
-        InventorySlot storedFuel = processingStation.storedFuel;
-        InventorySlot storedOutput = processingStation.storedOutput;
+        InventorySlot storedInput = refinementStation.storedInput;
+        InventorySlot storedOutput = refinementStation.storedOutput;
 
-        if (processingStation.HasStoredInput())
+        if (refinementStation.HasStoredInput())
         {
             GameObject itemIconObjectInput = UIUtils.CreateItemIcon(storedInput.itemInstance, inventoryUISlotCounterPrefab, grid);
             input.SetDisplayedItem(itemIconObjectInput, storedInput, draggable: true);
@@ -177,24 +148,11 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
             input.ClearSlot(destroyChild: true);
         }
 
-        if (processingStation.HasStoredFuel())
-        {
-            GameObject itemIconObjectFuel = UIUtils.CreateItemIcon(storedFuel.itemInstance, inventoryUISlotCounterPrefab, grid);
-            fuel.SetDisplayedItem(itemIconObjectFuel, storedFuel, draggable: true);
-            
-            // TODO refactor
-            //fuel.SetDisplayedItemIcon(storedFuel, inventoryUISlotCounterPrefab, ItemsAreDraggable);
-        }
-        else
-        {
-            fuel.ClearSlot(destroyChild: true);
-        }
-
-        if (processingStation.HasStoredOutput())
+        if (refinementStation.HasStoredOutput())
         {
             GameObject itemIconObjectOutput = UIUtils.CreateItemIcon(storedOutput.itemInstance, inventoryUISlotCounterPrefab, grid);
             output.SetDisplayedItem(itemIconObjectOutput, storedOutput, draggable: true);
-            
+
             // TODO refactor
             //output.SetDisplayedItemIcon(storedOutput, inventoryUISlotCounterPrefab, ItemsAreDraggable);
 
@@ -207,7 +165,7 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
 
     private void UpdateProcessingIcon()
     {
-        processingUIIcon.SetActive(processingStation.isProcessing);
+        refinementUIIcon.SetActive(refinementStation.IsRefining());
     }
 
 }

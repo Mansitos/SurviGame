@@ -143,6 +143,7 @@ public class ProcessingStation : Building<ProcessingStationData>
     }
 
     //TODO: da rivedere, servirà come metodo da chiamare quando aggiungo quantità da UI? forse useless now?
+    //TODO: SAME METHOD AS PRODUCING STATION, REFACTOR
     public bool AddProcessingInputRequirement(ItemInstance item)
     {
         if (IsValidInput(item.ItemData))

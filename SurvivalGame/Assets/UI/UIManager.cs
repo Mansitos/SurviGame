@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public GameObject inventoryUIGO;
     public GameObject quickBarUIGO;
     public GameObject processingStationUIGO;
+    public GameObject refinementStationUIGO;
     public GameObject endOfDayUIGO;
     public GameObject craftingUIGO;
     public GameObject buildingUIGO;
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     private InventoryUI inventoryUI;
     private QuickBarUI quickBarUI;
     private ProcessingStationUI processingStationUI;
+    private RefinementStationUI refinementStationUI;
     private EndOfDayUI endOfDayUI;
     private CraftingUI craftingUI;
     private BuildingUI buildingUI;
@@ -53,11 +55,17 @@ public class UIManager : MonoBehaviour
         itemsTooltipUI = itemsTooltipUIGO.GetComponent<ItemsTooltipUI>();
         mouseInventoryUISlot = mouseInventoryUISlotGO.GetComponent<MouseInventoryUISlot>();
         itemPopupUI = itemPopupUIGO.GetComponent<ItemPopupManager>();
+        refinementStationUI = refinementStationUIGO.GetComponent<RefinementStationUI>();
 
         gm = GameManager.Instance;
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    public RefinementStationUI GetRefinementStationUI()
+    {
+        return refinementStationUI;
     }
 
     public ItemPopupManager GetItemPopupManager()
@@ -109,7 +117,8 @@ public class UIManager : MonoBehaviour
     {
         gm.SetInventoryMode(false);
         inventoryUI.SetActive(false);
-        processingStationUI.SetActive(false);
+        CloseProcessingStationUI();
+        CloseRefinementStationUI();
         craftingUI.SetActive(false);
         buildingUI.SetActive(false);
         chestUI.SetActive(false);
@@ -119,9 +128,21 @@ public class UIManager : MonoBehaviour
         quickBarUI.SetActive(true);
     }
 
+    private void CloseProcessingStationUI()
+    {
+        processingStationUI.SetActive(false);
+        processingStationUI.UnLinkStation();
+    }
+
+    private void CloseRefinementStationUI()
+    {
+        refinementStationUI.SetActive(false);
+        refinementStationUI.UnLinkStation();
+    }
+
     private bool CanCloseInventory()
     {
-        return !processingStationUI.IsActive() && !craftingUI.IsActive() && !buildingUI.IsActive() && !chestUI.IsActive();
+        return !refinementStationUI.IsActive() && !processingStationUI.IsActive() && !craftingUI.IsActive() && !buildingUI.IsActive() && !chestUI.IsActive();
     }
 
     public void SetProcessingStationTabActive(bool flag)
@@ -131,6 +152,16 @@ public class UIManager : MonoBehaviour
         inventoryUI.SetActive(flag);
 
         quickBarUI.SetActive(false);
+    }
+
+    public void SetRefinementStationTabActive(bool flag)
+    {
+        gm.SetInventoryMode(true);
+        refinementStationUI.SetActive(flag);
+        inventoryUI.SetActive(flag);
+
+        quickBarUI.SetActive(false);
+        refinementStationUI.UpdateUI();
     }
 
     public void OnInventoryKeyPressed()
