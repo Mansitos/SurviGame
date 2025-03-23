@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9858a811f8e116746a35ab48425ee34c, type: 3}
   m_Name: DryFish
   m_EditorClassIdentifier: 
-  requiredDaysToRefine: 3
+  requiredDaysToRefine: 2
   itemOutput: {fileID: 11400000, guid: 064306c23cb23cd4caa1cb61885c7ea6, type: 2}
   itemInput: {fileID: 11400000, guid: ee524d7b004d3cc4ebe9cdf6a243922e, type: 2}

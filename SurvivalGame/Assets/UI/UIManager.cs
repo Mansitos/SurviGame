@@ -152,6 +152,7 @@ public class UIManager : MonoBehaviour
         inventoryUI.SetActive(flag);
 
         quickBarUI.SetActive(false);
+        processingStationUI.UpdateUI();
     }
 
     public void SetRefinementStationTabActive(bool flag)

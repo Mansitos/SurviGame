@@ -6,18 +6,28 @@ public class RefinementStation : Building<RefinementStationData>
     // Internal status
     public InventorySlot storedInput;
     public InventorySlot storedOutput;
-    public RefinementBlueprint RefinementBlueprintUnderProcess = null;
+    public RefinementBlueprint refinementBlueprintUnderProcess = null;
     public bool isRefining;
     public int remainingRefiningDays;
 
+    private GameTimeManager timeManager;
+
     // Events
     public event Action OnStartRefining;
+
+    private void OnEnable()
+    {
+        timeManager = GameManager.Instance.GetGameTimeManager();
+        timeManager.OnDayEnded += ProcessingStep;
+    }
 
     protected override void Start()
     {
         base.Start();
         storedInput = new InventorySlot(null);
         storedOutput = new InventorySlot(null);
+        storedInput.SetCanPickUpContent(false);
+        storedOutput.SetCanReceiveContent(false);
     }
 
     void Update()
@@ -71,6 +81,7 @@ public class RefinementStation : Building<RefinementStationData>
                     {
                         isRefining = true;
                         remainingRefiningDays = craft.requiredDaysToRefine;
+                        refinementBlueprintUnderProcess = craft;
                         return;
                     }
                     else
@@ -134,16 +145,23 @@ public class RefinementStation : Building<RefinementStationData>
 
     private void CheckEndRefinementConditions()
     {
-        if (remainingRefiningDays == 0)
+        if (remainingRefiningDays <= 0)
         {
-            // GIVE OUTPUT AND RESET STATUS
+            RemoveRefinementRequirement(1);
+            ItemInstance output = new ItemInstance(refinementBlueprintUnderProcess.itemOutput, 1);
+            storedOutput.AddItem(output);
+            storedInput.ClearSlot();
         }
     }
 
-    public void ProcessingStep()
+    public void ProcessingStep(int day)
     {
-        remainingRefiningDays -= 1;
-        Debug.Log("Processing step done!");
+        if (IsRefining())
+        {
+            remainingRefiningDays -= 1;
+            Debug.Log("Processing step done!");
+            CheckEndRefinementConditions();
+        }
     }
 
 

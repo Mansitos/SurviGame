@@ -17,7 +17,7 @@ MonoBehaviour:
   weight: 2
   itemDescription: A dead dried fish
   worldPrefab: {fileID: 0}
-  uiIcon: {fileID: 21300000, guid: db636540eecf5e148a31c1f6dfa5ea28, type: 3}
+  uiIcon: {fileID: 21300000, guid: 048a43ade752e8248aaa7e2ccbf45b93, type: 3}
   hungerValue: 3
   thirstValue: 1
   energyValue: 3

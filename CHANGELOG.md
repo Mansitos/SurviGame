@@ -171,3 +171,9 @@
 18-3-2025
 - `Unlink()` Station fix missing clearing state and internal variables for the UI.
 - First rudimental implementation for `RefiningStation` with related Data Component and UI. First one is Fish Dryier.
+---
+23-3-2025
+- Fixed missing UI update for `ProcessingStation`.
+- Completed `RefinementStation` first logic version.
+- `DraggableUIItem` renamed into `DraggableUIItemInstance`. 
+- `InventorySlot` now has a properties `canReceiveContent` and `canPickUpContent`, true by default. If false they are used to check if item interaction (drag and drop, pick etc.) is possible.

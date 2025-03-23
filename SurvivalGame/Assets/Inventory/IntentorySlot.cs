@@ -6,6 +6,9 @@ public class InventorySlot
     public ItemInstance itemInstance = null;
     public bool emptySlot = true;
 
+    public bool canReceiveContent = true;
+    public bool canPickUpContent = true;
+
     // Constructor
     public InventorySlot(ItemInstance itemInstance)
     {
@@ -74,5 +77,25 @@ public class InventorySlot
     public int GetQuantity()
     {
         return IsEmpty() ? 0 : itemInstance.Quantity;
+    }
+
+    public bool CanReceiveContent()
+    {
+        return canReceiveContent;
+    }
+
+    public bool CanPickUpContent()
+    {
+        return canPickUpContent;
+    }
+
+    public void SetCanPickUpContent(bool canPickUpContent)
+    {
+        this.canPickUpContent = canPickUpContent;
+    }
+
+    public void SetCanReceiveContent(bool canReceiveContent)
+    {
+        this.canReceiveContent = canReceiveContent;
     }
 }
