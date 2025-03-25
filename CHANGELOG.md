@@ -186,3 +186,4 @@
 - You can now no longer pick up input of `RefinementStation` and no longer add items to output slot for `RefinementStation` and `ProducingStation`.
 - Fixed a bug that did not hide item tooltip when right picking to zero.
 - Fixed null error check of same item when rick click picking up from multiple different inventory slots.
+- Experimental `TreeFader2` based on sphere collider.

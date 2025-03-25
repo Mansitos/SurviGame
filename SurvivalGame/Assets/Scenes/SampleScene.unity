@@ -15288,6 +15288,9 @@ MonoBehaviour:
   itemTypeText: {fileID: 395796049}
   itemDescText: {fileID: 1892875041}
   tooltipPanel: {fileID: 695376420}
+  linkedItemInstance:
+    itemData: {fileID: 0}
+    quantity: 0
 --- !u!225 &695376422
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -43897,7 +43900,8 @@ GameObject:
   - component: {fileID: 4540228998779071793}
   - component: {fileID: 4540228998779071794}
   - component: {fileID: 4540228998779071795}
-  - component: {fileID: 4540228998779071796}
+  - component: {fileID: 4540228998779071797}
+  - component: {fileID: 4540228998779071798}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -45560,7 +45564,33 @@ MonoBehaviour:
   starvingDamagePerSecond: 0.25
   runningEnergyConsumptionPerSecond: 0.03
   walkingEnergyConsumptionPerSecond: 0.01
---- !u!114 &4540228998779071796
+--- !u!114 &4540228998779071797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782702500006616816}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994748eca66615c46b279ac4c457bcc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1438546957854835786}
+  camera: {fileID: 1041475103}
+  treeLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  opacityParameter: _Opacity
+  targetTransparency: 1
+  noTransparencyValue: 0
+  minTransparencyDistanceFront: 2
+  maxOpacityDistanceFront: 10
+  minTransparencyDistanceBack: 1.25
+  maxOpacityDistanceBack: 2
+  detectionRadius: 10
+  zOffset: 2
+--- !u!114 &4540228998779071798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45580,11 +45610,12 @@ MonoBehaviour:
   opacityParameter: _Opacity
   targetTransparency: 1
   noTransparencyValue: 0
-  horizontalOffset: 1.75
-  horizontalRayCount: 30
-  verticalOffset: 2
-  verticalRayCount: 5
-  raysCountForTargetTransparency: 35
+  horizontalOffset: 1
+  horizontalRayCount: 20
+  verticalOffset: 1
+  verticalRayCount: 3
+  raysCountForTargetTransparency: 10
+  continueRaycasting: 1
 --- !u!4 &4548762041226154302
 Transform:
   m_ObjectHideFlags: 0

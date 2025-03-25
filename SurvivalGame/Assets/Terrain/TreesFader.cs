@@ -19,6 +19,9 @@ public class TreesFader : MonoBehaviour
     // New parameter: number of ray hits required to achieve full targetTransparency.
     public int raysCountForTargetTransparency = 5;
 
+    // Boolean to enable/disable raycast continuation through all hits
+    public bool continueRaycasting = true;
+
     void Update()
     {
         // Reset all trees (set fully visible)
@@ -82,19 +85,44 @@ public class TreesFader : MonoBehaviour
 
         Debug.DrawRay(camPos, direction * distance, Color.red, 0.1f); // Visualize the ray
 
+        // Use RaycastAll to get all hits along the ray's path.
         RaycastHit[] hits = Physics.RaycastAll(camPos, direction, distance, treeLayer);
-        foreach (RaycastHit hit in hits)
+
+        // If continueRaycasting is true, process all hits, otherwise just the first hit
+        if (continueRaycasting)
         {
-            Renderer treeRenderer = hit.collider.GetComponent<Renderer>();
-            if (treeRenderer != null)
+            foreach (RaycastHit hit in hits)
             {
-                if (treeHits.ContainsKey(treeRenderer))
+                Renderer treeRenderer = hit.collider.GetComponent<Renderer>();
+                if (treeRenderer != null)
                 {
-                    treeHits[treeRenderer]++;
+                    if (treeHits.ContainsKey(treeRenderer))
+                    {
+                        treeHits[treeRenderer]++;
+                    }
+                    else
+                    {
+                        treeHits[treeRenderer] = 1;
+                    }
                 }
-                else
+            }
+        }
+        else
+        {
+            // Only process the first hit if continueRaycasting is false
+            if (hits.Length > 0)
+            {
+                Renderer treeRenderer = hits[0].collider.GetComponent<Renderer>();
+                if (treeRenderer != null)
                 {
-                    treeHits[treeRenderer] = 1;
+                    if (treeHits.ContainsKey(treeRenderer))
+                    {
+                        treeHits[treeRenderer]++;
+                    }
+                    else
+                    {
+                        treeHits[treeRenderer] = 1;
+                    }
                 }
             }
         }
