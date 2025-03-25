@@ -29,6 +29,11 @@ public class InventorySlot
 
     public bool CanAdd(ItemInstance newItem)
     {
+        if (!CanReceiveContent())
+        {
+            return false;
+        }
+
         if (IsEmpty()){
             return true;
         }
@@ -60,6 +65,7 @@ public class InventorySlot
 
     public void RemoveItem(int amount)
     {
+
         itemInstance.RemoveQuantity(amount);
 
         if (itemInstance.Quantity <= 0)

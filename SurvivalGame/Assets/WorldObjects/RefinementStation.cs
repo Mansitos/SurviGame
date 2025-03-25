@@ -14,6 +14,7 @@ public class RefinementStation : Building<RefinementStationData>
 
     // Events
     public event Action OnStartRefining;
+    public event Action OnStopRefining;
 
     private void OnEnable()
     {
@@ -82,6 +83,7 @@ public class RefinementStation : Building<RefinementStationData>
                         isRefining = true;
                         remainingRefiningDays = craft.requiredDaysToRefine;
                         refinementBlueprintUnderProcess = craft;
+                        OnStartRefining?.Invoke();
                         return;
                     }
                     else
@@ -105,6 +107,7 @@ public class RefinementStation : Building<RefinementStationData>
             if (!HasStoredInput())
             {
                 storedInput = new InventorySlot(null);
+                storedInput.SetCanPickUpContent(false);
                 storedInput.AddItem(item);
                 Debug.Log("Valid input, input was none");
                 return true;
@@ -151,6 +154,9 @@ public class RefinementStation : Building<RefinementStationData>
             ItemInstance output = new ItemInstance(refinementBlueprintUnderProcess.itemOutput, 1);
             storedOutput.AddItem(output);
             storedInput.ClearSlot();
+            isRefining = false;
+            refinementBlueprintUnderProcess = null;
+            OnStopRefining?.Invoke();
         }
     }
 

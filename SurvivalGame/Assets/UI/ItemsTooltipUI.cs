@@ -8,6 +8,8 @@ public class ItemsTooltipUI : MonoBehaviour
     public TextMeshProUGUI itemDescText;
     public RectTransform tooltipPanel;
 
+    public ItemInstance linkedItemInstance;
+
     private CanvasGroup canvasGroup;
     private bool isVisible = false;
 
@@ -17,8 +19,20 @@ public class ItemsTooltipUI : MonoBehaviour
         HideTooltip();
     }
 
+    public void Update()
+    {
+        if (isVisible)
+        {
+            if (linkedItemInstance.Quantity <= 0)
+            {
+                HideTooltip();
+            }
+        }
+    }
+
     public void ShowTooltip(ItemInstance item, Vector2 mousePosition)
     {
+        linkedItemInstance = item;
         itemNameText.text = item.ItemData.itemName;
         itemTypeText.text = item.ItemData.itemType.ToString();
         itemDescText.text = item.ItemData.itemDescription;
@@ -31,6 +45,7 @@ public class ItemsTooltipUI : MonoBehaviour
 
     public void HideTooltip()
     {
+        linkedItemInstance = null;
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
         isVisible = false;

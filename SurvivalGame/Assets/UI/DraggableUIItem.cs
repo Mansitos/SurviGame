@@ -104,28 +104,35 @@ public class DraggableUIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             if (linkedInventorySlot.itemInstance != null) // If this UI Slot has an instance attached
             {
-                if (mouseInventorySlot.IsEmpty())
+                if (linkedInventorySlot.CanPickUpContent())
                 {
-                    // Set the origin slot from where the items have been taken
-                    mouseInventory.SetOriginReferenceSlot(this.parent.GetComponent<InventoryUISlot>().GetLinkedInventorySlot());
+                    if (mouseInventorySlot.IsEmpty())
+                    {
+                        // Set the origin slot from where the items have been taken
+                        mouseInventory.SetOriginReferenceSlot(this.parent.GetComponent<InventoryUISlot>().GetLinkedInventorySlot());
 
-                    // Remove quantity from original item instance
-                    linkedInventorySlot.RemoveItem(1);
-                    mouseInventorySlot.AddItem(itemToAdd);
+                        // Remove quantity from original item instance
+                        linkedInventorySlot.RemoveItem(1);
+                        mouseInventorySlot.AddItem(itemToAdd);
 
-                    // Update inventory slot ui
-                    mouseInventoryUISlot.SetDisplayedItemIcon(mouseInventorySlot);
+                        // Update inventory slot ui
+                        mouseInventoryUISlot.SetDisplayedItemIcon(mouseInventorySlot);
+                    }
+                    else
+                    {
+                        // When mouse slot is already with some item, additional +1 can arrive only from the same origin slot
+                        ItemData currentMouseItemDataSelection = mouseInventory.GetInventorySlot().itemInstance.ItemData;
+                        ItemData thisSlotItemData = linkedInventorySlot.itemInstance.ItemData;
+                        if (currentMouseItemDataSelection == thisSlotItemData)
+                        {
+                            linkedInventorySlot.RemoveItem(1);
+                            mouseInventorySlot.AddItem(itemToAdd);
+                        }
+                    }
                 }
                 else
                 {
-                    // When mouse slot is already with some item, additional +1 can arrive only from the same origin slot
-                    ItemData currentMouseItemDataSelection = mouseInventory.GetInventorySlot().itemInstance.ItemData;
-                    ItemData thisSlotItemData = this.parent.GetComponent<InventoryUISlot>().GetLinkedInventorySlot().itemInstance.ItemData;
-                    if (currentMouseItemDataSelection == thisSlotItemData)
-                    {
-                        linkedInventorySlot.RemoveItem(1);
-                        mouseInventorySlot.AddItem(itemToAdd);
-                    }
+                    Debug.Log("This inventory slot does not allow pickup.");
                 }
             }
             else

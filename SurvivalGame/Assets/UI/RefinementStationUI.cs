@@ -54,6 +54,7 @@ public class RefinementStationUI : BaseInventoryUI, IStationUI
         output.SetLinkedInventorySlot(refinementStation.storedOutput);
 
         refinementStation.OnStartRefining += UpdateUI;
+        refinementStation.OnStopRefining += UpdateUI;
 
         UIManager.Instance.SetRefinementStationTabActive(true);
     }
@@ -86,7 +87,7 @@ public class RefinementStationUI : BaseInventoryUI, IStationUI
             case 0:
                 return this.GetLinkedProcessingStation().IsValidInput(itemData);
             case 2:
-                return this.GetLinkedProcessingStation().IsValidInput(itemData);
+                return false;
         }
         return false;
     }
@@ -107,6 +108,8 @@ public class RefinementStationUI : BaseInventoryUI, IStationUI
         if (this.GetLinkedProcessingStation() != null)
         {
             refinementStation.OnStartRefining -= UpdateUI;
+            refinementStation.OnStopRefining += UpdateUI;
+
             input.ClearSlot(destroyChild: true);
             output.ClearSlot(destroyChild: true);
             attachedStation = null;
@@ -134,6 +137,9 @@ public class RefinementStationUI : BaseInventoryUI, IStationUI
 
         InventorySlot storedInput = refinementStation.storedInput;
         InventorySlot storedOutput = refinementStation.storedOutput;
+
+        input.SetLinkedInventorySlot(storedInput);
+        output.SetLinkedInventorySlot(storedOutput);
 
         if (refinementStation.HasStoredInput())
         {

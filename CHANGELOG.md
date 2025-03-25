@@ -177,3 +177,12 @@
 - Completed `RefinementStation` first logic version.
 - `DraggableUIItem` renamed into `DraggableUIItemInstance`. 
 - `InventorySlot` now has a properties `canReceiveContent` and `canPickUpContent`, true by default. If false they are used to check if item interaction (drag and drop, pick etc.) is possible.
+---
+25-03-2025
+- Fixed not working chesto to/from inventory item moving
+- Fixed missing `RefinementStationUI` update on start/end refining process
+- Fixed a bug that caused the possibility to add more than 1 input item into `RefinementStation`.
+- Fixed a bug that caused valid `RefinementStation` input item to be added to the output slot.
+- You can now no longer pick up input of `RefinementStation` and no longer add items to output slot for `RefinementStation` and `ProducingStation`.
+- Fixed a bug that did not hide item tooltip when right picking to zero.
+- Fixed null error check of same item when rick click picking up from multiple different inventory slots.

@@ -131,8 +131,10 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
 
     public void UnLinkStation()
     {
-        if (this.GetLinkedProcessingStation() != null) {
+        if (this.GetLinkedProcessingStation() != null)
+        {
             processingStation.OnStartProcessing -= UpdateUI;
+
             input.ClearSlot(destroyChild: true);
             output.ClearSlot(destroyChild: true);
             fuel.ClearSlot(destroyChild: true);
@@ -163,6 +165,10 @@ public class ProcessingStationUI : BaseInventoryUI, IStationUI
         InventorySlot storedInput = processingStation.storedInput;
         InventorySlot storedFuel = processingStation.storedFuel;
         InventorySlot storedOutput = processingStation.storedOutput;
+
+        input.SetLinkedInventorySlot(storedInput);
+        output.SetLinkedInventorySlot(storedFuel);
+        fuel.SetLinkedInventorySlot(storedOutput);
 
         if (processingStation.HasStoredInput())
         {

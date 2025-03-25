@@ -21,6 +21,7 @@ public class ProcessingStation : Building<ProcessingStationData>
         storedFuel = new InventorySlot(null);
         storedInput = new InventorySlot(null);
         storedOutput = new InventorySlot(null);
+        storedOutput.SetCanReceiveContent(false);
     }
 
     void Update()
@@ -242,6 +243,7 @@ public class ProcessingStation : Building<ProcessingStationData>
         if (storedOutput.IsEmpty())
         {
             storedOutput = new InventorySlot(null);
+            storedOutput.SetCanReceiveContent(false);
             storedOutput.AddItem(new ItemInstance(ItemCraftBlueprintUnderProcess.itemOutput, ItemCraftBlueprintUnderProcess.itemOutputQuantity));
             Debug.Log("Processing completed. Output added from null.");
         }

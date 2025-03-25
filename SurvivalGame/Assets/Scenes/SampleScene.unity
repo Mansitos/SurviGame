@@ -32975,6 +32975,8 @@ MonoBehaviour:
       itemData: {fileID: 0}
       quantity: 0
     emptySlot: 0
+    canReceiveContent: 0
+    canPickUpContent: 0
 --- !u!1 &1616914491
 GameObject:
   m_ObjectHideFlags: 0
@@ -44466,6 +44468,8 @@ MonoBehaviour:
       itemData: {fileID: 0}
       quantity: 0
     emptySlot: 0
+    canReceiveContent: 0
+    canPickUpContent: 0
 --- !u!114 &2887413830768151306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44485,6 +44489,8 @@ MonoBehaviour:
       itemData: {fileID: 0}
       quantity: 0
     emptySlot: 0
+    canReceiveContent: 0
+    canPickUpContent: 0
 --- !u!114 &2887413830821719693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44504,6 +44510,8 @@ MonoBehaviour:
       itemData: {fileID: 0}
       quantity: 0
     emptySlot: 0
+    canReceiveContent: 0
+    canPickUpContent: 0
 --- !u!114 &2887413830958546990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44523,6 +44531,8 @@ MonoBehaviour:
       itemData: {fileID: 0}
       quantity: 0
     emptySlot: 0
+    canReceiveContent: 0
+    canPickUpContent: 0
 --- !u!114 &2887413831616424761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44542,6 +44552,8 @@ MonoBehaviour:
       itemData: {fileID: 0}
       quantity: 0
     emptySlot: 0
+    canReceiveContent: 0
+    canPickUpContent: 0
 --- !u!4 &2914394694682113128
 Transform:
   m_ObjectHideFlags: 0

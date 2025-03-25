@@ -9,7 +9,6 @@ public enum SlotType
     Mouse,
     ProcessingStation,
     RefinementStation,
-    InventoryUISlot,
     Chest
 }
 
@@ -85,9 +84,9 @@ public class InventoryUISlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             return false;
         }
 
-        if (slotType == SlotType.RefinementStation) // TODO: DOESN?T WORK?
+        if (slotType == SlotType.RefinementStation)
         {
-            if (!this.linkedInventorySlot.IsEmpty()){
+            if (!linkedInventorySlot.IsEmpty()){
                 return false; // only 1 item at once.
             }
         }
