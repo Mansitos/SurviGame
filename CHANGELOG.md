@@ -187,3 +187,6 @@
 - Fixed a bug that did not hide item tooltip when right picking to zero.
 - Fixed null error check of same item when rick click picking up from multiple different inventory slots.
 - Experimental `TreeFader2` based on sphere collider.
+---
+27-03-2025
+- Improved Raycasting TreeFader.

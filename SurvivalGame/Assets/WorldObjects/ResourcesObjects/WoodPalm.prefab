@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2906273077958466942}
   - component: {fileID: -1065443558516202865}
   - component: {fileID: 8532924509147561831}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WoodPalm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,8 +66,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4770390735465466038, guid: 8a060b9d8eb7d10409653100da7d729a, type: 3}
-  - {fileID: 5172083338209556624, guid: 8a060b9d8eb7d10409653100da7d729a, type: 3}
+  - {fileID: 2100000, guid: 2ecf5121287399645aadb4c02fd0e4cc, type: 2}
+  - {fileID: 2100000, guid: 5c8916dee4e476f4fbae7a669c890ae4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

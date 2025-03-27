@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9185902181453057682}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bananas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 1199487633859872219}
   - component: {fileID: 2813259038160980606}
   - component: {fileID: 67065233384865460}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Banana (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 463a73d412712324c8edd7b398d65251, type: 2}
+  - {fileID: 2100000, guid: 6ef0c1aa26dcfc0458c3bef610e504f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 3388993013226239010}
   - component: {fileID: 1980951864798369865}
   - component: {fileID: -2346973113842476814}
-  - component: {fileID: 5728164123619773048}
+  - component: {fileID: -4127156612328477153}
   m_Layer: 9
   m_Name: BananaPalm
   m_TagString: Tree
@@ -319,8 +319,8 @@ MonoBehaviour:
     itemData: {fileID: 0}
     quantity: 0
   producedItemGO: {fileID: 2331773691071311375}
---- !u!65 &5728164123619773048
-BoxCollider:
+--- !u!64 &-4127156612328477153
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -337,9 +337,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.18, y: 3.9291866, z: 0.36}
-  m_Center: {x: -0.12, y: 1.9645933, z: -0.091032915}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3140694543026951871, guid: 8ecaf3854a8f7a24681c222d51f10d5a, type: 3}
 --- !u!1 &3369823592398256521
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +352,7 @@ GameObject:
   - component: {fileID: 2706615103269151539}
   - component: {fileID: 1306060993828203670}
   - component: {fileID: 3874495100982614108}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Banana (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +405,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 463a73d412712324c8edd7b398d65251, type: 2}
+  - {fileID: 2100000, guid: 6ef0c1aa26dcfc0458c3bef610e504f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -437,7 +438,7 @@ GameObject:
   - component: {fileID: 5671328633762944004}
   - component: {fileID: 8726639954018311073}
   - component: {fileID: 6845391738470592363}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Banana (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +491,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 463a73d412712324c8edd7b398d65251, type: 2}
+  - {fileID: 2100000, guid: 6ef0c1aa26dcfc0458c3bef610e504f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -523,7 +524,7 @@ GameObject:
   - component: {fileID: 6226125854840424146}
   - component: {fileID: 7046022281607022967}
   - component: {fileID: 5056566732147948989}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Banana (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +577,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 463a73d412712324c8edd7b398d65251, type: 2}
+  - {fileID: 2100000, guid: 6ef0c1aa26dcfc0458c3bef610e504f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -609,7 +610,7 @@ GameObject:
   - component: {fileID: 8848398724467736781}
   - component: {fileID: 5576591408697200488}
   - component: {fileID: 7674414273630878626}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Banana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +663,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 463a73d412712324c8edd7b398d65251, type: 2}
+  - {fileID: 2100000, guid: 6ef0c1aa26dcfc0458c3bef610e504f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -695,7 +696,7 @@ GameObject:
   - component: {fileID: 8960778701649437966}
   - component: {fileID: 5473227415314262699}
   - component: {fileID: 7786785448947129953}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Banana (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -748,7 +749,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 463a73d412712324c8edd7b398d65251, type: 2}
+  - {fileID: 2100000, guid: 6ef0c1aa26dcfc0458c3bef610e504f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -781,7 +782,7 @@ GameObject:
   - component: {fileID: 8976813229552086023}
   - component: {fileID: 5421163553244947362}
   - component: {fileID: 7845025147695486824}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Banana (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +835,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 463a73d412712324c8edd7b398d65251, type: 2}
+  - {fileID: 2100000, guid: 6ef0c1aa26dcfc0458c3bef610e504f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -867,7 +868,7 @@ GameObject:
   - component: {fileID: 8304805683917954589}
   - component: {fileID: 4967262931476287928}
   - component: {fileID: 7136996051324298610}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Banana (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +921,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 463a73d412712324c8edd7b398d65251, type: 2}
+  - {fileID: 2100000, guid: 6ef0c1aa26dcfc0458c3bef610e504f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

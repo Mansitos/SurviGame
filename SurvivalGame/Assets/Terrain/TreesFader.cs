@@ -14,6 +14,7 @@ public class TreesFader : MonoBehaviour
     public float horizontalOffset = 1.5f;           // Maximum horizontal offset for target points
     public int horizontalRayCount = 3;              // Number of rays to cast horizontally
     public float verticalOffset = 1.0f;             // Maximum vertical offset for target points
+    public float fixedYOffset = 0.5f;
     public int verticalRayCount = 3;                // Number of rays to cast vertically
 
     // New parameter: number of ray hits required to achieve full targetTransparency.
@@ -22,11 +23,14 @@ public class TreesFader : MonoBehaviour
     // Boolean to enable/disable raycast continuation through all hits
     public bool continueRaycasting = true;
 
+    // Smooth transition parameters
+    public float fadeSpeed = 5f; // Speed at which the transparency fades
+
+    // Dictionary to store the current opacity of each tree renderer
+    private Dictionary<Renderer, float> currentOpacity = new Dictionary<Renderer, float>();
+
     void Update()
     {
-        // Reset all trees (set fully visible)
-        ResetAllTrees();
-
         // Dictionary to count how many rays hit each tree renderer.
         Dictionary<Renderer, int> treeHits = new Dictionary<Renderer, int>();
 
@@ -44,21 +48,62 @@ public class TreesFader : MonoBehaviour
                 float offsetY = Mathf.Lerp(-verticalOffset, verticalOffset, tY);
 
                 // Define the target point as the player's position plus both offsets.
-                Vector3 targetPos = player.position + new Vector3(offsetX, offsetY, 0);
+                Vector3 targetPos = player.position + new Vector3(offsetX, offsetY + fixedYOffset, 0);
                 CastRayToTarget(targetPos, treeHits);
             }
         }
+
+        // Create a list to store opacity updates after iterating
+        List<KeyValuePair<Renderer, float>> opacityUpdates = new List<KeyValuePair<Renderer, float>>();
 
         // Apply transparency based on hits relative to raysCountForTargetTransparency.
         foreach (var kvp in treeHits)
         {
             Renderer treeRenderer = kvp.Key;
             int hitCount = kvp.Value;
+
             // Determine fraction of target transparency based on hit count.
             float fraction = Mathf.Clamp01(hitCount / (float)raysCountForTargetTransparency);
             // Calculate the final fade value.
-            float fadeValue = fraction * targetTransparency;
-            SetOpacity(treeRenderer, fadeValue);
+            float targetOpacity = fraction * targetTransparency;
+
+            // Smooth the transition between the current opacity and the target opacity.
+            float currentOpacityValue = currentOpacity.ContainsKey(treeRenderer) ? currentOpacity[treeRenderer] : noTransparencyValue;
+
+            // If no rays hit, we want to gradually fade back to full opacity.
+            if (hitCount == 0)
+            {
+                targetOpacity = noTransparencyValue; // Fully opaque when not hit by rays
+            }
+
+            // Smooth transition to the target opacity
+            float smoothedOpacity = Mathf.Lerp(currentOpacityValue, targetOpacity, Time.deltaTime * fadeSpeed);
+
+            // Store the opacity update for later application
+            opacityUpdates.Add(new KeyValuePair<Renderer, float>(treeRenderer, smoothedOpacity));
+        }
+
+        // Ensure opacity for trees that are not in treeHits is reset to fully visible.
+        foreach (var renderer in currentOpacity.Keys)
+        {
+            if (!treeHits.ContainsKey(renderer))
+            {
+                // If a tree is not in the raycast hit list, reset its opacity to full (fully visible)
+                float currentOpacityValue = currentOpacity[renderer];
+                if (currentOpacityValue > noTransparencyValue)
+                {
+                    // Gradually fade back to full opacity
+                    float smoothedOpacity = Mathf.Lerp(currentOpacityValue, noTransparencyValue, Time.deltaTime * fadeSpeed);
+                    opacityUpdates.Add(new KeyValuePair<Renderer, float>(renderer, smoothedOpacity));
+                }
+            }
+        }
+
+        // Apply all opacity updates after the loop
+        foreach (var update in opacityUpdates)
+        {
+            SetOpacity(update.Key, update.Value);
+            currentOpacity[update.Key] = update.Value;
         }
     }
 
@@ -72,6 +117,7 @@ public class TreesFader : MonoBehaviour
             if (renderer != null)
             {
                 SetOpacity(renderer, noTransparencyValue);
+                currentOpacity[renderer] = noTransparencyValue;  // Reset stored opacity
             }
         }
     }
