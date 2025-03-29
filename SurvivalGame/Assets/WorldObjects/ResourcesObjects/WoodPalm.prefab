@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8220969853628471118}
   - component: {fileID: 2906273077958466942}
   - component: {fileID: -1065443558516202865}
-  - component: {fileID: 8532924509147561831}
+  - component: {fileID: 4137761193102463505}
   m_Layer: 9
   m_Name: WoodPalm
   m_TagString: Untagged
@@ -106,8 +106,8 @@ MonoBehaviour:
     itemData: {fileID: 0}
     quantity: 0
   producedItemGO: {fileID: 0}
---- !u!65 &8532924509147561831
-BoxCollider:
+--- !u!64 &4137761193102463505
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -124,6 +124,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.33, y: 1.917418, z: 0.31}
-  m_Center: {x: 0.0060272217, y: 0.9608748, z: -0.00046879053}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6858211547686060912, guid: 8a060b9d8eb7d10409653100da7d729a, type: 3}

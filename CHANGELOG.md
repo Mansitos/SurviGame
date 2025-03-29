@@ -189,4 +189,8 @@
 - Experimental `TreeFader2` based on sphere collider.
 ---
 27-03-2025
-- Improved Raycasting TreeFader.
+- Improved Raycasting `TreeFader`.
+---
+29-03-2025
+- `TreeFader` now fades all trees childs plus corrected trees meshes.
+- SeeThrough material tweaked values plus added perlin noise effect.

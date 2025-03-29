@@ -177,12 +177,18 @@ public class TreesFader : MonoBehaviour
     // Applies the opacity value to each material of the given renderer.
     void SetOpacity(Renderer renderer, float value)
     {
-        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
-        renderer.GetPropertyBlock(propBlock);
-        for (int i = 0; i < renderer.sharedMaterials.Length; i++)
+        // Get all Renderer components in this game object and its children.
+        Renderer[] renderers = renderer.gameObject.GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
         {
-            propBlock.SetFloat(opacityParameter, value);
-            renderer.SetPropertyBlock(propBlock, i);
+            MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+            rend.GetPropertyBlock(propBlock);
+            for (int i = 0; i < rend.sharedMaterials.Length; i++)
+            {
+                propBlock.SetFloat(opacityParameter, value);
+                rend.SetPropertyBlock(propBlock, i);
+            }
         }
     }
+
 }
