@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
     {
         isBuildMode = flag;
         UpdateIsInNormalMode();
+        terrainGridManager.SetBuildingGridActive(flag);
     }
 
     public void SetInventoryMode(bool flag)

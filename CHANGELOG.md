@@ -194,3 +194,6 @@
 29-03-2025
 - `TreeFader` now fades all trees childs plus corrected trees meshes.
 - SeeThrough material tweaked values plus added perlin noise effect.
+- New Items, blueprints, buildings, craftings, icons, ...
+- Terrain grid overlay is now active only when building
+  

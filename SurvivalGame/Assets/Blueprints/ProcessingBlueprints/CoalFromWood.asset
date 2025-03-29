@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39f9f9b56e907db449d1b94bd76e9831, type: 3}
-  m_Name: RockFromBanana
+  m_Name: CoalFromWood
   m_EditorClassIdentifier: 
-  itemOutput: {fileID: 11400000, guid: ad2568c19e14e9642970e628eab7261d, type: 2}
-  itemOutputQuantity: 1
-  itemInput: {fileID: 11400000, guid: 465f5781442733049b091041d744a17a, type: 2}
+  itemOutput: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
+  itemOutputQuantity: 5
+  itemInput: {fileID: 11400000, guid: 1a6104dd94278d842aed1ddb383d2ec0, type: 2}
   itemInputQuantity: 1

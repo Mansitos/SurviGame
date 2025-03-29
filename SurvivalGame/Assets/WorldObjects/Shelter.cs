@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class Bed : Building<BuildingData>, IUsableBuilding
+public class Shelter : Building<BuildingData>, IUsableBuilding
 {
     protected override void Start()
     {
@@ -14,7 +12,6 @@ public class Bed : Building<BuildingData>, IUsableBuilding
 
     public bool Use()
     {
-        Debug.Log("BED used to sleep....");
         gm.GetGameTimeManager().HandleEndDay(fromSleep: true);
         return true;
     }

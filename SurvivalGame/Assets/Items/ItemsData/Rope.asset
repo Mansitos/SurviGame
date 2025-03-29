@@ -17,4 +17,4 @@ MonoBehaviour:
   weight: 1
   itemDescription: A rope
   worldPrefab: {fileID: 0}
-  uiIcon: {fileID: 0}
+  uiIcon: {fileID: 21300000, guid: c400f4fb892820b4388e518e1b64dd4d, type: 3}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3313284}
   - component: {fileID: 2378784}
   m_Layer: 0
-  m_Name: DroppedRock
+  m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

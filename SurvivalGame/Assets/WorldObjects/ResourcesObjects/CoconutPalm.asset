@@ -15,13 +15,16 @@ MonoBehaviour:
   objectName: Tree
   resourceObjectType: 1
   collectionTime: 6
+  collectionCostPerSecond: 1
   spawnableItems:
   - itemData: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
     minAmount: 2
     maxAmount: 4
-  doesProduceItem: 1
+  doesProduceItems: 1
   productionItem: {fileID: 11400000, guid: 8b543ce9a54af0148bb9fbcf88555d68, type: 2}
   maxProductionQuantity: 2
   endOfDayProductionChance: 0.33
   endOfDayRemoveChanceIfMaxedOut: 0.05
   initProductionChance: 0.33
+  productionCollectionTime: 2
+  produdctionCollectionCostPerSecond: 1.5

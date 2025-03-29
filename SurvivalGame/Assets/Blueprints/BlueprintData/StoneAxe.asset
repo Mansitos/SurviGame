@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e96df967539af44c9620830b6a12907, type: 3}
-  m_Name: FromRockToBanana
+  m_Name: StoneAxe
   m_EditorClassIdentifier: 
   requirements:
+  - item: {fileID: 11400000, guid: 9ee140761e8325b489472ea148f20301, type: 2}
+    quantity: 3
   - item: {fileID: 11400000, guid: ad2568c19e14e9642970e628eab7261d, type: 2}
-    quantity: 2
-  outputItem: {fileID: 11400000, guid: 465f5781442733049b091041d744a17a, type: 2}
+    quantity: 5
+  - item: {fileID: 11400000, guid: 41eec91e81a741941b1eb4b3a561d9e4, type: 2}
+    quantity: 5
+  outputItem: {fileID: 11400000, guid: 26d9905651334534bbd395449eb921cb, type: 2}
   outputQuantity: 1
   requiredCraftStationType: 1

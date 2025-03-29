@@ -32,6 +32,7 @@ public class GridManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
         gm = GameManager.Instance;
+        SetBuildingGridActive(false);
     }
 
     public Vector3Int WorldToGrid(Vector3 worldPosition)
@@ -276,5 +277,10 @@ public class GridManager : MonoBehaviour
         List<GameObject> objectsInRadiusOfRequiredType = FilterGameObjectsByType(objectsInRadius, type);
 
         return objectsInRadiusOfRequiredType;
+    }
+
+    public void SetBuildingGridActive(bool flag)
+    {
+        gridOverlayTilemap.gameObject.SetActive(flag);
     }
 }

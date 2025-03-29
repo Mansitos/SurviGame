@@ -12,7 +12,7 @@ public class Resource : WorldObject<ResourceObjectData>, IInteractableWO
         base.Start();
         OccupyTile();
         data = worldObjectData;
-        if (data.doesProduceItem)
+        if (data.doesProduceItems)
         {
             storedProduction = new ItemInstance(data.productionItem, RollChance(data.initProductionChance) ? 1 : 0);
             UpdateProductionObjectVisibility();
@@ -80,7 +80,7 @@ public class Resource : WorldObject<ResourceObjectData>, IInteractableWO
     private void SpawnProducedItems()
     {
         // Spawn the produced item
-        if (data.doesProduceItem && storedProduction.Quantity > 0)
+        if (data.doesProduceItems && storedProduction.Quantity > 0)
         {
             for (int i = 0; i < storedProduction.Quantity; i++)
             {
@@ -105,7 +105,6 @@ public class Resource : WorldObject<ResourceObjectData>, IInteractableWO
         // Spawn the item in the world using DroppedItem
         DroppedItem.Spawn(spawnedItemInstance, spawnPosition);
     }
-
 
     private bool RollChance(float chance)
     {
@@ -135,7 +134,7 @@ public class Resource : WorldObject<ResourceObjectData>, IInteractableWO
 
     private void UpdateProductionObjectVisibility()
     {
-        if (data.doesProduceItem)
+        if (data.doesProduceItems)
         {
             bool flag = storedProduction.Quantity > 0;
             producedItemGO.SetActive(flag);
@@ -144,7 +143,7 @@ public class Resource : WorldObject<ResourceObjectData>, IInteractableWO
 
     public virtual bool InteractWithWorldObject()
     {
-        if (data.doesProduceItem)
+        if (data.doesProduceItems)
         {
             if (storedProduction != null && storedProduction.Quantity > 0)
             {

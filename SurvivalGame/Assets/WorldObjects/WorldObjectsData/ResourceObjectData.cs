@@ -26,7 +26,7 @@ public class ResourceObjectData : WorldObjectData
     [SerializeField] public List<SpawnableItem> spawnableItems;
 
     [Header("Item Production Variables")]
-    [SerializeField] public bool doesProduceItem = false;
+    [SerializeField] public bool doesProduceItems = false;
     [SerializeField] public ItemData productionItem;
     [SerializeField] public int maxProductionQuantity = 2;
     [SerializeField] public float endOfDayProductionChance = 0.33f;
