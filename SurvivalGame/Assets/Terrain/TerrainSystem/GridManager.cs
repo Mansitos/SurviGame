@@ -16,6 +16,8 @@ public class GridManager : MonoBehaviour
     public TileBase defaultTile;
     [Tooltip("Tile to hilight tile is free to build")]
     public TileBase freeSelectedTile;
+    [Tooltip("Tile to hilight water")]
+    public TileBase waterTile;
     [Tooltip("The tile to show when a selected tile is occupied by a building")]
     public TileBase occupiedTile;   
     [Tooltip("If True, occupied requiredTiles are highlighted (run-time change not supported jet).")]
@@ -68,29 +70,59 @@ public class GridManager : MonoBehaviour
     }
 
     // Checks if all requiredTiles in a specified area are free for building placement, optionally including the player's current tile.
-    public bool CanPlaceBuilding(Vector3Int origin, int width, int height, int rotation, bool checkAgainstPlayer = false)
+    public bool CanPlaceBuilding(Vector3Int origin, int width, int height, int rotation, bool checkAgainstPlayer = false, bool isWaterBuilding = false)
     {
         List<Vector3Int> playerOccupiedTiles = GetPlayerOccupiedTiles();
         List<Vector3Int> tilesToCheck = GetBuildingRequiredTiles(origin, width, height, rotation);
+
         foreach (var pos in tilesToCheck)
         {
+            // Check if the tile is already occupied by a building
             if (occupiedTiles.ContainsKey(pos))
             {
                 return false; // At least one tile is occupied by a building
             }
 
+            // If checkAgainstPlayer is true, check if the tile is occupied by the player
             if (checkAgainstPlayer)
             {
-                foreach (Vector3Int playerOccupiedTile in playerOccupiedTiles) {
+                foreach (Vector3Int playerOccupiedTile in playerOccupiedTiles)
+                {
                     if (pos == playerOccupiedTile)
                     {
                         return false; // At least one tile is occupied by player
                     }
                 }
             }
+
+            // Check if the building requires water (isWaterBuilding flag is true)
+            if (isWaterBuilding)
+            {
+                // Check the tile type in groundTilemap (assuming groundTilemap is a valid Tilemap or equivalent)
+                TileBase tileAtPos = groundTilemap.GetTile(pos);
+
+                if (tileAtPos != waterTile) // Check if it's not a water tile
+                {
+                    Debug.Log("Cannot build water building on ground");
+                    return false; // Tile is not water
+                }
+            }
+            else // When isWaterBuilding flag is false
+            {
+                // Ensure the tile is not a water tile and is suitable for ground-based buildings
+                TileBase tileAtPos = groundTilemap.GetTile(pos);
+
+                if (tileAtPos == waterTile) // If it's a water tile or empty
+                {
+                    Debug.Log("Cannot build groud building on water");
+                    return false; // Tile is either water or empty (not suitable for building)
+                }
+            }
         }
+
         return true;
     }
+
 
     // Marks multiple requiredTiles as occupied by a building.
     public void PlaceObjectOnTiles(Vector3Int origin, int width, int height, GameObject obj, int rotation)

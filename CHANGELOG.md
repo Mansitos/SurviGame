@@ -199,6 +199,7 @@
 ---
 31-03-2025
 - Player is now affected by gravity and stick to ground.
+- Super rudimental ground vs water type of terrain with related type of buildings. Extended `BuildingsData` with `isWaterBuilding` flag.
   
 
 Minors todo UI:
@@ -207,3 +208,4 @@ Minors todo UI:
 - if during build mode, esc should cancel
 - show inventory while choosing craft or building?
 - Proper destroy mode
+- Do not run against walls

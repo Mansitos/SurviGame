@@ -113,7 +113,8 @@ public class BuildingPlacer : MonoBehaviour
 
     private void TryPlaceBuilding(Vector3Int gridPos)
     {
-        if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight, currentRotation, checkAgainstPlayer:true))
+        IBuildable building = buildingPrefab.GetComponent<IBuildable>();
+        if (GridManager.Instance.CanPlaceBuilding(gridPos, buildingWidth, buildingHeight, currentRotation, checkAgainstPlayer:true, isWaterBuilding: building.IsWaterBuilding()))
         {
             Vector3 placementPos = GridManager.Instance.GridToWorld(gridPos);
             placementPos.x += xzPositioningOffset;

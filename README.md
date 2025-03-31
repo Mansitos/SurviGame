@@ -5,8 +5,12 @@ Some random dev history!
 Project start: martedì 28 gennaio 2025, 20:27:05
 
 ---
+#### **Image from: 31/3/2025**
+_Rudimental water for ground vs water buildings._
+![alt text](images/image_13.png)
+
 #### **Image from: 16/3/2025**
-_Refined See-through shader based on multiple rays and front/back of player. Still a prototype, very rudimental implementation. [View the video.](images/see_through.mp4)
+_Refined See-through shader based on multiple rays and front/back of player. Still a prototype, very rudimental implementation. [View the video.](images/see_through.mp4)_
 
 ![](images/image_12.png)
 

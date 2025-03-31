@@ -7,5 +7,6 @@ public class BuildingData : WorldObjectData
     [SerializeField] public int zdimension = 1;
     [SerializeField] public BuildingBlueprint blueprint;
     [SerializeField] public Sprite uiIcon;
+    [SerializeField] public bool waterBuilding = false;
 
 }

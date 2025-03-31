@@ -11,6 +11,7 @@ public interface IBuildable
 {
     void Build(GameManager gm);
     bool CanBuild(GameManager gm);
+    bool IsWaterBuilding();
 }
 
 [DisallowMultipleComponent]
@@ -38,5 +39,10 @@ public class Building<T> : WorldObject<T> , IBuildable, IInteractableWO where T 
     {
         Debug.Log("Interacted with building!");
         return true;
+    }
+
+    public bool IsWaterBuilding()
+    {
+        return worldObjectData.waterBuilding;
     }
 }
