@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Generic Settings")]
     public LayerMask groundLayer; // LayerMask for detecting the ground when raycasting
     public bool debugLogs = false;
+    public float groundStickForce;
 
     // Private references
     private InputHandler inputHandler;
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isRotatingStill = false;
     private bool isCollecting = false;
     private string collectionType = "";
+    private float verticalVelocity = 0f;
+    private float gravity = -9.81f;
 
     private void Start()
     {
@@ -90,34 +93,48 @@ public class PlayerMovement : MonoBehaviour
         // 1. Read movement input
         Vector2 input = inputHandler.movementInputVector;
         Vector3 move = new Vector3(input.x, 0f, input.y);
-
-        // 2. Check if Running
         bool isRunning = inputHandler.isRunning;
 
-        // 3. Handle Rotation
+        // 2. Handle Rotation
         if (move.sqrMagnitude > 0.001f)
         {
-            RotateTowardMovementVector(move, isRunning); // Rotate based on movement direction
+            RotateTowardMovementVector(move, isRunning);
             isRotatingStill = false;
         }
         else
         {
-            if (!IsPlayerPerformingAction()) // Rotate towards mouse when not moving and not performing action
+            if (!IsPlayerPerformingAction())
             {
                 RotateTowardMouse();
                 isRotatingStill = true;
             }
         }
 
-        // 4. Adjust move speed if running
+        // 3. Adjust move speed if running
         float currentSpeed = moveSpeed;
         if (isRunning)
         {
             currentSpeed *= runSpeedMultiplier;
         }
 
-        // 5. Apply movement
-        controller.Move(move * currentSpeed * Time.deltaTime);
+        // 4. Handle Gravity
+        if (controller.isGrounded)
+        {
+            // Ensure the player sticks to the ground
+            verticalVelocity = -groundStickForce;
+        }
+        else
+        {
+            // Apply gravity over time
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
+        // 5. Combine horizontal movement with vertical velocity
+        Vector3 velocity = move * currentSpeed;
+        velocity.y = verticalVelocity;
+
+        // 6. Apply movement
+        controller.Move(velocity * Time.deltaTime);
     }
 
     public bool IsRotatingStill()

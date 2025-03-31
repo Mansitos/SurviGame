@@ -196,4 +196,14 @@
 - SeeThrough material tweaked values plus added perlin noise effect.
 - New Items, blueprints, buildings, craftings, icons, ...
 - Terrain grid overlay is now active only when building
+---
+31-03-2025
+- Player is now affected by gravity and stick to ground.
   
+
+Minors todo UI:
+- cannot build near player
+- close build screen when build is selected
+- if during build mode, esc should cancel
+- show inventory while choosing craft or building?
+- Proper destroy mode
