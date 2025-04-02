@@ -20,6 +20,8 @@ public class GameTimeManager : MonoBehaviour
     public event Action<int, int> OnTimeChanged;  // Event for UI updates
     public event Action<int> OnDayEnded;  // Event when day ends
 
+    public LightManager lightManager; // Reference to LightManager
+
     void Start()
     {
         ResetDay();
@@ -64,11 +66,20 @@ public class GameTimeManager : MonoBehaviour
 
         if (currentHour >= endHour)
         {
-            HandleEndDay(fromSleep:false);
+            HandleEndDay(fromSleep: false);
         }
         else
         {
             OnTimeChanged?.Invoke(currentHour, currentMinute);
+
+            // Calculate the total minutes from the start of the day (from 0:00)
+            int totalMinutesElapsed = (currentHour * 60) + currentMinute;
+
+            // Normalize the time progress from 0 to 1, based on a full 24-hour cycle
+            float timeProgress = totalMinutesElapsed / 1440f;  // 1440 minutes in a full day
+
+            // Update the lighting in LightManager (smooth transition)
+            lightManager.SetTimeProgress(timeProgress);
         }
     }
 

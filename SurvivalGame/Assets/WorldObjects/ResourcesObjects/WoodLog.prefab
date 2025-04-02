@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5938384010716024587}
   - component: {fileID: 3932500353032781929}
   - component: {fileID: 4965319922667777384}
-  - component: {fileID: 2599811603560178498}
   m_Layer: 0
   m_Name: Branch_01
   m_TagString: Untagged
@@ -87,28 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2599811603560178498
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5683618736750535803}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 5528351815fd4c04abf537f22c7e18f1, type: 3}
 --- !u!1 &8430934581437784534
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,11 +132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldObjectData: {fileID: 11400000, guid: d346325b8c2c0b44898615cc7656d6ea, type: 2}
-  doesProduceItem: 0
-  productionItem: {fileID: 0}
-  maxProductionQuantity: 2
-  endOfDayProductionChance: 0.33
-  endOfDayRemoveChanceIfMaxedOut: 0.05
   storedProduction:
     itemData: {fileID: 0}
     quantity: 0

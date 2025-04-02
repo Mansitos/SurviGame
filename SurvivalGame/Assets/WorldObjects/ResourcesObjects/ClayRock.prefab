@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2328540942784643468}
   - component: {fileID: 4801283491206148560}
   - component: {fileID: 4225216530230212469}
+  - component: {fileID: 4983636704726572338}
   m_Layer: 0
   m_Name: ClayRock
   m_TagString: Untagged
@@ -100,12 +101,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldObjectData: {fileID: 11400000, guid: 606c6e8cee2eb8e418b79a1638d2d876, type: 2}
-  doesProduceItem: 0
-  productionItem: {fileID: 0}
-  maxProductionQuantity: 2
-  endOfDayProductionChance: 0.33
-  endOfDayRemoveChanceIfMaxedOut: 0.05
   storedProduction:
     itemData: {fileID: 0}
     quantity: 0
   producedItemGO: {fileID: 0}
+--- !u!65 &4983636704726572338
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848428978902510828}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.97, y: 5.48, z: 3.25}
+  m_Center: {x: 0.26451612, y: 1.0766236, z: 0.15473698}

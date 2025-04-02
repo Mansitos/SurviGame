@@ -137,7 +137,14 @@ public class Resource : WorldObject<ResourceObjectData>, IInteractableWO
         if (data.doesProduceItems)
         {
             bool flag = storedProduction.Quantity > 0;
-            producedItemGO.SetActive(flag);
+            if (producedItemGO != null)
+            {
+                producedItemGO.SetActive(flag);
+            }
+            else
+            {
+                Debug.Log("Missing produced item GO");
+            }
         }
     }
 

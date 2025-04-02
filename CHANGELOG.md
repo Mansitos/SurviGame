@@ -200,7 +200,9 @@
 31-03-2025
 - Player is now affected by gravity and stick to ground.
 - Super rudimental ground vs water type of terrain with related type of buildings. Extended `BuildingsData` with `isWaterBuilding` flag.
-  
+---
+02-04-2025
+- Rudimental DayLight lighting cycle system.
 
 Minors todo UI:
 - cannot build near player
