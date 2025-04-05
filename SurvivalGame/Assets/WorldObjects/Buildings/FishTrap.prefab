@@ -1737,8 +1737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6833481612811739490}
-  - component: {fileID: -4796408965823504770}
-  - component: {fileID: 4342838885412092497}
+  - component: {fileID: -1951804840628675943}
   m_Layer: 0
   m_Name: FishTrap
   m_TagString: Untagged
@@ -1788,7 +1787,7 @@ Transform:
   - {fileID: 2135353757487347207}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4796408965823504770
+--- !u!114 &-1951804840628675943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1797,26 +1796,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5545910536314686835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4f267070d1d8134cab4d70c364796c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSlots: 30
-  slots: []
-  maxWeight: 500
---- !u!114 &4342838885412092497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5545910536314686835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e611141dc29b1e342842db61c72c22f4, type: 3}
+  m_Script: {fileID: 11500000, guid: f27796940d2eeaa448219acebed35820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   worldObjectData: {fileID: 11400000, guid: 3c1cb1644fb0b704b9a403356f14c855, type: 2}
-  waterBuilding: 1
 --- !u!1 &5922325278805969181
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,12 @@ public class GameTimeManager : MonoBehaviour
         ResetDay();
         gm = GameManager.Instance;
         ui = UIManager.Instance.GetEndOfDayUI();
+        InitializeLightManager();
+    }
+
+    private void InitializeLightManager()
+    {
+        lightManager.SetLightManager((float)startHour / 24.0f, (float)endHour / 24.0f, realTimeDayDuration);
     }
 
     void Update()
@@ -51,6 +57,8 @@ public class GameTimeManager : MonoBehaviour
         int totalSlots = totalGameMinutes / 10; // Number of 10-minute slots
         timePerSlot = realTimeDayDuration / totalSlots; // Time per slot in real-world seconds
 
+        lightManager.ResetTime();
+
         OnTimeChanged?.Invoke(currentHour, currentMinute);
     }
 
@@ -71,15 +79,6 @@ public class GameTimeManager : MonoBehaviour
         else
         {
             OnTimeChanged?.Invoke(currentHour, currentMinute);
-
-            // Calculate the total minutes from the start of the day (from 0:00)
-            int totalMinutesElapsed = (currentHour * 60) + currentMinute;
-
-            // Normalize the time progress from 0 to 1, based on a full 24-hour cycle
-            float timeProgress = totalMinutesElapsed / 1440f;  // 1440 minutes in a full day
-
-            // Update the lighting in LightManager (smooth transition)
-            lightManager.SetTimeProgress(timeProgress);
         }
     }
 

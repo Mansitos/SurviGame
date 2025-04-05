@@ -4281,6 +4281,7 @@ MonoBehaviour:
   - {fileID: 5745778264637247819, guid: 605651e23b7055d41a42f27005a1b62c, type: 3}
   - {fileID: 5545910536314686835, guid: cbb234b153be5c04dbfa8d92421047d9, type: 3}
   - {fileID: 5545910536314686835, guid: 01a856ee261f68b4c86b0f04577e3bb1, type: 3}
+  - {fileID: 5545910536314686835, guid: 4dbec8622393bef46b5b15bd71149eb4, type: 3}
 --- !u!4 &261795447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6252205190738631614, guid: 96212e20ac2b07b4bbd62345165c6714, type: 3}
@@ -55022,7 +55023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e374552cea21e9040a32082e77f21556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHour: 7
+  startHour: 6
   endHour: 23
   realTimeDayDuration: 10
   lightManager: {fileID: 702822139}
@@ -64894,7 +64895,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1141802651}
   - component: {fileID: 1141802654}
-  - component: {fileID: 1141802653}
   - component: {fileID: 1141802652}
   m_Layer: 5
   m_Name: Scroll View
@@ -64954,36 +64954,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1141802653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1141802650}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1141802654
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -65045,9 +65015,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3364325394453186254, guid: 3940a4795f91c674fb48d6d4e299297a, type: 3}
+      propertyPath: TimeOfDay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364325394453186254, guid: 3940a4795f91c674fb48d6d4e299297a, type: 3}
       propertyPath: LampPreset
       value: 
-      objectReference: {fileID: 11400000, guid: d870b1e4aa0d7f3438bb848641560280, type: 2}
+      objectReference: {fileID: 11400000, guid: bf338d0029f05bd489266297219f16b7, type: 2}
+    - target: {fileID: 3364325394453186254, guid: 3940a4795f91c674fb48d6d4e299297a, type: 3}
+      propertyPath: ControlLights
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3364325395352328148, guid: 3940a4795f91c674fb48d6d4e299297a, type: 3}
       propertyPath: m_Type
       value: 1

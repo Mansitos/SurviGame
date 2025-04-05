@@ -203,6 +203,11 @@
 ---
 02-04-2025
 - Rudimental DayLight lighting cycle system.
+---
+03-04-2025
+- Tweaked DayLight lighting cycle.
+- PointLights now are handled by the `LightManager`.
+- Torch `BaseBuilding` added to make light.
 
 Minors todo UI:
 - cannot build near player

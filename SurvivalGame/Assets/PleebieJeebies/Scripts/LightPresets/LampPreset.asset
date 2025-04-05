@@ -39,6 +39,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
+    m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   DirectionalColour:
@@ -53,8 +54,8 @@ MonoBehaviour:
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 6554
     ctime1: 19661
-    ctime2: 45875
-    ctime3: 58982
+    ctime2: 42791
+    ctime3: 56669
     ctime4: 0
     ctime5: 0
     ctime6: 0
@@ -68,6 +69,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
+    m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
   FogColour:
@@ -97,5 +99,6 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
+    m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
