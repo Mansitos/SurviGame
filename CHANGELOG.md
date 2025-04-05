@@ -208,7 +208,11 @@
 - Tweaked DayLight lighting cycle.
 - PointLights now are handled by the `LightManager`.
 - Torch `BaseBuilding` added to make light.
+---
+05-04-2025
+- Rudimental Island Terrain
 
+---
 Minors todo UI:
 - cannot build near player
 - close build screen when build is selected
