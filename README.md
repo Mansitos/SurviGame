@@ -1,5 +1,12 @@
 # **🎮 Survival Game Project**
+___
+**👉🏼👉🏼👉🏼 DISCLAIMER:** I decided to stop working on this project due to the lack of a clear goal and overall vision. The scope was simply too ambitious for a solo developer with a full-time job — creating a top-down survival game turned out to be more than I could reasonably handle alone.
 
+That said, building this prototype was incredibly valuable. It helped me improve my Unity skills significantly, and even more importantly, taught me a lot about solo game development: planning, organizing, maintaining focus, and the importance of having a clear vision from the start.
+
+I'm now planning to start a smaller, more focused project.
+Feel free to use anything you find helpful from this one! I'd greatly appreciate it if you reach out to me in case you plan to continue or expand upon this project.
+___
 Some random dev history!
 
 Project start: martedì 28 gennaio 2025, 20:27:05
